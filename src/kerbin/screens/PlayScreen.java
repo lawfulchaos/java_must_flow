@@ -19,9 +19,7 @@ public class PlayScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(90, 32)
-					.makeCaves()
-					.build();
+		world = new WorldBuilder(90, 32).build();
 	}
 
 	public int getScrollX() { return Math.max(0, Math.min(centerX - screenWidth / 2, world.width() - screenWidth)); }

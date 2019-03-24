@@ -1,59 +1,87 @@
 package kerbin;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class WorldBuilder {
+	int ROOM_MAX_SIZE = 10;
+	int ROOM_MIN_SIZE = 6;
+	int MAX_ROOMS = 30;
 	private int width;
 	private int height;
-	private Tile[][] tiles;
+	public Tile[][] tiles;
 
 	public WorldBuilder(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.tiles = new Tile[width][height];
+		for (Tile[] tileset: tiles) Arrays.fill(tileset, Tile.WALL);
 	}
 
 	public World build() {
+		this.makeMap();
 		return new World(tiles);
 	}
 
-	private WorldBuilder randomizeTiles() {
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				tiles[x][y] = Math.random() < 0.5 ? Tile.FLOOR : Tile.WALL;
+	public void create_room(Rect room) {
+		for (int x = room.x1 + 1; x < room.x2; x++) {
+			for (int y = room.y1 + 1; y < room.y2; y++) {
+				tiles[x][y] = Tile.FLOOR;
 			}
+
 		}
-		return this;
 	}
 
-	private WorldBuilder smooth(int times) {
-		Tile[][] tiles2 = new Tile[width][height];
-		for (int time = 0; time < times; time++) {
+	public void create_h_tunnel(int x1, int x2, int y) {
+		for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
+			tiles[x][y] = Tile.FLOOR;
+		}
+	}
 
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					int floors = 0;
-					int rocks = 0;
+	public void create_v_tunnel(int y1, int y2, int x) {
+		for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
+			tiles[x][y] = Tile.FLOOR;
+		}
+	}
 
-					for (int ox = -1; ox < 2; ox++) {
-						for (int oy = -1; oy < 2; oy++) {
-							if (x + ox < 0 || x + ox >= width || y + oy < 0
-									|| y + oy >= height)
-								continue;
+	public void makeMap() {
+		List<Rect> rooms = new ArrayList<>();
+		int num_rooms = 0;
+		for (int i = 0; i < MAX_ROOMS; i++) {
+			int w = ThreadLocalRandom.current().nextInt(ROOM_MIN_SIZE, ROOM_MAX_SIZE + 1);
+			int h = ThreadLocalRandom.current().nextInt(ROOM_MIN_SIZE, ROOM_MAX_SIZE + 1);
+			int x = ThreadLocalRandom.current().nextInt(0, 88);
+			int y = ThreadLocalRandom.current().nextInt(0, 30);
 
-							if (tiles[x + ox][y + oy] == Tile.FLOOR)
-								floors++;
-							else
-								rocks++;
-						}
-					}
-					tiles2[x][y] = floors >= rocks ? Tile.FLOOR : Tile.WALL;
+			Rect new_room = new Rect(x, y, w, h);
+
+			boolean failed = false;
+			for (Rect other_room : rooms) {
+				if (new_room.intersect(other_room)) {
+					failed = true;
+					break;
 				}
 			}
-			tiles = tiles2;
-		}
-		return this;
-	}
+			if (!failed)
+			{
+				create_room(new_room);
+				int[] center = new_room.center();
+				if (num_rooms>0) {
+					int[] prev_center = rooms.get(num_rooms - 1).center();
+					if (ThreadLocalRandom.current().nextInt(0, 1) > 0) {
+						create_h_tunnel(prev_center[0], center[0], prev_center[1]);
+						create_v_tunnel(prev_center[1], center[1], center[0]);
+					} else {
+						create_v_tunnel(prev_center[1], center[1], prev_center[0]);
+						create_h_tunnel(prev_center[0], center[0], center[1]);
+					}
+				}
+				rooms.add(new_room);
+				num_rooms += 1;
 
-	public WorldBuilder makeCaves() {
-		return randomizeTiles().smooth(8);
+			}
+		}
 	}
 }

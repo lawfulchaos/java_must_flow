@@ -8,7 +8,8 @@ public class StartScreen implements Screen {
 
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
-		terminal.write("MGUPI Studio presents:      True Roguelike Pre-Alpha", 1, 1);
+		terminal.write("MGUPI Studio presents:", 1, 1);
+		terminal.writeCenter("True Roguelike Pre-Alpha", 3);
 		terminal.writeCenter("-- press [enter] to start --", 22);
 	}
 
