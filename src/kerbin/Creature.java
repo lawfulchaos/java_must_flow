@@ -7,9 +7,9 @@ public class Creature {
 
     public int x;
     public int y;
-   // private CreatureAi ai;
+    private CreatureAi ai;
 
-   // public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
+    public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
 
     private char glyph;
     public char glyph() { return glyph; }
@@ -22,5 +22,10 @@ public class Creature {
         this.glyph = glyph;
         this.color = color;
     }
+
+    public void moveBy(int mx, int my){
+        ai.onEnter(x+mx, y+my, world.tile(x+mx, y+my));
+    }
+
 }
 
