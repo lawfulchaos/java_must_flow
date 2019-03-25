@@ -1,8 +1,10 @@
 package kerbin;
 
-public class PlayerAi extends CreatureAi {
+import java.util.concurrent.ThreadLocalRandom;
 
-    public PlayerAi(Creature creature) {
+public class MouseAi extends CreatureAi {
+
+    public MouseAi(Creature creature) {
         super(creature);
     }
     public void onEnter(int x, int y, Tile tile) {
@@ -11,5 +13,4 @@ public class PlayerAi extends CreatureAi {
             creature.y = y;
         }
     }
-    public void onTurn(){}
 }

@@ -61,6 +61,9 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
+		for (Creature creature: world.creatures) {
+			creature.ai.onTurn();
+		}
 		switch (key.getKeyCode()){
 		case KeyEvent.VK_ESCAPE: return new LoseScreen();
 		case KeyEvent.VK_ENTER: return new WinScreen();
@@ -77,7 +80,6 @@ public class PlayScreen implements Screen {
 		case KeyEvent.VK_B: player.moveBy(-1, 1); break;
 		case KeyEvent.VK_N: player.moveBy( 1, 1); break;
 		}
-		
 		return this;
 	}
 }

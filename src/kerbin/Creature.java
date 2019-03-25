@@ -7,9 +7,9 @@ public class Creature {
 
     public int x;
     public int y;
-    private CreatureAi ai;
+    public CreatureAi ai;
 
-    public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
+    public void setCreatureAi(CreatureAi ai) { this.ai = ai;    }
 
     private char glyph;
     public char glyph() { return glyph; }
