@@ -13,5 +13,10 @@ public class CreatureFactory {
         new PlayerAi(player);
         return player;
     }
-
+    public Creature newMouse(){
+        Creature mouse = new Creature(world, 'm', AsciiPanel.red);
+        world.addAtEmptyLocation(mouse);
+        new CreatureAi(mouse);
+        return mouse;
+    }
 }

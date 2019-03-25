@@ -19,6 +19,11 @@ public class PlayScreen implements Screen {
 		createWorld();
 		CreatureFactory creatureFactory = new CreatureFactory(world);
 		player = creatureFactory.newPlayer();
+		world.creatures.add(player);
+		for (int i = 0; i < 8; i++) {
+			Creature mouse = creatureFactory.newMouse();
+			world.creatures.add(mouse);
+		}
 	}
 	
 	private void createWorld(){
@@ -28,7 +33,6 @@ public class PlayScreen implements Screen {
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
 
 	public int getScrollY() { return Math.max(0, Math.min(player.y - screenHeight / 2, world.height() - screenHeight)); }
-
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		
@@ -36,19 +40,21 @@ public class PlayScreen implements Screen {
 		int top = getScrollY(); 
 		
 		displayTiles(terminal, left, top);
-		
-		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 
 		terminal.writeCenter("-- press [escape] to lose or [enter] to win --", 22);
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
-		for (int x = 0; x < screenWidth; x++){
-			for (int y = 0; y < screenHeight; y++){
+		for(int x = 0; x < screenWidth ; x++) {
+			for(int y = 0; y < screenHeight; y++) {
 				int wx = x + left;
 				int wy = y + top;
-
 				terminal.write(world.glyph(wx, wy), x, y, world.color(wx, wy));
+			}
+		}
+		for(Creature c : world.creatures) {
+			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) {
+				terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
 			}
 		}
 	}
