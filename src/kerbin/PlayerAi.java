@@ -13,6 +13,7 @@ public class PlayerAi extends CreatureAi {
             {
                 creature.inv.add(tile.item);
                 tile.item = null;
+
             }
         }
     }
