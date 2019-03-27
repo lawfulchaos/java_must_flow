@@ -1,6 +1,10 @@
 package kerbin;
 
+import kerbin.items.Item;
+
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Creature {
     private World world;
@@ -8,8 +12,8 @@ public class Creature {
     public int x;
     public int y;
     public CreatureAi ai;
-
-    public void setCreatureAi(CreatureAi ai) { this.ai = ai;    }
+    public List<Item> inv;
+    public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
 
     private char glyph;
     public char glyph() { return glyph; }
@@ -21,6 +25,7 @@ public class Creature {
         this.world = world;
         this.glyph = glyph;
         this.color = color;
+        this.inv = new ArrayList<Item>();
     }
 
     public void moveBy(int mx, int my){

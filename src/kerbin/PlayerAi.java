@@ -9,6 +9,11 @@ public class PlayerAi extends CreatureAi {
         if (tile.isGround()) {
             creature.x = x;
             creature.y = y;
+            if (tile.item != null)
+            {
+                creature.inv.add(tile.item);
+                tile.item = null;
+            }
         }
     }
     public void onTurn(){}

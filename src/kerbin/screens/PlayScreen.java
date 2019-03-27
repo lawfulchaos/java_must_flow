@@ -6,23 +6,30 @@ import kerbin.Creature;
 import kerbin.CreatureFactory;
 import kerbin.World;
 import kerbin.WorldBuilder;
+import kerbin.items.Item;
+import kerbin.items.ItemFactory;
 
 public class PlayScreen implements Screen {
 	private World world;
 	Creature player;
 	private int screenWidth;
 	private int screenHeight;
-	
+	public String msg = "";
+
 	public PlayScreen(){
 		screenWidth = 80;
 		screenHeight = 21;
 		createWorld();
 		CreatureFactory creatureFactory = new CreatureFactory(world);
+		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
 		world.creatures.add(player);
 		for (int i = 0; i < 8; i++) {
 			Creature mouse = creatureFactory.newMouse();
 			world.creatures.add(mouse);
+		}
+		for (int j = 0; j < 8; j++) {
+			itemFactory.newWeapon(null);
 		}
 	}
 	
@@ -41,7 +48,7 @@ public class PlayScreen implements Screen {
 		
 		displayTiles(terminal, left, top);
 
-		terminal.writeCenter("-- press [escape] to lose or [enter] to win --", 22);
+		terminal.write("-- press [escape] to lose or [enter] to win --", 0, 22);
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -50,6 +57,8 @@ public class PlayScreen implements Screen {
 				int wx = x + left;
 				int wy = y + top;
 				terminal.write(world.glyph(wx, wy), x, y, world.color(wx, wy));
+				if (world.tiles[wx][wy].item!=null)
+				{terminal.write(world.tiles[wx][wy].item.glyph(), x, y, world.tiles[wx][wy].item.color());}
 			}
 		}
 		for(Creature c : world.creatures) {

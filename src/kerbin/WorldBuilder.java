@@ -11,13 +11,15 @@ public class WorldBuilder {
 	int MAX_ROOMS = 30;
 	private int width;
 	private int height;
+	TileFactory tileFactory;
 	public Tile[][] tiles;
 
 	public WorldBuilder(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.tiles = new Tile[width][height];
-		for (Tile[] tileset: tiles) Arrays.fill(tileset, Tile.WALL);
+		this.tileFactory = new TileFactory();
+		for (Tile[] tileset: tiles) Arrays.fill(tileset, tileFactory.newWall());
 	}
 
 	public World build() {
@@ -28,7 +30,7 @@ public class WorldBuilder {
 	public void create_room(Rect room) {
 		for (int x = room.x1 + 1; x < room.x2; x++) {
 			for (int y = room.y1 + 1; y < room.y2; y++) {
-				tiles[x][y] = Tile.FLOOR;
+				tiles[x][y] = tileFactory.newFloor();
 			}
 
 		}
@@ -36,13 +38,13 @@ public class WorldBuilder {
 
 	public void create_h_tunnel(int x1, int x2, int y) {
 		for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
-			tiles[x][y] = Tile.FLOOR;
+			tiles[x][y] = tileFactory.newFloor();
 		}
 	}
 
 	public void create_v_tunnel(int y1, int y2, int x) {
 		for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
-			tiles[x][y] = Tile.FLOOR;
+			tiles[x][y] = tileFactory.newFloor();
 		}
 	}
 
