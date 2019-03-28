@@ -12,7 +12,6 @@ public class PlayScreen implements Screen {
 	public Creature player;
 	private int screenWidth;
 	private int screenHeight;
-	public String msg = "";
 /* Генерация нового экрана и добавление предметов/мобов */
 	public PlayScreen(){
 		screenWidth = 80;
@@ -26,8 +25,11 @@ public class PlayScreen implements Screen {
 			Creature mouse = creatureFactory.newMouse();
 			world.creatures.add(mouse);
 		}
-		for (int j = 0; j < 8; j++) {
+		for (int j = 0; j < 4; j++) {
 			itemFactory.newWeapon(null);
+		}
+		for (int j = 0; j < 4; j++) {
+			itemFactory.newArmor(null);
 		}
 	}
 
@@ -41,7 +43,7 @@ public class PlayScreen implements Screen {
 //Вывод игрового поля со сдвигом
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
-		
+
 		int left = getScrollX();
 		int top = getScrollY(); 
 		
@@ -76,18 +78,11 @@ public class PlayScreen implements Screen {
 		switch (key.getKeyCode()){
 		case KeyEvent.VK_ESCAPE: return new LoseScreen();
 		case KeyEvent.VK_ENTER: return new WinScreen();
-		case KeyEvent.VK_LEFT:
-		case KeyEvent.VK_H: player.moveBy(-1, 0); break;
-		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_L: player.moveBy( 1, 0); break;
-		case KeyEvent.VK_UP:
-		case KeyEvent.VK_K: player.moveBy( 0,-1); break;
-		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_J: player.moveBy( 0, 1); break;
-		case KeyEvent.VK_Y: player.moveBy(-1,-1); break;
-		case KeyEvent.VK_U: player.moveBy( 1,-1); break;
-		case KeyEvent.VK_B: player.moveBy(-1, 1); break;
-		case KeyEvent.VK_N: player.moveBy( 1, 1); break;
+		case KeyEvent.VK_LEFT: player.moveBy(-1, 0); break;
+		case KeyEvent.VK_RIGHT: player.moveBy( 1, 0); break;
+		case KeyEvent.VK_UP: player.moveBy( 0,-1); break;
+		case KeyEvent.VK_DOWN: player.moveBy( 0, 1); break;
+
 		}
 		if (Event.getInstance().getLifetime() == 0)
 		{
