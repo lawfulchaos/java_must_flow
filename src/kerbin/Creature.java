@@ -1,7 +1,6 @@
 package kerbin;
-
+/* Физические характеристики существа, поведение обрабатывается в CreatureAi, создается CreatureFactory*/
 import kerbin.items.Item;
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class Creature {
     public CreatureAi ai;
     public List<Item> inv;
     public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
-
+// Символ существа
     private char glyph;
     public char glyph() { return glyph; }
 
@@ -27,7 +26,7 @@ public class Creature {
         this.color = color;
         this.inv = new ArrayList<Item>();
     }
-
+//Движение, реакция на смещение обрабатывается AI
     public void moveBy(int mx, int my){
         ai.onEnter(x+mx, y+my, world.tile(x+mx, y+my));
     }

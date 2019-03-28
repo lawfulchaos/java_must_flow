@@ -1,5 +1,5 @@
 package kerbin;
-
+//Общий класс мира
 import kerbin.items.Item;
 
 import java.awt.Color;
@@ -19,19 +19,20 @@ public class World {
 
 	public World(Tile[][] tiles){
 		this.tiles = tiles;
+//Размеры поля генерируются исходя из размера переданного массива
 		this.width = tiles.length;
 		this.height = tiles[0].length;
 		this.creatures = new ArrayList();
 		this.tileFactory = new TileFactory();
 	}
-	
+//Возращает тайл по заданным коордам. Semi-deprecated
 	public Tile tile(int x, int y){
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return tileFactory.newBound();
 		else
 			return tiles[x][y];
 	}
-	
+//Возвращает символ по коордам
 	public char glyph(int x, int y){
 		return tile(x, y).glyph();
 	}
@@ -39,9 +40,8 @@ public class World {
 	public Color color(int x, int y){
 		return tile(x, y).color();
 	}
-
-	public void addAtEmptyLocation(Creature creature){
-		int x;
+//Генерирует случайное незанятое местоположение на проходимой клетке. Определено для Creature/Ite.
+	public void addAtEmptyLocation(Creature creature){m		int x;
 		int y;
 
 		do {
@@ -65,7 +65,7 @@ public class World {
 
 		tiles[x][y].item = i;
 	}
-
+//Возвращает существо по коордам, при отсутствии возвращает null
 	public Creature creature(int x, int y){
 		for (Creature c : creatures){
 			if (c.x == x && c.y == y)
@@ -73,6 +73,7 @@ public class World {
 		}
 		return null;
 	}
+//Возвращает итем по коордам, при отсутствии возвращает null
 	public Item item(int x, int y){ return tiles[x][y].item; }
 
 }

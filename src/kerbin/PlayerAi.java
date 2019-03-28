@@ -1,5 +1,5 @@
 package kerbin;
-
+//ИИ игрока, при заходе на свободную клетку подбирает предмет в инвентарь
 public class PlayerAi extends CreatureAi {
 
     public PlayerAi(Creature creature) {

@@ -1,5 +1,5 @@
 package kerbin.items;
-
+//Итемы, генерируются в ItemFactory
 import kerbin.Creature;
 
 import java.awt.Color;

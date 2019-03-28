@@ -1,5 +1,6 @@
 package kerbin.screens;
-
+/* Основной игровой экран. содержит игровую логику,
+генерацию предметов, отображение и обработку клавиатуры */ 
 import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
@@ -15,12 +16,12 @@ public class PlayScreen implements Screen {
 	private int screenWidth;
 	private int screenHeight;
 	public String msg = "";
-
+/* Генерация нового экрана и добавление предметов/мобов */
 	public PlayScreen(){
 		screenWidth = 80;
 		screenHeight = 21;
 		createWorld();
-		CreatureFactory creatureFactory = new CreatureFactory(world);
+		CreatureFactory creatureFanew CreatureFactory(world);
 		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
 		for (int i = 0; i < 8; i++) {
@@ -32,14 +33,15 @@ public class PlayScreen implements Screen {
 			itemFactory.newWeapon(null);
 		}
 	}
-	
+
 	private void createWorld(){
 		world = new WorldBuilder(90, 32).build();
 	}
-
+// Сдвиг экрана при движении игрока
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
 
 	public int getScrollY() { return Math.max(0, Math.min(player.y - screenHeight / 2, world.height() - screenHeight)); }
+//Вывод игрового поля со сдвигом
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		
@@ -67,7 +69,7 @@ public class PlayScreen implements Screen {
 			}
 		}
 	}
-
+//Реакция на нажатие клавиши: ход нпс, после движение игрока
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		for (Creature creature: world.creatures) {

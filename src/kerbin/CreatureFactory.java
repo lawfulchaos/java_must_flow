@@ -1,4 +1,5 @@
 package kerbin;
+// Factory для существ, создает Creature, Ai, и помещает в свободный тайл
 import asciiPanel.AsciiPanel;
 
 public class CreatureFactory {

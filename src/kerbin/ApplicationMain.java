@@ -1,5 +1,5 @@
 package kerbin;
-
+// Точка входа в программу, создание окна и обработка клавиатуры 
 import javax.swing.JFrame;
 import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
@@ -20,15 +20,16 @@ public class ApplicationMain extends JFrame implements KeyListener {
 		screen = new StartScreen();
 		addKeyListener(this);
 		repaint();
+		
 	}
-	
+// Вывод игрового поля в приложение
 	@Override
 	public void repaint(){
 		terminal.clear();
 		screen.displayOutput(terminal);
 		super.repaint();
 	}
-
+// Реакция на нажатие/отпускание клавиши
 	@Override
 	public void keyPressed(KeyEvent e) {
 		screen = screen.respondToUserInput(e);

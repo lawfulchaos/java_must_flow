@@ -1,5 +1,5 @@
 package kerbin;
-
+//Тайл,  создается в TileFactory
 import java.awt.Color;
 import asciiPanel.AsciiPanel;
 import kerbin.items.Item;
@@ -14,8 +14,10 @@ public class Tile {
 	
 	private Color color;
 	public Color color() { return color; }
+//Проверка на проходимость
 	private boolean isGround;
 	public boolean isGround() { return isGround; }
+//Предмет на клетке, при отсутствии == null
 	public Item item;
 
 	Tile(char glyph, Color color, boolean isGround){
