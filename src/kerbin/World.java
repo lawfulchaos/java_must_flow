@@ -40,8 +40,9 @@ public class World {
 	public Color color(int x, int y){
 		return tile(x, y).color();
 	}
-//Генерирует случайное незанятое местоположение на проходимой клетке. Определено для Creature/Ite.
-	public void addAtEmptyLocation(Creature creature){m		int x;
+//Генерирует случайное незанятое местоположение на проходимой клетке. Определено для Creature/Item.
+	public void addAtEmptyLocation(Creature creature){
+		int x;
 		int y;
 
 		do {
