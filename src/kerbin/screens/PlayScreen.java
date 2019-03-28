@@ -3,16 +3,13 @@ package kerbin.screens;
 генерацию предметов, отображение и обработку клавиатуры */ 
 import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
-import kerbin.Creature;
-import kerbin.CreatureFactory;
-import kerbin.World;
-import kerbin.WorldBuilder;
+import kerbin.*;
 import kerbin.items.Item;
 import kerbin.items.ItemFactory;
 
 public class PlayScreen implements Screen {
 	private World world;
-	Creature player;
+	public Creature player;
 	private int screenWidth;
 	private int screenHeight;
 	public String msg = "";
@@ -21,6 +18,7 @@ public class PlayScreen implements Screen {
 		screenWidth = 80;
 		screenHeight = 21;
 		createWorld();
+		Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
 		CreatureFactory creatureFactory = new CreatureFactory(world);
 		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
@@ -28,7 +26,6 @@ public class PlayScreen implements Screen {
 			Creature mouse = creatureFactory.newMouse();
 			world.creatures.add(mouse);
 		}
-		world.creatures.add(player);
 		for (int j = 0; j < 8; j++) {
 			itemFactory.newWeapon(null);
 		}
@@ -50,7 +47,7 @@ public class PlayScreen implements Screen {
 		
 		displayTiles(terminal, left, top);
 
-		terminal.write("-- press [escape] to lose or [enter] to win --", 0, 22);
+		terminal.write(Event.getInstance().getMsg(), 0, 22, Event.getInstance().getColor());
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -68,6 +65,7 @@ public class PlayScreen implements Screen {
 				terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
 			}
 		}
+		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 	}
 //Реакция на нажатие клавиши: ход нпс, после движение игрока
 	@Override
@@ -91,6 +89,11 @@ public class PlayScreen implements Screen {
 		case KeyEvent.VK_B: player.moveBy(-1, 1); break;
 		case KeyEvent.VK_N: player.moveBy( 1, 1); break;
 		}
+		if (Event.getInstance().getLifetime() == 0)
+		{
+			Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
+		}
+		else Event.getInstance().decreaseLifetime();
 		return this;
 	}
 }
