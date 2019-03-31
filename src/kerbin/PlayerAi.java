@@ -10,8 +10,6 @@ public class PlayerAi extends CreatureAi {
     }
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
-            creature.x = x;
-            creature.y = y;
             /*Проверяется наличие в тайле итема/животного, совершает с ним действие,
             дальше проверяет приоритет ивента, если текущий важнее - заменяет глобальный.*/
             if (tile.item != null)
@@ -25,11 +23,23 @@ public class PlayerAi extends CreatureAi {
             Creature c = creature.getWorld().creature(x,y);
             if (c != null && c.name != "Player")
             {
-                int priority = 2;
-                if (priority > Event.getInstance().getPriority())
+                //боевка игрок лупит мышб
+                c.hp-=creature.dmg-c.def;
+                //если умер плеер
+                if (creature.hp<=0) return;
+                //если умерла мышб
+                if (c.hp<=0) {
+                    creature.getWorld().creatures.remove(c);
                     Event.getInstance()
-                            .init(String.format("You stepped on %s. %s excuses your clumsiness", c.name, c.name), 2, 3, AsciiPanel.brightWhite);
+                            .init(String.format("Congrats, warrior, you have killed a mouse!"), 2, 1, AsciiPanel.brightWhite);
+                }
+                int priority = 2;
+                if (priority > Event.getInstance().getPriority()) {
+                    Event.getInstance()
+                            .init(String.format("%s: You shall not pass! %s: It`s going to be a great battle!", c.name, c.name), 2, 1, AsciiPanel.brightWhite);
+                }
             }
+            else{ creature.x=x; creature.y=y;}
             }
     }
     public void onTurn(){}
