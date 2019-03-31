@@ -24,9 +24,9 @@ public class PlayerAi extends CreatureAi {
             if (c != null && c.name != "Player")
             {
                 int priority = 2;
-                if (priority >= Event.getInstance().getPriority()) {
+                if (priority > Event.getInstance().getPriority()) {
                     Event.getInstance()
-                            .init(String.format("%s: You shall not pass! %s: It`s going to be a great battle!", c.name, c.name), 2, 1, AsciiPanel.brightWhite);
+                            .init(String.format("%s: You shall not pass! %s: It`s going to be a great battle!", c.name, c.name), 2, 2, AsciiPanel.brightWhite);
                 }
                 //боевка игрок лупит мышб
                 c.hp-=creature.dmg-c.def;
@@ -36,7 +36,7 @@ public class PlayerAi extends CreatureAi {
                 if (c.hp<=0) {
                     creature.getWorld().creatures.remove(c);
                     Event.getInstance()
-                            .init(String.format("Congrats, warrior, you have killed a mouse!"), 2, 1, AsciiPanel.brightWhite);
+                            .init(String.format("Congrats, warrior, you have killed a mouse!"), 2, 3, AsciiPanel.brightWhite);
                 }
             }
             else{ creature.x=x; creature.y=y;}
