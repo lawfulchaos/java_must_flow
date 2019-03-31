@@ -9,13 +9,13 @@ public class CreatureFactory {
         this.world = world;
     }
     public Creature newPlayer(){
-        Creature player = new Creature(world, '@', AsciiPanel.brightWhite, "Player", (int)Math.random()*10,7,0);
+        Creature player = new Creature(world, '@', AsciiPanel.brightWhite, "Player", (int)(Math.random()*100),7,0);
         world.addAtEmptyLocation(player);
         new PlayerAi(player);
         return player;
     }
     public Creature newMouse(){
-        Creature mouse = new Creature(world, 'm', AsciiPanel.red, "mouse",(int)Math.random(),(int)Math.random(),(int)(Math.random()*0.5));
+        Creature mouse = new Creature(world, 'm', AsciiPanel.red, "mouse",(int)(Math.random()*10),(int)(Math.random()*10),(int)(Math.random()*5));
         world.addAtEmptyLocation(mouse);
         new MouseAi(mouse);
         return mouse;
