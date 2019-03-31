@@ -12,7 +12,8 @@ public class PlayScreen implements Screen {
 	public Creature player;
 	private int screenWidth;
 	private int screenHeight;
-/* Генерация нового экрана и добавление предметов/мобов */
+	private Screen subscreen;
+	/* Генерация нового экрана и добавление предметов/мобов */
 	public PlayScreen(){
 		screenWidth = 80;
 		screenHeight = 21;
@@ -50,6 +51,8 @@ public class PlayScreen implements Screen {
 		displayTiles(terminal, left, top);
 
 		terminal.write(Event.getInstance().getMsg(), 0, 22, Event.getInstance().getColor());
+		if (subscreen != null)
+			subscreen.displayOutput(terminal);
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -72,23 +75,42 @@ public class PlayScreen implements Screen {
 //Реакция на нажатие клавиши: ход нпс, после движение игрока
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
-		for (Creature creature: world.creatures) {
-			creature.ai.onTurn();
+		if (subscreen != null) {
+			subscreen = subscreen.respondToUserInput(key);
+			return this;
 		}
-		switch (key.getKeyCode()){
-		case KeyEvent.VK_ESCAPE: return new LoseScreen();
-		case KeyEvent.VK_ENTER: return new WinScreen();
-		case KeyEvent.VK_LEFT: player.moveBy(-1, 0); break;
-		case KeyEvent.VK_RIGHT: player.moveBy( 1, 0); break;
-		case KeyEvent.VK_UP: player.moveBy( 0,-1); break;
-		case KeyEvent.VK_DOWN: player.moveBy( 0, 1); break;
+		else {
 
+			for (Creature creature : world.creatures) {
+				creature.ai.onTurn();
+
+			}
+			switch (key.getKeyCode()) {
+				case KeyEvent.VK_ESCAPE:
+					return new LoseScreen();
+				case KeyEvent.VK_ENTER:
+					return new WinScreen();
+				case KeyEvent.VK_LEFT:
+					player.moveBy(-1, 0);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.moveBy(1, 0);
+					break;
+				case KeyEvent.VK_UP:
+					player.moveBy(0, -1);
+					break;
+				case KeyEvent.VK_DOWN:
+					player.moveBy(0, 1);
+					break;
+				case KeyEvent.VK_I:
+				case KeyEvent.VK_D: subscreen = new InventoryScreen(player);
+					break;
+
+			}
+			if (Event.getInstance().getLifetime() == 0) {
+				Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
+			} else Event.getInstance().decreaseLifetime();
+			return this;
 		}
-		if (Event.getInstance().getLifetime() == 0)
-		{
-			Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
-		}
-		else Event.getInstance().decreaseLifetime();
-		return this;
 	}
 }
