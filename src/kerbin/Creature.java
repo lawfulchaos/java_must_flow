@@ -1,6 +1,9 @@
 package kerbin;
 /* Физические характеристики существа, поведение обрабатывается в CreatureAi, создается CreatureFactory*/
+import kerbin.items.Armor;
 import kerbin.items.Item;
+import kerbin.items.Weapon;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ public class Creature {
     private Color color;
     public Color color() { return color; }
 
-    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def /*Item armour, Item weapon*/){
+    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def){
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -39,8 +42,18 @@ public class Creature {
         this.hp=hp;
         this.dmg=dmg;
         this.def=def;
-        /*this.armor=armour;
-        this.weapon=weapon;*/
+        this.weapon = null;
+        this.armor = null;
+    }
+    public void setWeapon(Weapon weapon)
+    {
+        this.weapon = weapon;
+        this.dmg += weapon.dmg;
+    }
+    public void setArmor(Armor armor)
+    {
+        this.armor = armor;
+        this.def += armor.def;
     }
 //Движение, реакция на смещение обрабатывается AI
     public void moveBy(int mx, int my){

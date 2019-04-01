@@ -19,6 +19,9 @@ public class InventoryScreen implements Screen {
         int i = 0;
         terminal.clear();
         terminal.write("Inventory: ", 1, 1);
+        terminal.write("Equipped: ", 40, 1);
+        if (player.weapon!=null) terminal.write(player.weapon.name(), 40, 3);
+        if (player.armor!=null) terminal.write(player.armor.name(), 40, 4);
         for (Item item : player.inv){
             terminal.write(alphabet[i]+": ", x-2, y);
             terminal.write(item.name(), x, y++);
@@ -34,10 +37,11 @@ public class InventoryScreen implements Screen {
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         char c = key.getKeyChar();
-        if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
-            return null;
-        else
-            return this;
+        switch (key.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                return null;
+        //    case KeyEvent.VK_:
+        //        return new WinScreen();
     }
 
 }
