@@ -6,6 +6,9 @@ public class Item {
 
     private char glyph;
     private Creature owner;
+    public Creature owner() {
+        return owner;
+    }
     public char glyph() {
         return glyph;
     }

@@ -21,4 +21,9 @@ public class ItemFactory {
         if (owner == null) world.addAtEmptyLocation(armor);
         return armor;
     }
+    public Usable newHeal(Creature owner){
+        Usable heal = new Usable((char)233, AsciiPanel.cyan, "Heal potion", owner, (int)(5+Math.random()*10));
+        if (owner == null) world.addAtEmptyLocation(heal);
+        return heal;
+    }
 }

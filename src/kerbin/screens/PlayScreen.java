@@ -30,6 +30,9 @@ public class PlayScreen implements Screen {
 			itemFactory.newWeapon(null);
 		}
 		for (int j = 0; j < 4; j++) {
+			itemFactory.newHeal(null);
+		}
+		for (int j = 0; j < 4; j++) {
 			itemFactory.newArmor(null);
 		}
 	}
