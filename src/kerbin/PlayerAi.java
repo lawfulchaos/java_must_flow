@@ -30,7 +30,7 @@ public class PlayerAi extends CreatureAi {
                 }
                 //боевка игрок лупит мышб
                 c.hp-=creature.dmg-c.def;
-                //если умер плеер
+                //если умер плеер написали говно пока
                 if (creature.hp<=0) return;
                 //если умерла мышб
                 if (c.hp<=0) {
