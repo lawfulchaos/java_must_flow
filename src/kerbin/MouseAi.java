@@ -27,18 +27,9 @@ public class MouseAi extends CreatureAi {
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority()) {
                     Event.getInstance()
-                            .init(String.format("%s: You shall not pass! %s: It`s going to be a great battle! \n You`ve been attacked by mouse", c.name, c.name), 2, 1, AsciiPanel.brightWhite);
+                            .init(String.format("%s: You`ve been attacked by mouse", c.name), 3, 1, AsciiPanel.brightWhite);
                 }
-                //боевка мышб лупит игрока
-                c.hp -= creature.dmg - c.def;
-                //если умер плеер написали говно пока
-                if (creature.hp <= 0) return;
-                //если умерла мышб
-                if (c.hp <= 0) {
-                    creature.getWorld().creatures.remove(creature);
-                    Event.getInstance()
-                            .init(String.format("Congrats, warrior, you have killed a mouse!"), 2, 3, AsciiPanel.brightWhite);
-                }
+                super.battle(c);
             } else {
                 creature.x = x;
                 creature.y = y;

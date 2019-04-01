@@ -75,6 +75,9 @@ public class PlayScreen implements Screen {
 //Реакция на нажатие клавиши: ход нпс, после движение игрока
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
+		if(player.hp<=0){
+			return new LoseScreen();
+		}
 		if (subscreen != null) {
 			subscreen = subscreen.respondToUserInput(key);
 			return this;
