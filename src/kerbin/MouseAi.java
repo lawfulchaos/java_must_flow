@@ -10,7 +10,7 @@ public class MouseAi extends CreatureAi {
             super(creature);
     }
     public void onEnter(int x, int y, Tile tile) {
-        if (tile.isGround()&&tile.glyph()!='@') {
+        if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);
             if (c != null && c.name != "mouse") {
                 int priority = 10;

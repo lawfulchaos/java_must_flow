@@ -11,7 +11,7 @@ public class World {
 	public Tile[][] tiles;
 	private int width;
 	public int width() { return width; }
-
+	public Creature player;
 	private int height;
 	public int height() { return height; }
 	public TileFactory tileFactory;
@@ -68,6 +68,7 @@ public class World {
 	}
 //Возвращает существо по коордам, при отсутствии возвращает null
 	public Creature creature(int x, int y){
+		if (player != null && player.x == x && player.y == y) return player;
 		for (Creature c : creatures){
 			if (c.x == x && c.y == y)
 				return c;
