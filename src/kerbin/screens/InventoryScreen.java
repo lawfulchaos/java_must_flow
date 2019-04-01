@@ -9,8 +9,10 @@ import kerbin.items.Item;
 public class InventoryScreen implements Screen {
     private Creature player;
     private char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-    public InventoryScreen(Creature player)
-    { this.player = player; }
+
+    public InventoryScreen(Creature player) {
+        this.player = player;
+    }
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
@@ -20,10 +22,10 @@ public class InventoryScreen implements Screen {
         terminal.clear();
         terminal.write("Inventory: ", 1, 1);
         terminal.write("Equipped: ", 40, 1);
-        if (player.weapon!=null) terminal.write(player.weapon.name(), 40, 3);
-        if (player.armor!=null) terminal.write(player.armor.name(), 40, 4);
-        for (Item item : player.inv){
-            terminal.write(alphabet[i]+": ", x-2, y);
+        if (player.weapon != null) terminal.write(player.weapon.name(), 40, 3);
+        if (player.armor != null) terminal.write(player.armor.name(), 40, 4);
+        for (Item item : player.inv) {
+            terminal.write(alphabet[i] + ": ", x - 2, y);
             terminal.write(item.name(), x, y++);
             i++;
         }
@@ -33,15 +35,15 @@ public class InventoryScreen implements Screen {
     }
 
 
-
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         char c = key.getKeyChar();
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 return null;
-        //    case KeyEvent.VK_:
-        //        return new WinScreen();
+            //    case KeyEvent.VK_:
+            //        return new WinScreen();
+        }
+        return this;
     }
-
 }
