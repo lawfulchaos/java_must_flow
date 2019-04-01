@@ -10,6 +10,12 @@ public class StartScreen implements Screen {
 	public void displayOutput(AsciiPanel terminal) {
 		terminal.write("MGUPI Studio presents:", 1, 1);
 		terminal.writeCenter("True Roguelike Pre-Alpha", 3);
+		terminal.writeCenter("Controls:", 5);
+		terminal.write("WASD or arrows to move", 1,6);
+
+		terminal.write("I to open inventory", 1,7);
+		terminal.write("U in inventory to use item, W to equip item", 1,8);
+
 		terminal.writeCenter("-- press [enter] to start --", 22);
 	}
 
