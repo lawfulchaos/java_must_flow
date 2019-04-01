@@ -41,6 +41,10 @@ public class PlayerAi extends CreatureAi {
             }
             else{ creature.x=x; creature.y=y;}
             }
+
+        if(tile.glyph() == 'O'){
+            creature.getWorld().addAtEmptyLocation(creature);
+        }
     }
     public void onTurn(){}
 }
