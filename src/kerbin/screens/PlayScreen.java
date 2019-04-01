@@ -112,13 +112,16 @@ public class PlayScreen implements Screen {
 				case KeyEvent.VK_I:
 					subscreen = new InventoryScreen(player);
 					break;
+				case KeyEvent.VK_5:
+					player.moveBy(0, 0);
+					break;
 				default:
 					isAction = false;
 					break;
 			}
 				if (isAction) {
 					for (Creature creature : world.creatures) {
-						creature.ai.onTurn();
+						creature.ai.onTurn(player);
 
 					}
 				}

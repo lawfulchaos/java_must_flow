@@ -12,21 +12,75 @@ public class CreatureAi {
     }
 //Реакция на перемещение
     public void onEnter(int x, int y, Tile tile) {
-        if (tile.isGround()) {
+        /*if (tile.isGround()) {
             creature.x = x;
             creature.y = y;
-        }
+        }*/
     }
 //Ход существа
-    public void onTurn() {
-        int mx = ThreadLocalRandom.current().nextInt(-1, 2);
+    public void onTurn(Creature player) {
+        /*int mx = ThreadLocalRandom.current().nextInt(-1, 2);
         int my = ThreadLocalRandom.current().nextInt(-1, 2);
-        this.creature.moveBy(mx, my);
+        this.creature.moveBy(mx, my);*/
+        if(creature.x-player.x>0 && creature.y-player.y>0){ //мышь справа сверху от игрока
+            int mx = -1;
+            int my = -1;
+            this.creature.moveBy(mx, my);
+        }
+        else {
+            if (creature.x - player.x < 0 && creature.y - player.y < 0) { //мышь слева снизу от игрока
+                int mx = 1;
+                int my = 1;
+                this.creature.moveBy(mx, my);
+            } else {
+                if (creature.x - player.x > 0 && creature.y - player.y < 0) { //мышь справа снизу от игрока
+                    int mx = -1;
+                    int my = 1;
+                    this.creature.moveBy(mx, my);
+                } else {
+                    if (creature.x - player.x < 0 && creature.y - player.y > 0) { //мышь слева сверху от игрока
+                        int mx = 1;
+                        int my = -1;
+                        this.creature.moveBy(mx, my);
+                    } else {
+                        if (creature.x - player.x == 0 && creature.y - player.y > 0) { //мышь ровно сверху от игрока
+                            int mx = 0;
+                            int my = -1;
+                            this.creature.moveBy(mx, my);
+                        } else {
+                            if (creature.x - player.x == 0 && creature.y - player.y < 0) { //мышь ровно снизу от игрока
+                                int mx = 0;
+                                int my = 1;
+                                this.creature.moveBy(mx, my);
+                            } else {
+                                if (creature.x - player.x > 0 && creature.y - player.y == 0) { //мышь ровно справа от игрока
+                                    int mx = -1;
+                                    int my = 0;
+                                    this.creature.moveBy(mx, my);
+                                } else {
+                                    if (creature.x - player.x < 0 && creature.y - player.y == 0) { //мышь ровно слева от игрока
+                                        int mx = 1;
+                                        int my = 0;
+                                        this.creature.moveBy(mx, my);
+                                    } else {
+
+                                        int mx = ThreadLocalRandom.current().nextInt(-1, 2);
+                                        int my = ThreadLocalRandom.current().nextInt(-1, 2);
+                                        this.creature.moveBy(mx, my);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void battle(Creature c){
         int damage = creature.dmg;
         //боевка атакующий лупит аутиста
+        //допилить шанс уклона
         if(c.def<=damage){
             damage-=c.def;
             c.def=0;
