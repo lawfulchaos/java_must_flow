@@ -80,33 +80,43 @@ public class PlayScreen implements Screen {
 			return this;
 		}
 		else {
-
-			for (Creature creature : world.creatures) {
-				creature.ai.onTurn();
-
-			}
+			//Проверяем, если нажата клавиша не из списка управления - игноририруем.
+			boolean isAction = true;
 			switch (key.getKeyCode()) {
 				case KeyEvent.VK_ESCAPE:
 					return new LoseScreen();
 				case KeyEvent.VK_ENTER:
 					return new WinScreen();
 				case KeyEvent.VK_LEFT:
+				case KeyEvent.VK_A:
 					player.moveBy(-1, 0);
 					break;
 				case KeyEvent.VK_RIGHT:
+				case KeyEvent.VK_D:
 					player.moveBy(1, 0);
 					break;
 				case KeyEvent.VK_UP:
+				case KeyEvent.VK_W:
 					player.moveBy(0, -1);
 					break;
 				case KeyEvent.VK_DOWN:
+				case KeyEvent.VK_S:
 					player.moveBy(0, 1);
 					break;
 				case KeyEvent.VK_I:
-				case KeyEvent.VK_D: subscreen = new InventoryScreen(player);
+					subscreen = new InventoryScreen(player);
 					break;
-
+				default:
+					isAction = false;
+					break;
 			}
+				if (isAction) {
+					for (Creature creature : world.creatures) {
+						creature.ai.onTurn();
+
+					}
+				}
+
 			if (Event.getInstance().getLifetime() == 0) {
 				Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
 			} else Event.getInstance().decreaseLifetime();
