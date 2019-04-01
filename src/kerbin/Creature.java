@@ -26,8 +26,8 @@ public class Creature {
     //дамаг существ
     public int dmg;
     public int def;
-    public Item armor;
-    public Item weapon;
+    public Armor armor;
+    public Weapon weapon;
     public char glyph() { return glyph; }
 
     private Color color;
@@ -37,7 +37,7 @@ public class Creature {
         this.world = world;
         this.glyph = glyph;
         this.color = color;
-        this.inv = new ArrayList<Item>();
+        this.inv = new ArrayList<>();
         this.name = name;
         this.hp=hp;
         this.dmg=dmg;
@@ -47,11 +47,23 @@ public class Creature {
     }
     public void setWeapon(Weapon weapon)
     {
+        if (this.weapon != null)
+        {
+            this.dmg -= this.weapon.dmg;
+            if (this.dmg < 0) this.dmg = 0;
+            inv.add(this.weapon);
+        }
         this.weapon = weapon;
         this.dmg += weapon.dmg;
     }
     public void setArmor(Armor armor)
     {
+        if (this.armor != null)
+        {
+            this.def -= this.armor.def;
+            if (this.def < 0) this.def = 0;
+            inv.add(this.armor);
+        }
         this.armor = armor;
         this.def += armor.def;
     }

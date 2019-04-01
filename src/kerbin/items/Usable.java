@@ -7,9 +7,9 @@ import java.awt.*;
 public class Usable extends Item{
     public int effect;
 
-    public Usable(char glyph, Color color, String name, Creature owner, int effect)
+    public Usable(char glyph, Color color, String name, Creature owner, int effect, boolean isEquipable)
     {
-        super(glyph, color, name, owner);
+        super(glyph, color, name, owner, isEquipable);
         this.effect = effect;
     }
     public void use()

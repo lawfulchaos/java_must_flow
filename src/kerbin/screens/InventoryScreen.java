@@ -7,25 +7,34 @@ import kerbin.Creature;
 import kerbin.items.Item;
 
 public class InventoryScreen implements Screen {
-    private Creature player;
-    private char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-
+    protected Creature player;
+    protected char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    protected int i;
     public InventoryScreen(Creature player) {
         this.player = player;
     }
-
-    @Override
-    public void displayOutput(AsciiPanel terminal) {
+    //Показывает верхнюю часть инвентаря, используется в наследниках
+    protected void showHeader(AsciiPanel terminal)
+    {
         int y = 4;
         int x = 3;
-        int i = 0;
+        i = 0;
         terminal.clear();
         terminal.write("Inventory: ", 1, 1);
         terminal.write("Equipped: ", 40, 1);
-        if (player.weapon != null) terminal.write(player.weapon.name(), 40, 3);
-        if (player.armor != null) terminal.write(player.armor.name(), 40, 4);
+        terminal.write("Weapon: ", 40, 3);
+        terminal.write("Armor: ", 40, 4);
+        if (player.weapon != null) terminal.write(player.weapon.name(), 50, 3);
+        if (player.armor != null) terminal.write(player.armor.name(), 50, 4);
+    }
+    @Override
+    public void displayOutput(AsciiPanel terminal) {
+        showHeader(terminal);
+        int y = 4;
+        int x = 3;
+        i = 0;
         for (Item item : player.inv) {
-            terminal.write(alphabet[i] + ": ", x - 2, y);
+            terminal.write(alphabet[i] + ":  ", x - 2, y);
             terminal.write(item.name(), x, y++);
             i++;
         }
@@ -34,16 +43,17 @@ public class InventoryScreen implements Screen {
         terminal.repaint();
     }
 
-
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         char c = key.getKeyChar();
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 return null;
-            //    case KeyEvent.VK_:
-            //        return new WinScreen();
+            case KeyEvent.VK_W:
+                return new EquipScreen(player);
+            case KeyEvent.VK_U:
+                return new UseScreen(player);
         }
-        return this;
+            return this;
     }
 }

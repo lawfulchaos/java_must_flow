@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Item {
 
     private char glyph;
-    private Creature owner;
+    public Creature owner;
     public Creature owner() {
         return owner;
     }
@@ -13,7 +13,7 @@ public class Item {
         return glyph;
     }
     private Color color;
-
+    public boolean isEquipable;
     public Color color() {
         return color;
     }
@@ -24,11 +24,11 @@ public class Item {
         return name;
     }
 
-    public Item(char glyph, Color color, String name, Creature owner) {
+    public Item(char glyph, Color color, String name, Creature owner, boolean isEquipable) {
         this.glyph = glyph;
         this.color = color;
         this.name = name;
         this.owner = owner;
-
+        this.isEquipable = isEquipable;
     }
 }

@@ -7,9 +7,9 @@ import java.awt.*;
 public class Armor extends Item{
     public int def;
 
-    public Armor(char glyph, Color color, String name, Creature owner, int def)
+    public Armor(char glyph, Color color, String name, Creature owner, int def, boolean isEquipable)
     {
-        super(glyph, color, name, owner);
+        super(glyph, color, name, owner, isEquipable);
         this.def = def;
     }
 }
