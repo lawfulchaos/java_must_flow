@@ -40,6 +40,11 @@ public class PlayScreen implements Screen {
 		}
 	}
 
+	public void setPlayer(Creature player)
+    {
+        this.player = player;
+        world.player = player;
+    }
 	private void createWorld(){
 		world = new WorldBuilder(90, 32).build();
 	}
@@ -96,7 +101,9 @@ public class PlayScreen implements Screen {
 					return new LoseScreen();
 				case KeyEvent.VK_ENTER:
 					if(player.getWorld().tile(player.x, player.y).glyph() == '#' && world.creatures.size()==0){
-						return new PlayScreen();
+						PlayScreen nextLvl = new PlayScreen();
+						nextLvl.setPlayer(player);
+						return nextLvl;
 						}
 					break;
 
