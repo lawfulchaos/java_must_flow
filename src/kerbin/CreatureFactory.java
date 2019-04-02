@@ -25,4 +25,12 @@ public class CreatureFactory {
         new MouseAi(mouse);
         return mouse;
     }
+    public Creature newSkeleton(){
+        Creature skeleton = new Creature(world, 's', AsciiPanel.yellow, "skeleton",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5));
+        skeleton.setWeapon(itemFactory.newTeeth(skeleton));
+        skeleton.setArmor(itemFactory.newHide(skeleton));
+        world.addAtEmptyLocation(skeleton);
+        new SkeletonAi(skeleton);
+        return skeleton;
+    }
 }
