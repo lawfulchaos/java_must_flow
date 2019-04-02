@@ -24,6 +24,7 @@ public class SkeletonAi extends CreatureAi {
                             .init(String.format("%s: You`ve been attacked by skeleton", c.name), priority, 3, AsciiPanel.brightWhite);
                 }
                 super.battle(c);
+                super.teleport(tile);
             } else {
                 creature.x = x;
                 creature.y = y;
