@@ -1,6 +1,8 @@
 package kerbin;
 // Точка входа в программу, создание окна и обработка клавиатуры 
 import javax.swing.JFrame;
+
+import asciiPanel.AsciiFont;
 import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,7 +16,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
 	
 	public ApplicationMain(){
 		super();
-		terminal = new AsciiPanel();
+		terminal = new AsciiPanel(90,40, AsciiFont.CP437_9x16);
 		add(terminal);
 		pack();
 		screen = new StartScreen();

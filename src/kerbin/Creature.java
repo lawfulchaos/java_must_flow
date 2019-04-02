@@ -23,6 +23,7 @@ public class Creature {
     private char glyph;
     //хп существ
     public int hp;
+    public int max_hp;
     //дамаг существ
     public int dmg;
     public int def;
@@ -33,7 +34,7 @@ public class Creature {
     private Color color;
     public Color color() { return color; }
 
-    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def){
+    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp){
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -44,6 +45,7 @@ public class Creature {
         this.def=def;
         this.weapon = null;
         this.armor = null;
+        this.max_hp=max_hp;
     }
     public void setWeapon(Weapon weapon)
     {

@@ -1,9 +1,11 @@
 package kerbin.screens;
 /* Основной игровой экран. содержит игровую логику,
 генерацию предметов, отображение и обработку клавиатуры */ 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import kerbin.*;
+import kerbin.Event;
 import kerbin.items.Item;
 import kerbin.items.ItemFactory;
 
@@ -15,8 +17,8 @@ public class PlayScreen implements Screen {
 	private Screen subscreen;
 	/* Генерация нового экрана и добавление предметов/мобов */
 	public PlayScreen(){
-		screenWidth = 80;
-		screenHeight = 21;
+		screenWidth = 90;
+		screenHeight = 30;
 		createWorld();
 		Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
 		CreatureFactory creatureFactory = new CreatureFactory(world);
@@ -56,7 +58,20 @@ public class PlayScreen implements Screen {
 		
 		displayTiles(terminal, left, top);
 
-		terminal.write(Event.getInstance().getMsg(), 0, 22, Event.getInstance().getColor());
+		//Шмат хпшки
+		terminal.write("HP: ",0,30, Color.green);
+		for (int k = 0;k<10;k++)
+		{
+			terminal.write((char)254,5+k,30, Color.red);
+		}
+
+		for (int k = 0;k<player.hp/10;k++)
+		{
+			terminal.write((char)254,5+k,30, Color.green);
+		}
+
+
+		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
 			subscreen.displayOutput(terminal);
 	}

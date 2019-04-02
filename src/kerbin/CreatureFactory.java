@@ -12,13 +12,13 @@ public class CreatureFactory {
         this.itemFactory = new ItemFactory(world);
     }
     public Creature newPlayer(){
-        Creature player = new Creature(world, '@', AsciiPanel.brightWhite, "Player", (int)(10+Math.random()*100),3,0);
+        Creature player = new Creature(world, '@', AsciiPanel.brightWhite, "Player", 100,3,0,100);
         world.addAtEmptyLocation(player);
         new PlayerAi(player);
         return player;
     }
     public Creature newMouse(){
-        Creature mouse = new Creature(world, 'm', AsciiPanel.red, "mouse",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5));
+        Creature mouse = new Creature(world, 'm', AsciiPanel.red, "mouse",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5),11);
         mouse.setWeapon(itemFactory.newTeeth(mouse));
         mouse.setArmor(itemFactory.newHide(mouse));
         world.addAtEmptyLocation(mouse);
@@ -26,7 +26,7 @@ public class CreatureFactory {
         return mouse;
     }
     public Creature newSkeleton(){
-        Creature skeleton = new Creature(world, 's', AsciiPanel.yellow, "skeleton",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5));
+        Creature skeleton = new Creature(world, 's', AsciiPanel.yellow, "skeleton",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5),11);
         skeleton.setWeapon(itemFactory.newTeeth(skeleton));
         skeleton.setArmor(itemFactory.newHide(skeleton));
         world.addAtEmptyLocation(skeleton);
