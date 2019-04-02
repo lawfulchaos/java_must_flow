@@ -22,58 +22,83 @@ public class CreatureAi {
         /*int mx = ThreadLocalRandom.current().nextInt(-1, 2);
         int my = ThreadLocalRandom.current().nextInt(-1, 2);
         this.creature.moveBy(mx, my);*/
-        if(creature.x-player.x>0 && creature.y-player.y>0){ //мышь справа сверху от игрока
-            int mx = -1;
-            int my = -1;
-            this.creature.moveBy(mx, my);
-        }
-        else {
-            if (creature.x - player.x < 0 && creature.y - player.y < 0) { //мышь слева снизу от игрока
-                int mx = 1;
-                int my = 1;
+        int mx, my;
+        boolean isMoved = false;
+        if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
+            mx = -1;
+            my = -1;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
                 this.creature.moveBy(mx, my);
-            } else {
-                if (creature.x - player.x > 0 && creature.y - player.y < 0) { //мышь справа снизу от игрока
-                    int mx = -1;
-                    int my = 1;
-                    this.creature.moveBy(mx, my);
-                } else {
-                    if (creature.x - player.x < 0 && creature.y - player.y > 0) { //мышь слева сверху от игрока
-                        int mx = 1;
-                        int my = -1;
-                        this.creature.moveBy(mx, my);
-                    } else {
-                        if (creature.x - player.x == 0 && creature.y - player.y > 0) { //мышь ровно сверху от игрока
-                            int mx = 0;
-                            int my = -1;
-                            this.creature.moveBy(mx, my);
-                        } else {
-                            if (creature.x - player.x == 0 && creature.y - player.y < 0) { //мышь ровно снизу от игрока
-                                int mx = 0;
-                                int my = 1;
-                                this.creature.moveBy(mx, my);
-                            } else {
-                                if (creature.x - player.x > 0 && creature.y - player.y == 0) { //мышь ровно справа от игрока
-                                    int mx = -1;
-                                    int my = 0;
-                                    this.creature.moveBy(mx, my);
-                                } else {
-                                    if (creature.x - player.x < 0 && creature.y - player.y == 0) { //мышь ровно слева от игрока
-                                        int mx = 1;
-                                        int my = 0;
-                                        this.creature.moveBy(mx, my);
-                                    } else {
-
-                                        int mx = ThreadLocalRandom.current().nextInt(-1, 2);
-                                        int my = ThreadLocalRandom.current().nextInt(-1, 2);
-                                        this.creature.moveBy(mx, my);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                isMoved = true;
             }
+        }
+
+        if (creature.x - player.x < 0 && creature.y - player.y < 0 && !isMoved) { //мышь слева снизу от игрока
+            mx = 1;
+            my = 1;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+
+        if (creature.x - player.x > 0 && creature.y - player.y < 0 && !isMoved) { //мышь справа снизу от игрока
+            mx = -1;
+            my = 1;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+
+        if (creature.x - player.x < 0 && creature.y - player.y > 0 && !isMoved) { //мышь слева сверху от игрока
+            mx = 1;
+            my = -1;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+        if (creature.x - player.x == 0 && creature.y - player.y > 0 && !isMoved) { //мышь ровно сверху от игрока
+            mx = 0;
+            my = -1;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+        if (creature.x - player.x == 0 && creature.y - player.y < 0 && !isMoved) { //мышь ровно снизу от игрока
+            mx = 0;
+            my = 1;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+        if (creature.x - player.x > 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно справа от игрока
+            mx = -1;
+            my = 0;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+        if (creature.x - player.x < 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно слева от игрока
+            mx = 1;
+            my = 0;
+            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                this.creature.moveBy(mx, my);
+                isMoved = true;
+            }
+        }
+        if (!isMoved) {
+            mx = ThreadLocalRandom.current().nextInt(-1, 2);
+            my = ThreadLocalRandom.current().nextInt(-1, 2);
+            while (!creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                mx = ThreadLocalRandom.current().nextInt(-1, 2);
+                my = ThreadLocalRandom.current().nextInt(-1, 2);
+            }
+            this.creature.moveBy(mx, my);
         }
     }
 
@@ -106,7 +131,13 @@ public class CreatureAi {
         if (c.hp <= 0) {
             creature.getWorld().creatures.remove(c);
             Event.getInstance()
-                    .init(String.format("Congrats, warrior, you have killed a mouse! %s %s",creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
+                    .init(String.format("Congrats, warrior, you have killed a %s! %s %s",creature.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
+        }
+    }
+
+    public void teleport(Tile tile){
+        if(tile.glyph() == 'O'){
+            creature.getWorld().addAtEmptyLocation(creature);
         }
     }
 }
