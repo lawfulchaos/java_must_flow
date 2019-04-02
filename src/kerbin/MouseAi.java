@@ -19,7 +19,6 @@ public class MouseAi extends CreatureAi {
                             .init(String.format("%s: You`ve been attacked by mouse", c.name), priority, 3, AsciiPanel.brightWhite);
                 }
                 super.battle(c);
-                super.teleport(tile);
             } else {
                 creature.x = x;
                 creature.y = y;

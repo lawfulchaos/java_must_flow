@@ -11,9 +11,6 @@ public class TileFactory {
     public Tile newWall(){
         return new Tile((char)177, AsciiPanel.yellow, false);
     }
-    public Tile newStairs(){
-        return new Tile('#', AsciiPanel.yellow, true);
-    }
     public Tile newTeleport(){
         return new Tile('O', AsciiPanel.yellow, true);
     }

@@ -53,7 +53,7 @@ public class WorldBuilder {
             int x = (int) (Math.random() * width);
             int y = (int) (Math.random() * height);
 
-            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null ) {
+            while (!tiles[x][y].isGround()) {
                 x = (int) (Math.random() * width);
                 y = (int) (Math.random() * height);
             }
@@ -63,26 +63,10 @@ public class WorldBuilder {
 
     }
 
-    public void add_stairs(boolean check){
-        if(check == true) {
-            int x = (int) (Math.random() * width);
-            int y = (int) (Math.random() * height);
-
-            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null ) {
-                x = (int) (Math.random() * width);
-                y = (int) (Math.random() * height);
-            }
-
-            tiles[x][y] = tileFactory.newStairs();
-        }
-
-    }
-
     public void makeMap() {
         List<Rect> rooms = new ArrayList<>();
         int num_rooms = 0;
         boolean check_teleport = true;
-        boolean check_stairs = true;
         for (int i = 0; i < MAX_ROOMS; i++) {
             int w = ThreadLocalRandom.current().nextInt(ROOM_MIN_SIZE, ROOM_MAX_SIZE + 1);
             int h = ThreadLocalRandom.current().nextInt(ROOM_MIN_SIZE, ROOM_MAX_SIZE + 1);
@@ -103,11 +87,7 @@ public class WorldBuilder {
                 create_room(new_room);
 
                 add_teleport(check_teleport);
-                add_stairs(check_stairs);
-
                 check_teleport=false;
-                check_stairs = false;
-
 
                 int[] center = new_room.center();
                 if (num_rooms>0) {

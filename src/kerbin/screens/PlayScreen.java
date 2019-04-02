@@ -95,11 +95,7 @@ public class PlayScreen implements Screen {
 				case KeyEvent.VK_ESCAPE:
 					return new LoseScreen();
 				case KeyEvent.VK_ENTER:
-					if(player.getWorld().tile(player.x, player.y).glyph() == '#' && world.creatures.size()==0){
-						return new PlayScreen();
-						}
-					break;
-
+					return new WinScreen();
 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
 					player.moveBy(-1, 0);

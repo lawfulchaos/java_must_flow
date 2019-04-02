@@ -134,10 +134,4 @@ public class CreatureAi {
                     .init(String.format("Congrats, warrior, you have killed a %s! %s %s",creature.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
         }
     }
-
-    public void teleport(Tile tile){
-        if(tile.glyph() == 'O'){
-            creature.getWorld().addAtEmptyLocation(creature);
-        }
-    }
 }
