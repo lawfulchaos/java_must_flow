@@ -12,6 +12,8 @@ public class StartScreen implements Screen {
 		terminal.writeCenter("True Roguelike Pre-Alpha", 3);
 		terminal.writeCenter("Controls:", 5);
 		terminal.write("WASD or arrows to move", 1,6);
+		terminal.write("ENTER on # to load next level", 1,9);
+
 
 		terminal.write("I to open inventory", 1,7);
 		terminal.write("U in inventory to use item, W to equip item", 1,8);
