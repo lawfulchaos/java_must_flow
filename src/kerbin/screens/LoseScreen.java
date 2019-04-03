@@ -8,8 +8,9 @@ public class LoseScreen implements Screen {
 
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
-		terminal.write("You lost.", 1, 1);
-		terminal.writeCenter("-- press [enter] to restart --", 22);
+		terminal.write("Congrats.", 1, 1);
+		terminal.write("You lost.", 1, 3);
+		terminal.writeCenter("-- press [enter] to restart --", 30);
 	}
 
 	@Override

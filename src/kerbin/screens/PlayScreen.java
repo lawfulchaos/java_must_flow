@@ -20,7 +20,7 @@ public class PlayScreen implements Screen {
 		screenWidth = 90;
 		screenHeight = 30;
 		createWorld();
-		Event.getInstance().init("Welcome to MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
+		Event.getInstance().init("You playing now in MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
 		CreatureFactory creatureFactory = new CreatureFactory(world);
 		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
@@ -67,13 +67,11 @@ public class PlayScreen implements Screen {
 		terminal.write("HP: ",0,30, Color.green);
 		for (int k = 0;k<10;k++)
 		{
+			if (k>=(player.hp/10))
 			terminal.write((char)254,5+k,30, Color.red);
+			else terminal.write((char)254,5+k,30, Color.green);
 		}
 
-		for (int k = 0;k<player.hp/10;k++)
-		{
-			terminal.write((char)254,5+k,30, Color.green);
-		}
 
 
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
