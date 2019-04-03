@@ -31,7 +31,7 @@ public class ItemFactory {
         return armor;
     }
     public Usable newHeal(Creature owner){
-        Usable heal = new Usable('+', AsciiPanel.cyan, "Heal potion", owner, (int)(5+Math.random()*10), false, "Glows red");
+        Usable heal = new Usable('+', AsciiPanel.cyan, "Heal potion", owner, (int)(20+Math.random()*10), false, "Glows red");
         if (owner == null) world.addAtEmptyLocation(heal);
         return heal;
     }

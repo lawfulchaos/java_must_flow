@@ -17,6 +17,7 @@ public class Item {
     private Color color;
     public boolean isEquipable;
     public String desc;
+    int act;
     public Color color() {
         return color;
     }
@@ -34,5 +35,6 @@ public class Item {
         this.owner = owner;
         this.isEquipable = isEquipable;
         this.desc = desc;
+
     }
 }

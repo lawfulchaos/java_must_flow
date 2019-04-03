@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
 import kerbin.items.Item;
+import kerbin.items.Weapon;
 
 public class InventoryScreen implements Screen {
     protected Creature player;
@@ -57,7 +58,19 @@ public class InventoryScreen implements Screen {
         if (this.i==chosen)
         {
             terminal.write("> ", ix - 4, iy, Color.WHITE);
-            terminal.write(it.desc, 55, 10);
+            switch (it.glyph()) {
+                case '!':
+                    terminal.write("dmg = 10", 55, 10);
+                    break;
+                case (127):
+                    terminal.write("def = 10", 55, 10);
+                    break;
+                case '+':
+
+                    terminal.write("heal = ", 55, 10);
+                    break;
+            }
+            terminal.write(it.desc, 55, 12);
         }
         terminal.write(alphabet[this.i] + ":  ", ix - 2, iy);
         terminal.write(it.name(), ix, iy);
