@@ -131,7 +131,7 @@ public class CreatureAi {
         if (c.hp <= 0) {
             creature.getWorld().creatures.remove(c);
             Event.getInstance()
-                    .init(String.format("Congrats, warrior, you have killed a %s! %s %s",creature.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
+                    .init(String.format("Congrats, warrior, you have killed a %s! %s %s",c.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
         }
     }
 
