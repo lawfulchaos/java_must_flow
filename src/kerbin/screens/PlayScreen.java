@@ -20,7 +20,7 @@ public class PlayScreen implements Screen {
 		screenWidth = 90;
 		screenHeight = 30;
 		createWorld();
-		Event.getInstance().init("You playing now in MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
+		Event.getInstance().init("You playing now MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
 		CreatureFactory creatureFactory = new CreatureFactory(world);
 		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
