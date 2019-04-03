@@ -2,6 +2,8 @@ package kerbin.items;
 //Итемы, генерируются в ItemFactory
 import kerbin.Creature;
 import java.awt.Color;
+import java.util.Map;
+
 public class Item {
 
     private char glyph;
@@ -14,6 +16,7 @@ public class Item {
     }
     private Color color;
     public boolean isEquipable;
+    public String desc;
     public Color color() {
         return color;
     }
@@ -24,11 +27,12 @@ public class Item {
         return name;
     }
 
-    public Item(char glyph, Color color, String name, Creature owner, boolean isEquipable) {
+    public Item(char glyph, Color color, String name, Creature owner, boolean isEquipable, String desc) {
         this.glyph = glyph;
         this.color = color;
         this.name = name;
         this.owner = owner;
         this.isEquipable = isEquipable;
+        this.desc = desc;
     }
 }

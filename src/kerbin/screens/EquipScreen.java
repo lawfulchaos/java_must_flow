@@ -11,27 +11,32 @@ import kerbin.items.Item;
 import kerbin.items.Weapon;
 
 public class EquipScreen extends InventoryScreen implements Screen{
-    private int i;
     private String msg;
+    private String c_string;
+    private List<String> alph_short;
     public EquipScreen(Creature player) {
         super(player);
-        int i = 0;
         msg = "";
     }
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
         int y = 4;
-        int x = 3;
+        int x = 4;
         i = 0;
         super.showHeader(terminal);
         terminal.write("Choose weapon or armor: ", 1, 2);
 
         for (Item it : player.inv) {
             if (it.isEquipable) {
-                terminal.write(alphabet[i] + ":  ", x - 2, y);
-                terminal.write(it.name(), x, y++);
+                this.showItem(terminal, it, x, y);
+                y++;
                 i++;
+                if (i != 0 && i % 36 == 0)
+                {
+                    y = 4;
+                    x += 25;
+                }
             }
         }
 
@@ -40,43 +45,60 @@ public class EquipScreen extends InventoryScreen implements Screen{
         terminal.repaint();
     }
 
+    public void wearItem()
+    {
+        Item Equipable=null;
+        int j=0;
+        for (int z = 0; z < player.inv.size(); z++) {
+            if (player.inv.get(z).isEquipable)
+            {
+                if (alph_short.indexOf(c_string) == j)
+                {
+                    Equipable=player.inv.get(z);
+                    break;
+                }
+                j++;
+            }
+        }
+        if (Equipable instanceof Weapon)
+        {
+            player.setWeapon((Weapon)Equipable);
+            player.inv.remove(Equipable);
+            msg = String.format("You took a %s in hands", Equipable.name());
+        }
+        else if (Equipable instanceof Armor)
+        {
+            player.setArmor((Armor)Equipable);
+            player.inv.remove(Equipable);
+            msg = String.format("You now wear %s", Equipable.name());
+        }
+    }
+
     @Override
     public Screen respondToUserInput(KeyEvent key) {
         char c = key.getKeyChar();
+        //Срез алфавита, равный количеству одеваемых предметов в инвентаре
+        alph_short = Arrays.asList("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".substring(0, i).split(""));
+        c_string = Character.toString(c);
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 return new InventoryScreen(player);
+            case KeyEvent.VK_DOWN:
+                if (chosen < i-1) chosen+=1;
+                break;
+            case KeyEvent.VK_UP:
+                if (chosen > 0) chosen-=1;
+                break;
+            case KeyEvent.VK_ENTER:
+                if (player.inv.size() > 0)
+                {
+                    c_string = alph_short.get(chosen);
+                }
+                break;
         }
-        //Срез алфавита, равный количеству одеваемых предметов в инвентаре
-        List<String> alph_short = Arrays.asList("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".substring(0, i).split(""));
-        String c_string = Character.toString(c);
         if (alph_short.contains(c_string))
         {
-            Item Equipable=null;
-            int j=0;
-            for (int z = 0; z < player.inv.size(); z++) {
-                if (player.inv.get(z).isEquipable)
-                {
-                    if (alph_short.indexOf(c_string) == j)
-                    {
-                        Equipable=player.inv.get(z);
-                        break;
-                    }
-                    j++;
-                }
-            }
-            if (Equipable instanceof Weapon)
-            {
-                player.setWeapon((Weapon)Equipable);
-                player.inv.remove(Equipable);
-                msg = String.format("You took a %s in hands", Equipable.name());
-            }
-            else if (Equipable instanceof Armor)
-            {
-                player.setArmor((Armor)Equipable);
-                player.inv.remove(Equipable);
-                msg = String.format("You now wear %s", Equipable.name());
-            }
+            this.wearItem();
         }
         return this;
     }
