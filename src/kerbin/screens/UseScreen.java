@@ -76,7 +76,6 @@ public class UseScreen extends InventoryScreen implements Screen{
             case KeyEvent.VK_ENTER:
                 if (player.inv.size() > 0) {
                     c_string = alph_short.get(chosen);
-                    useItem();
                     break;
                 }
 
