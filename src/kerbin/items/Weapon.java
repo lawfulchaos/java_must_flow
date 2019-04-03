@@ -7,9 +7,9 @@ import java.awt.*;
 public class Weapon extends Item{
     public int dmg;
 
-    public Weapon(char glyph, Color color, String name, Creature owner, int dmg, boolean isEquipable)
+    public Weapon(char glyph, Color color, String name, Creature owner, int dmg, boolean isEquipable, String desc)
     {
-        super(glyph, color, name, owner, isEquipable);
+        super(glyph, color, name, owner, isEquipable, desc);
         this.dmg = dmg;
     }
 }
