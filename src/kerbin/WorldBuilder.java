@@ -26,7 +26,6 @@ public class WorldBuilder {
         this.makeMap();
         return new World(tiles);
     }
-
     public void create_room(Rect room) {
         for (int x = room.x1 + 1; x < room.x2; x++) {
             for (int y = room.y1 + 1; y < room.y2; y++) {
@@ -53,7 +52,7 @@ public class WorldBuilder {
             int x = (int) (Math.random() * width);
             int y = (int) (Math.random() * height);
 
-            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null ) {
+            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null || (tiles[x][y].glyph() == '#')) {
                 x = (int) (Math.random() * width);
                 y = (int) (Math.random() * height);
             }
