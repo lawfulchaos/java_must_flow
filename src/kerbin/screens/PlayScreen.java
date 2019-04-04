@@ -25,7 +25,7 @@ public class PlayScreen implements Screen {
 		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
 		world.player = player;
-		for (int i = 0; i < 0; i++) {
+		for (int i = 0; i < 4; i++) {
 			Creature mouse = creatureFactory.newMouse();
 			world.creatures.add(mouse);
 			Creature skeleton = creatureFactory.newSkeleton();
