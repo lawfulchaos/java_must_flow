@@ -12,7 +12,6 @@ public class Creature {
     public World getWorld() { return world; }
 
     private World world;
-
     public int x;
     public int y;
     public int level=1;

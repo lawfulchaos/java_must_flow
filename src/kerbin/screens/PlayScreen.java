@@ -1,6 +1,5 @@
 package kerbin.screens;
-/* Основной игровой экран. содержит игровую логику,
-генерацию предметов, отображение и обработку клавиатуры */ 
+/* Основной игровой экран. содержит игровую логику, отображение и обработку клавиатуры */
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
@@ -63,7 +62,7 @@ public class PlayScreen implements Screen {
 			}
 		}
 
-		//damag out
+		//damage out
 		if (player.def>1) {
 			terminal.write("DMG: ", 0, 32, Color.green);
 			terminal.write(Integer.toString(player.dmg), 5, 32, Color.green);
@@ -73,11 +72,11 @@ public class PlayScreen implements Screen {
 			terminal.write(Integer.toString(player.dmg), 5, 31, Color.green);
 		}
 
-		terminal.write("Level", 0, 32, Color.green);
-		terminal.write(Integer.toString(player.level), 6, 32, Color.green);
+		terminal.write("Level", 75, 30, Color.green);
+		terminal.write(Integer.toString(player.level), 81, 30, Color.green);
 
-		terminal.write("Honor", 0, 33, Color.green);
-		terminal.write(Integer.toString(player.honor), 6, 33, Color.green);
+		terminal.write("Honor", 75, 31, Color.green);
+		terminal.write(Integer.toString(player.honor), 81, 31, Color.green);
 
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)

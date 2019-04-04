@@ -6,9 +6,7 @@ import java.util.List;
 //Экран выбрасывания предметов
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
-import kerbin.items.Armor;
 import kerbin.items.Item;
-import kerbin.items.Weapon;
 
 public class DropScreen extends InventoryScreen implements Screen{
     private String msg;

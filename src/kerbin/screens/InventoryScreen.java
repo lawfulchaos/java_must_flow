@@ -3,7 +3,7 @@ package kerbin.screens;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Set;
-//Базовый класс инвентаря, выводит предметы TODO Крафт(?), разнообразие
+//Базовый класс инвентаря, выводит предметы TODO Крафт(?)
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
 import kerbin.items.Armor;

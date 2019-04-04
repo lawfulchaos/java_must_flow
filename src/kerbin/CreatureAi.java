@@ -132,7 +132,10 @@ public class CreatureAi {
         //если умер аутист
         if (c.hp <= 0) {
             creature.getWorld().creatures.remove(c);
-
+            //Лут, временно закомменчен, чтобы не засорять инвентарь TODO: Придумать, что делать с лутом
+            /*if (Math.random() > 0.8) creature.getWorld().tile(c.x, c.y).item = c.weapon;
+            else if (Math.random()>0.8) creature.getWorld().tile(c.x, c.y).item = c.armor;
+            */
             switch (c.name){
                 case("mouse"):{
                     creature.honor = creature.honor + 20;

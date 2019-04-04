@@ -10,10 +10,10 @@ public class PreScreen implements Screen {
     @Override
     public void displayOutput(AsciiPanel terminal) {
 
-        terminal.writeCenter("So long time ago, when our team lead was a child",4);
-        terminal.writeCenter("ancient dungeons of MGUPI were pretty decent and simply.",5);
-        terminal.writeCenter("But time is continued",10);
-        terminal.writeCenter("One time he came.... And he doesn't like what he saw",37);
+        terminal.writeCenter("Long, long time ago, when our team lead was a child",4);
+        terminal.writeCenter("ancient dungeons of MGUPI were pretty decent and simple.",5);
+        terminal.writeCenter("But time goes on",10);
+        terminal.writeCenter("Once he came.... And he didn't like what he saw",37);
     }
 
     @Override

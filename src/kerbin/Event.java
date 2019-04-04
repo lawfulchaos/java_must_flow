@@ -1,6 +1,8 @@
 package kerbin;
 //Синглтон-сообщение для вывода в ХУДе, генерируются действиями ИИ нпс и игрока, имеют срок жизни, цвет и приоритет (больше - важнее)
-import java.awt.Color;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Event {
     private static Event instance;
@@ -25,6 +27,9 @@ public class Event {
     private int priority;
     private int lifetime;
     private Color color;
+    // Журнал сообщений
+    private Map<String, Color> msgs = new HashMap<>();
+    public Map<String, Color> getMsgs() {return msgs;}
 
     private Event () {};
 
@@ -34,6 +39,7 @@ public class Event {
         this.priority = priority;
         this.lifetime = lifetime;
         this.color = color;
+        msgs.put(msg, color);
     }
 
     public static Event getInstance() {
