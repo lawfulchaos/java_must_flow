@@ -15,6 +15,8 @@ public class Creature {
 
     public int x;
     public int y;
+    public int level=1;
+    public int honor=0;
     public String name;
     public CreatureAi ai;
     public List<Item> inv;
