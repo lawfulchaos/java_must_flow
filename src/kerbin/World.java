@@ -38,6 +38,8 @@ public class World {
 			creatures.add(mouse);
 			Creature skeleton = creatureFactory.newSkeleton();
 			creatures.add(skeleton);
+			/*Creature mob = creatureFactory.newMob();
+			creatures.add(mob);*/
 		}
 		for (int j = 0; j < 3; j++) {
 			if (Math.random() > 0.5) itemFactory.newBattleaxe(null);

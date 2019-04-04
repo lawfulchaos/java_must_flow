@@ -22,7 +22,7 @@ public class CreatureAi {
         /*int mx = ThreadLocalRandom.current().nextInt(-1, 2);
         int my = ThreadLocalRandom.current().nextInt(-1, 2);
         this.creature.moveBy(mx, my);*/
-        if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 2) <= creature.radius) {
+        if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) <= creature.radius) {
             int mx, my;
             boolean isMoved = false;
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
@@ -153,6 +153,9 @@ public class CreatureAi {
                     creature.honor = creature.honor + 20;
                 }
                 case("skeleton"):{
+                    creature.honor = creature.honor + 15;
+                }
+                case("mob"):{
                     creature.honor = creature.honor + 10;
                 }
 
