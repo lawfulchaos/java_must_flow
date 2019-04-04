@@ -9,11 +9,11 @@ public class SkeletonAi extends CreatureAi {
     public SkeletonAi(Creature creature) {
         super(creature);
     }
-    public void onTurn(Creature player) {
+    /*public void onTurn(Creature player) {
         int mx = ThreadLocalRandom.current().nextInt(-1, 2);
         int my = ThreadLocalRandom.current().nextInt(-1, 2);
         this.creature.moveBy(mx, my);
-    }
+    }*/
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);

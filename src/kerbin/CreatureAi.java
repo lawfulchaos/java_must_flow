@@ -22,76 +22,88 @@ public class CreatureAi {
         /*int mx = ThreadLocalRandom.current().nextInt(-1, 2);
         int my = ThreadLocalRandom.current().nextInt(-1, 2);
         this.creature.moveBy(mx, my);*/
-        int mx, my;
-        boolean isMoved = false;
-        if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
-            mx = -1;
-            my = -1;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
+        if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 2) <= creature.radius) {
+            int mx, my;
+            boolean isMoved = false;
+            if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
+                mx = -1;
+                my = -1;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
             }
-        }
 
-        if (creature.x - player.x < 0 && creature.y - player.y < 0 && !isMoved) { //мышь слева снизу от игрока
-            mx = 1;
-            my = 1;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
+            if (creature.x - player.x < 0 && creature.y - player.y < 0 && !isMoved) { //мышь слева снизу от игрока
+                mx = 1;
+                my = 1;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
             }
-        }
 
-        if (creature.x - player.x > 0 && creature.y - player.y < 0 && !isMoved) { //мышь справа снизу от игрока
-            mx = -1;
-            my = 1;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
+            if (creature.x - player.x > 0 && creature.y - player.y < 0 && !isMoved) { //мышь справа снизу от игрока
+                mx = -1;
+                my = 1;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
             }
-        }
 
-        if (creature.x - player.x < 0 && creature.y - player.y > 0 && !isMoved) { //мышь слева сверху от игрока
-            mx = 1;
-            my = -1;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+            if (creature.x - player.x < 0 && creature.y - player.y > 0 && !isMoved) { //мышь слева сверху от игрока
+                mx = 1;
+                my = -1;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
+            }
+            if (creature.x - player.x == 0 && creature.y - player.y > 0 && !isMoved) { //мышь ровно сверху от игрока
+                mx = 0;
+                my = -1;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
+            }
+            if (creature.x - player.x == 0 && creature.y - player.y < 0 && !isMoved) { //мышь ровно снизу от игрока
+                mx = 0;
+                my = 1;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
+            }
+            if (creature.x - player.x > 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно справа от игрока
+                mx = -1;
+                my = 0;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
+            }
+            if (creature.x - player.x < 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно слева от игрока
+                mx = 1;
+                my = 0;
+                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    this.creature.moveBy(mx, my);
+                    isMoved = true;
+                }
+            }
+            if (!isMoved) {
+                mx = ThreadLocalRandom.current().nextInt(-1, 2);
+                my = ThreadLocalRandom.current().nextInt(-1, 2);
+                while (!creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+                    mx = ThreadLocalRandom.current().nextInt(-1, 2);
+                    my = ThreadLocalRandom.current().nextInt(-1, 2);
+                }
                 this.creature.moveBy(mx, my);
-                isMoved = true;
             }
         }
-        if (creature.x - player.x == 0 && creature.y - player.y > 0 && !isMoved) { //мышь ровно сверху от игрока
-            mx = 0;
-            my = -1;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
-            }
-        }
-        if (creature.x - player.x == 0 && creature.y - player.y < 0 && !isMoved) { //мышь ровно снизу от игрока
-            mx = 0;
-            my = 1;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
-            }
-        }
-        if (creature.x - player.x > 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно справа от игрока
-            mx = -1;
-            my = 0;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
-            }
-        }
-        if (creature.x - player.x < 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно слева от игрока
-            mx = 1;
-            my = 0;
-            if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                this.creature.moveBy(mx, my);
-                isMoved = true;
-            }
-        }
-        if (!isMoved) {
+        else {
+            int mx,my;
             mx = ThreadLocalRandom.current().nextInt(-1, 2);
             my = ThreadLocalRandom.current().nextInt(-1, 2);
             while (!creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
