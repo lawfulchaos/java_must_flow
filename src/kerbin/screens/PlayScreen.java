@@ -25,7 +25,7 @@ public class PlayScreen implements Screen {
 		ItemFactory itemFactory = new ItemFactory(world);
 		player = creatureFactory.newPlayer();
 		world.player = player;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 0; i++) {
 			Creature mouse = creatureFactory.newMouse();
 			world.creatures.add(mouse);
 			Creature skeleton = creatureFactory.newSkeleton();
@@ -46,6 +46,8 @@ public class PlayScreen implements Screen {
     {
         this.player = player;
         world.player = player;
+        player.setWorld(world);
+        world.addAtEmptyLocation(player);
     }
 	private void createWorld(){
 		world = new WorldBuilder(90, 32).build();

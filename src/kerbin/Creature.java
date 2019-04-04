@@ -30,7 +30,10 @@ public class Creature {
     public Armor armor;
     public Weapon weapon;
     public char glyph() { return glyph; }
-
+    public void setWorld(World world)
+    {
+        this.world=world;
+    }
     private Color color;
     public Color color() { return color; }
 
