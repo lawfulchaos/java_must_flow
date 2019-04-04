@@ -130,6 +130,17 @@ public class CreatureAi {
         //если умер аутист
         if (c.hp <= 0) {
             creature.getWorld().creatures.remove(c);
+
+            switch (c.name){
+                case("mouse"):{
+                    creature.honor = creature.honor + 20;
+                }
+                case("skeleton"):{
+                    creature.honor = creature.honor + 10;
+                }
+
+            }
+
             Event.getInstance()
                     .init(String.format("Congrats, warrior, you have killed a %s! %s %s",c.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
         }
