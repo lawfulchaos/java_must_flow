@@ -30,6 +30,7 @@ public class Creature {
     public int def;
     public Armor armor;
     public Weapon weapon;
+    public int radius;
     public char glyph() { return glyph; }
     public void setWorld(World world)
     {
@@ -38,7 +39,7 @@ public class Creature {
     private Color color;
     public Color color() { return color; }
 
-    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp){
+    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp, int radius){
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -50,6 +51,7 @@ public class Creature {
         this.weapon = null;
         this.armor = null;
         this.max_hp=max_hp;
+        this.radius=radius;
     }
     public void setWeapon(Weapon weapon)
     {
