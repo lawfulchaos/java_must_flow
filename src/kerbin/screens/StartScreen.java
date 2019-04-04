@@ -19,13 +19,8 @@ public class StartScreen implements Screen {
 		terminal.write("WASD or arrows to move", 1,12);
 		terminal.write("ENTER on # to load next level", 1,13);
 
-
-
 		terminal.write("I to open inventory", 1,14);
-		terminal.write("U in inventory to use item, W to equip item", 1,15);
-
-
-
+		terminal.write("U in inventory to use item, W to equip item, D to drop", 1,15);
 
 		terminal.writeCenter("-- press [enter] to next --", 37);
 	}

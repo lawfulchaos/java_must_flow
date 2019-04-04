@@ -11,5 +11,6 @@ public class Armor extends Item{
     {
         super(glyph, color, name, owner, isEquipable, desc);
         this.def = def;
+        if (modifier != null) this.def += (Integer) modifier[2]*2;
     }
 }

@@ -2,10 +2,13 @@ package kerbin.screens;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 //Базовый класс инвентаря, выводит предметы TODO Крафт(?), разнообразие
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
+import kerbin.items.Armor;
 import kerbin.items.Item;
+import kerbin.items.Usable;
 import kerbin.items.Weapon;
 
 public class InventoryScreen implements Screen {
@@ -28,8 +31,26 @@ public class InventoryScreen implements Screen {
         terminal.write("Equipped: ", 55, 1, Color.WHITE);
         terminal.write("Weapon: ", 55, 3);
         terminal.write("Armor: ", 55, 4);
-        if (player.weapon != null) terminal.write(player.weapon.name(), 65, 3);
-        if (player.armor != null) terminal.write(player.armor.name(), 65, 4);
+        if (player.weapon != null)
+        {
+            int wx = 65;
+            if (player.weapon.modifier != null) {
+                String modifier = (String) player.weapon.modifier[0];
+                terminal.write(modifier, wx, 3, (Color) player.weapon.modifier[1]);
+                wx += modifier.length() + 1;
+            }
+            terminal.write(player.weapon.name(), wx, 3);
+        }
+        if (player.armor != null)
+        {
+            int wx = 65;
+            if (player.armor.modifier != null) {
+                String modifier = (String) player.armor.modifier[0];
+                terminal.write(modifier, wx, 4, (Color) player.armor.modifier[1]);
+                wx += modifier.length() + 1;
+            }
+            terminal.write(player.armor.name(), wx, 4);
+        }
         terminal.write("Description: ", 55, 8, Color.WHITE);
     }
     @Override
@@ -55,24 +76,42 @@ public class InventoryScreen implements Screen {
     //Отображение предмета, используется в наследниках
     public void showItem(AsciiPanel terminal, Item it, int ix, int iy)
     {
-        if (this.i==chosen)
-        {
+        if (this.i==chosen) {
             terminal.write("> ", ix - 4, iy, Color.WHITE);
-            switch (it.glyph()) {
-                case '!':
-                    terminal.write("dmg = 10", 55, 10);
-                    break;
-                case (127):
-                    terminal.write("def = 10", 55, 10);
-                    break;
-                case '+':
-
-                    terminal.write("heal = ", 55, 10);
-                    break;
+            if (it instanceof Weapon) {
+                terminal.write("DMG:", 55, 10, Color.WHITE);
+                if (it.modifier != null && it.modifier[0] == "Cursed" && it.name() == "Battleaxe")
+                {
+                    terminal.write("HP: ", 65, 10, Color.WHITE);
+                    terminal.write("-50", 69, 10, Color.RED);
+                }
+                terminal.write(((Weapon) it).dmg + "", 60, 10, Color.GREEN);
+            } else if (it instanceof Armor) {
+                terminal.write("DEF:", 55, 10, Color.WHITE);
+                terminal.write(((Armor) it).def + "", 60, 10, Color.BLUE);
+            } else if (it instanceof Usable) {
+                terminal.write("HP: ", 55, 10, Color.WHITE);
+                terminal.write(((Usable) it).effect + "", 60, 10, Color.RED);
             }
-            terminal.write(it.desc, 55, 12);
+            //разбирваем на слова и проверяем длину описания, если больше экрана - переносим
+            String[] description = it.desc.split(" ");
+            int y = 11;
+            int x = 55;
+            for (String word : description) {
+                if (x + word.length() >= 89) {
+                    y++;
+                    x = 55;
+                }
+                terminal.write(word, x, y);
+                x += word.length()+1;
+            }
         }
         terminal.write(alphabet[this.i] + ":  ", ix - 2, iy);
+        if (it.modifier != null) {
+            String modifier = (String) it.modifier[0];
+            terminal.write(modifier, ix, iy, (Color) it.modifier[1]);
+            ix+=modifier.length()+1;
+        }
         terminal.write(it.name(), ix, iy);
     }
 
@@ -86,6 +125,8 @@ public class InventoryScreen implements Screen {
                 return new EquipScreen(player);
             case KeyEvent.VK_U:
                 return new UseScreen(player);
+            case KeyEvent.VK_D:
+                return new DropScreen(player);
             case KeyEvent.VK_DOWN:
                 if (chosen < i-1) chosen+=1;
                 break;

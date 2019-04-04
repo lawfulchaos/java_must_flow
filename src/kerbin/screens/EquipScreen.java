@@ -40,8 +40,8 @@ public class EquipScreen extends InventoryScreen implements Screen{
             }
         }
 
-        terminal.clear(' ', 0, 23, 80, 1);
-        terminal.write(msg, 0, 22, AsciiPanel.brightGreen);
+        terminal.clear(' ', 0, 38, 80, 1);
+        terminal.write(msg, 0, 39, AsciiPanel.brightGreen);
         terminal.repaint();
     }
 
@@ -64,13 +64,17 @@ public class EquipScreen extends InventoryScreen implements Screen{
         {
             player.setWeapon((Weapon)Equipable);
             player.inv.remove(Equipable);
-            msg = String.format("You took a %s in hands", Equipable.name());
+            if (Equipable.modifier != null)
+                msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());
+            else msg = String.format("You took a %s in hands", Equipable.name());
+
         }
         else if (Equipable instanceof Armor)
         {
             player.setArmor((Armor)Equipable);
             player.inv.remove(Equipable);
-            msg = String.format("You now wear %s", Equipable.name());
+            if (Equipable.modifier != null) msg = String.format("You now wear %s %s", Equipable.modifier[0], Equipable.name());
+            else  msg = String.format("You now wear %s", Equipable.name());
         }
     }
 
@@ -93,6 +97,7 @@ public class EquipScreen extends InventoryScreen implements Screen{
                 if (player.inv.size() > 0)
                 {
                     c_string = alph_short.get(chosen);
+                    if (chosen > 0) chosen-=1;
                 }
                 break;
         }

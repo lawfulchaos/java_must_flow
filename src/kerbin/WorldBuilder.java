@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WorldBuilder {
-    int ROOM_MAX_SIZE = 10;
-    int ROOM_MIN_SIZE = 6;
-    int MAX_ROOMS = 20;
+    int ROOM_MAX_SIZE = 12;
+    int ROOM_MIN_SIZE = 5;
+    int MAX_ROOMS = 25;
     private int width;
     private int height;
     TileFactory tileFactory;

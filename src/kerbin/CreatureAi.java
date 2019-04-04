@@ -109,6 +109,7 @@ public class CreatureAi {
         if(c.def<=damage){
             damage-=c.def;
             c.def=0;
+            creature.armor = null;
         }
         else{
             int x=damage;
@@ -120,6 +121,7 @@ public class CreatureAi {
         if(creature.def<=damage){
             damage-=creature.def;
             creature.def=0;
+            creature.armor = null;
         }
         else{
             int x=damage;

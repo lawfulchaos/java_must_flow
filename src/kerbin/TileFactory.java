@@ -9,19 +9,19 @@ public class TileFactory {
     }
 
     public Tile newWall(){
-        return new Tile((char)177, AsciiPanel.yellow, false);
+        return new Tile((char)177, AsciiPanel.yellow, false, false);
     }
     public Tile newStairs(){
-        return new Tile('#', AsciiPanel.yellow, true);
+        return new Tile('#', AsciiPanel.yellow, true, true);
     }
     public Tile newTeleport(){
-        return new Tile('O', AsciiPanel.yellow, true);
+        return new Tile('O', AsciiPanel.yellow, true, true);
     }
     public Tile newFloor(){
-        return new Tile((char)250, AsciiPanel.yellow, true);
+        return new Tile((char)250, AsciiPanel.yellow, true, false);
     }
 // Границы поля
     public Tile newBound(){
-        return new Tile('x', AsciiPanel.brightBlack, false);
+        return new Tile('x', AsciiPanel.brightBlack, false, false);
     }
 }

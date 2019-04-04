@@ -6,40 +6,18 @@ import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import kerbin.*;
 import kerbin.Event;
-import kerbin.items.Item;
-import kerbin.items.ItemFactory;
-
 public class PlayScreen implements Screen {
 	private World world;
 	public Creature player;
 	private int screenWidth;
 	private int screenHeight;
 	private Screen subscreen;
-	/* Генерация нового экрана и добавление предметов/мобов */
+	/* Генерация нового экрана и добавление игрока в CreateWorld*/
 	public PlayScreen(){
 		screenWidth = 90;
 		screenHeight = 30;
 		createWorld();
-		Event.getInstance().init("You playing now MGUPI Roguelike", 0, -1, AsciiPanel.brightWhite);
-		CreatureFactory creatureFactory = new CreatureFactory(world);
-		ItemFactory itemFactory = new ItemFactory(world);
-		player = creatureFactory.newPlayer();
-		world.player = player;
-		for (int i = 0; i < 4; i++) {
-			Creature mouse = creatureFactory.newMouse();
-			world.creatures.add(mouse);
-			Creature skeleton = creatureFactory.newSkeleton();
-			world.creatures.add(skeleton);
-		}
-		for (int j = 0; j < 4; j++) {
-			itemFactory.newWeapon(null);
-		}
-		for (int j = 0; j < 4; j++) {
-			itemFactory.newHeal(null);
-		}
-		for (int j = 0; j < 4; j++) {
-			itemFactory.newArmor(null);
-		}
+		Event.getInstance().init("You are playing WORK now", 0, -1, AsciiPanel.brightWhite);
 	}
 
 	public void setPlayer(Creature player)
@@ -49,8 +27,10 @@ public class PlayScreen implements Screen {
         player.setWorld(world);
         world.addAtEmptyLocation(player);
     }
+	//Создает мир, внутри мира генерируются мобы и игрок
 	private void createWorld(){
 		world = new WorldBuilder(90, 32).build();
+		player = world.player;
 	}
 // Сдвиг экрана при движении игрока
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }

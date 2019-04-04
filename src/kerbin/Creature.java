@@ -59,7 +59,10 @@ public class Creature {
             inv.add(this.weapon);
         }
         this.weapon = weapon;
+        if (weapon.modifier != null && weapon.modifier[0] == "Cursed" && weapon.name() == "Battleaxe")
+            hp -= 50;
         this.dmg += weapon.dmg;
+        if (this.dmg < 0) this.dmg = 0;
     }
     public void setArmor(Armor armor)
     {
@@ -71,6 +74,7 @@ public class Creature {
         }
         this.armor = armor;
         this.def += armor.def;
+        if (this.def < 0) this.def = 0;
     }
 //Движение, реакция на смещение обрабатывается AI
     public void moveBy(int mx, int my){

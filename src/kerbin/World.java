@@ -1,6 +1,7 @@
 package kerbin;
 //Общий класс мира
 import kerbin.items.Item;
+import kerbin.items.ItemFactory;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -24,6 +25,34 @@ public class World {
 		this.height = tiles[0].length;
 		this.creatures = new ArrayList();
 		this.tileFactory = new TileFactory();
+		populateWorld();
+	}
+	//Создает мобов и предметы
+	public void populateWorld()
+	{
+		CreatureFactory creatureFactory = new CreatureFactory(this);
+		ItemFactory itemFactory = new ItemFactory(this);
+		this.player = creatureFactory.newPlayer();
+		for (int i = 0; i < 4; i++) {
+			Creature mouse = creatureFactory.newMouse();
+			creatures.add(mouse);
+			Creature skeleton = creatureFactory.newSkeleton();
+			creatures.add(skeleton);
+		}
+		for (int j = 0; j < 3; j++) {
+			if (Math.random() > 0.5) itemFactory.newBattleaxe(null);
+			else itemFactory.newSword(null);
+		}
+		for (int j = 0; j < 3; j++) {
+			itemFactory.newHeal(null);
+		}
+		for (int j = 0; j < 1; j++) {
+			itemFactory.newTeleport(null);
+		}
+		for (int j = 0; j < 2; j++) {
+			if (Math.random() > 0.5) itemFactory.newPlate(null);
+			else itemFactory.newMail(null);
+		}
 	}
 //Возращает тайл по заданным коордам. Semi-deprecated
 	public Tile tile(int x, int y){
@@ -57,12 +86,11 @@ public class World {
 	public void addAtEmptyLocation(Item i){
 		int x;
 		int y;
-
 		do {
 			x = (int)(Math.random() * width);
 			y = (int)(Math.random() * height);
 		}
-		while (!tile(x,y).isGround() || item(x,y)!=null);
+		while (!tile(x,y).isGround() || item(x,y)!=null && !tile(x,y).isUtil);
 
 		tiles[x][y].item = i;
 	}

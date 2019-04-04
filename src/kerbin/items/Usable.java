@@ -11,10 +11,28 @@ public class Usable extends Item{
     {
         super(glyph, color, name, owner, isEquipable, desc);
         this.effect = effect;
+        if (modifier != null)
+        {
+            this.effect += (Integer) modifier[2] * 3;
+            if (modifier[0] == "Cursed") this.desc = "Glows viciously" + " " + desc.split(" ")[1];
+        }
     }
-    public void use()
-    {
-        this.owner().hp += effect;
-        this.owner().inv.remove(this);
+    //Использование предмета. Возвращает сообщение
+    public String use() {
+        if (name() == "Heal potion") {
+            this.owner().hp += effect;
+            if (owner().hp > 100) owner().hp = 100;
+            this.owner().inv.remove(this);
+            return String.format("You used a %s, now you have %d HP", name(), owner.hp);
+        }
+        else if (name() == "Teleport potion")
+        {
+            owner.hp += effect;
+            if (owner().hp > 100) owner().hp = 100;
+            owner.getWorld().addAtEmptyLocation(owner);
+            this.owner().inv.remove(this);
+            return String.format("You used a %s, teleporting away, now you have %d HP", name(), owner.hp);
+        }
+        return "You use unknown magic";
     }
 }

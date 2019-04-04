@@ -18,7 +18,9 @@ public class PlayerAi extends CreatureAi {
                 tile.item.owner = creature;
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority())
-                    Event.getInstance().init(String.format("You picked up a %s", tile.item.name()), 2, 6, AsciiPanel.brightWhite);
+                    if (tile.item.modifier != null)
+                        Event.getInstance().init(String.format("You picked up a %s %s", tile.item.modifier[0], tile.item.name()), 2, 6, AsciiPanel.brightWhite);
+                    else Event.getInstance().init(String.format("You picked up a %s", tile.item.name()), 2, 6, AsciiPanel.brightWhite);
                 tile.item = null;
             }
             Creature c = creature.getWorld().creature(x,y);
