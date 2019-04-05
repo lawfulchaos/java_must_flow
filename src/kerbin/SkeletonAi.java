@@ -28,6 +28,7 @@ public class SkeletonAi extends CreatureAi {
                 my = -1;
                 if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
                     this.creature.moveBy(mx, my);
+
                     isMoved = true;
                 }
             }

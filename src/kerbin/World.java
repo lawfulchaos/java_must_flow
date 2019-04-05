@@ -17,6 +17,7 @@ public class World {
 	public int height() { return height; }
 	public TileFactory tileFactory;
 	public List<Creature> creatures;
+	public List<Projectile> projectiles;
 
 	public World(Tile[][] tiles){
 		this.tiles = tiles;
@@ -24,6 +25,7 @@ public class World {
 		this.width = tiles.length;
 		this.height = tiles[0].length;
 		this.creatures = new ArrayList();
+		this.projectiles = new ArrayList();
 		this.tileFactory = new TileFactory();
 		populateWorld();
 	}
