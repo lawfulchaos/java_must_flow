@@ -14,8 +14,10 @@ public class Creature {
     private World world;
     public int x;
     public int y;
-    public int level=1;
-    public int honor=0;
+    public int level=1; // счетчик уровня
+    public int honor=0; // опыт героя
+    public int player_level = 1; // уровень героя
+    public int max_honor = 50; // экспа для перехода на следующий лвл
     public String name;
     public CreatureAi ai;
     public List<Item> inv;

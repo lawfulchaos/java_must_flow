@@ -151,14 +151,22 @@ public class CreatureAi {
             switch (c.name){
                 case("mouse"):{
                     creature.honor = creature.honor + 20;
+                    break;
                 }
                 case("skeleton"):{
                     creature.honor = creature.honor + 15;
+                    break;
                 }
                 case("mob"):{
                     creature.honor = creature.honor + 10;
+                    break;
                 }
 
+            }
+
+            if(creature.honor >= creature.max_honor){
+                creature.player_level++;
+                creature.max_honor= creature.max_honor*2;
             }
 
             Event.getInstance()

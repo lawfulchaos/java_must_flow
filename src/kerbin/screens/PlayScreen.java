@@ -72,11 +72,16 @@ public class PlayScreen implements Screen {
 			terminal.write(Integer.toString(player.dmg), 5, 31, Color.green);
 		}
 
-		terminal.write("Level", 75, 30, Color.green);
-		terminal.write(Integer.toString(player.level), 81, 30, Color.green);
+		terminal.write("Map", 70, 30, Color.green);
+		terminal.write(Integer.toString(player.level), 83, 30, Color.green);
 
-		terminal.write("Honor", 75, 31, Color.green);
-		terminal.write(Integer.toString(player.honor), 81, 31, Color.green);
+		terminal.write("Player level", 70, 31, Color.green);
+		terminal.write(Integer.toString(player.player_level ), 83, 31, Color.green);
+
+		terminal.write("Honor", 70, 32, Color.green);
+		terminal.write(Integer.toString(player.honor ), 81, 32, Color.green);
+		terminal.write("/", 83, 32, Color.green);
+		terminal.write(Integer.toString(player.max_honor ), 85, 32, Color.green);
 
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
