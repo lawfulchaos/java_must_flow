@@ -121,26 +121,26 @@ public class CreatureAi {
         if(c.def<=damage){
             damage-=c.def;
             c.def=0;
-            creature.armor = null;
+            c.armor = null;
+            c.hp -= damage - c.def;
         }
         else{
             int x=damage;
-            damage-=c.def;
+            damage=0;
             c.def-=x;
         }
-        c.hp -= damage - c.def;
         damage=c.dmg;
         if(creature.def<=damage){
             damage-=creature.def;
             creature.def=0;
             creature.armor = null;
+            creature.hp-=damage - creature.def;
         }
         else{
             int x=damage;
-            damage-=creature.def;
+            damage=0;
             creature.def-=x;
         }
-        creature.hp-=c.dmg - creature.def;
         //если умер аутист
         if (c.hp <= 0) {
             creature.getWorld().creatures.remove(c);
@@ -170,7 +170,7 @@ public class CreatureAi {
             }
 
             Event.getInstance()
-                    .init(String.format("Congrats, warrior, you have killed a %s! %s %s",c.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
+                    .init(String.format("A %s was killed! %s %s",c.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
         }
     }
 

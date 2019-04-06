@@ -16,7 +16,7 @@ public class MouseAi extends CreatureAi {
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority()) {
                     Event.getInstance()
-                            .init(String.format("%s: You`ve been attacked by mouse", c.name), priority, 3, AsciiPanel.brightWhite);
+                            .init(String.format("%s: You`ve been attacked by mouse, %s, %s", c.name, creature.hp, creature.dmg), priority, 3, AsciiPanel.brightWhite);
                 }
                 super.battle(c);
                 super.teleport(tile);
