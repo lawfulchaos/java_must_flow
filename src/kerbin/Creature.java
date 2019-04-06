@@ -30,6 +30,7 @@ public class Creature {
     //дамаг существ
     public int dmg;
     public int def;
+    public int startdef;
     public Armor armor;
     public Weapon weapon;
     public int radius;
@@ -76,10 +77,13 @@ public class Creature {
             this.def -= this.armor.def;
             if (this.def < 0) this.def = 0;
             inv.add(this.armor);
+            this.startdef=this.armor.startdef;
+
         }
         this.armor = armor;
         this.def += armor.def;
         if (this.def < 0) this.def = 0;
+        this.startdef=this.armor.startdef;
     }
 //Движение, реакция на смещение обрабатывается AI
     public void moveBy(int mx, int my){
