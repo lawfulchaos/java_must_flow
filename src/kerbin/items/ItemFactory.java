@@ -14,7 +14,7 @@ public class ItemFactory {
 
     //оружие, броня для игрока
     public Weapon newSword(Creature owner){
-        Weapon weapon = new Weapon('!', AsciiPanel.green, "Sword", owner, 4, true, "stick them with the pointy end");
+        Weapon weapon = new Weapon('!', AsciiPanel.green, "Sword", owner, 4, true, "Stick them with the pointy end");
         if (owner == null) world.addAtEmptyLocation(weapon);
         return weapon;
     }

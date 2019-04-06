@@ -55,13 +55,14 @@ public class PlayScreen implements Screen {
 		// DEF out
 		if (player.def>1) {
 			terminal.write("DEF: ", 0, 31, Color.green);
-			for (int k = 0; k < 10; k++) {
+			for (int k=0;k<player.armor.startdef;k++)
+			{
 				if (k >= (player.def))
 					terminal.write((char) 150, 5 + k, 31, Color.red);
 				else terminal.write((char) 150, 5 + k, 31, Color.blue);
 			}
 		}
-
+		
 		//damage out
 		if (player.def>1) {
 			terminal.write("DMG: ", 0, 32, Color.green);
