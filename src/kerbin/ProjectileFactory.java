@@ -10,17 +10,11 @@ public class ProjectileFactory {
         this.world = world;
     }
 
-    /*public Projectile newBullet(int x, int y) {
-        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 3,3);
-
+    public Projectile newBullet(int x, int y) {
+        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 3,3,0,0);
+        new ProjectileAi();
         return bullet;
-        if (world.tile(bullet.x, bullet.y).isGround()) {
-            if (world.creature(bullet.x, bullet.y).name=="player") {
-                world.creature(bullet.x, bullet.y).hp -= bullet.dmg;
-                projectile.getWorld().creatures.remove(c);
-            }
-            //else
-        }
-    }*/
+
+    }
 
 }

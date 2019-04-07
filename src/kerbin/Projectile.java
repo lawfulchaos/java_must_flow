@@ -14,6 +14,8 @@ public class Projectile {
         public int y;
         public int my;
         public int dmg;
+        public int vectorx;
+        public int vectory;
         private char glyph;
         public String name;
 
@@ -26,7 +28,7 @@ public class Projectile {
             return color;
         }
 
-    public Projectile(World world, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my){
+    public Projectile(World world, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my, int vectorx, int vectory){
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -36,5 +38,7 @@ public class Projectile {
         this.y = y;
         this.mx = mx;
         this.my = my;
+        this.vectorx=vectorx;
+        this.vectory=vectory;
     }
 }

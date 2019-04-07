@@ -23,13 +23,18 @@ public class SkeletonAi extends CreatureAi {
         else{
             int mx, my;
             boolean isMoved = false;
+            boolean isVisible = false;//используется для проверки, находится ли игрок в прямой видимости скелета
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
                 mx = -1;
                 my = -1;
                 if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
                     this.creature.moveBy(mx, my);
-
                     isMoved = true;
+                    /*while(!isVisible){
+                        if(creature.getWorld().tile(creature.x + i, creature.y + i).){
+
+                        }
+                    }*/
                 }
             }
 
