@@ -9,11 +9,11 @@ public class ProjectileAi {
     }
     public void onTurn(World world){
         boolean isHit=false;
-        for (int i =1; i<=5; i++){
-            if (!world.tile(bullet.x+i*bullet.vectorx, bullet.y+i*bullet.vectory).isGround()){
-                isHit=true;
-                bullet.mx+=i*bullet.vectorx;
-                bullet.my+=i*bullet.vectory;
+        for (int i =1; i<=3; i++){
+            if (!world.tile(bullet.x+bullet.mx, bullet.y+bullet.my).isGround()) {
+                isHit = true;
+                bullet.mx = i * bullet.vectorx;
+                bullet.my = i * bullet.vectory;
                 break;
             }
         }

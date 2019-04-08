@@ -16,7 +16,7 @@ public class MobAi extends CreatureAi {
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);
-            if (c != null && c.name != "skeleton" && c.name != "mouse" && c.name != "mouse") {
+            if (c != null && c.name != "skeleton" && c.name != "mouse" && c.name != "mob") {
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority()) {
                     Event.getInstance()

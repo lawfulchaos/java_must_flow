@@ -11,7 +11,7 @@ public class ProjectileFactory {
     }
 
     public Projectile newBullet(int x, int y, int vectorx, int vectory) {
-        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 3, 3,vectorx,vectory);
+        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 1, 1,vectorx,vectory);
         bullet.ai = new ProjectileAi(bullet);
         return bullet;
 

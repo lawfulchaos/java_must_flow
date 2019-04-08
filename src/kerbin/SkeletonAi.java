@@ -27,7 +27,7 @@ public class SkeletonAi extends CreatureAi {
                     isVisible=false;
                 }
             }
-            if(isVisible) creature.getWorld().projectileFactory.newBullet(creature.x, creature.y, mx, my);
+            if(isVisible) creature.getWorld().projectileFactory.newBullet(creature.x+mx, creature.y+my, mx, my);
         }
         return isMoved;
     }
@@ -41,7 +41,6 @@ public class SkeletonAi extends CreatureAi {
         else{
             int mx, my;
             boolean isMoved = false;
-            boolean isVisible = false;//используется для проверки, находится ли игрок в прямой видимости скелета
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
                 mx = -1;
                 my = -1;
