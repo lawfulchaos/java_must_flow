@@ -45,29 +45,32 @@ public class PlayScreen implements Screen {
 		displayTiles(terminal, left, top);
 
 		//Шмат хпшки
-		terminal.write("HP: ",0,30, Color.green);
-		for (int k = 0;k<10;k++)
+		terminal.write((char) 157 +"YOUR HEALTHPOINT"+ (char) 157 ,1,30, Color.green);
+		for (int k = 0;k<20;k++)
 		{
-			if (k>=(player.hp/10))
-			terminal.write((char)254,5+k,30, Color.red);
-			else terminal.write((char)254,5+k,30, Color.green);
+			if (k>=(player.hp/5))
+			terminal.write((char)254,k,31, Color.red);
+			else terminal.write((char)254,k,31, Color.green);
 		}
+		
+
+
 		// DEF out
 		if (player.def>1) {
-			terminal.write("DEF: ", 0, 31, Color.green);
-			terminal.write(Integer.toString(player.def), 6, 31, Color.blue);
-			terminal.write("/",8,31,Color.WHITE);
-			terminal.write(Integer.toString(player.startdef), 9, 31, Color.blue);
+			terminal.write("DEF: ", 0, 33, Color.green);
+			terminal.write(Integer.toString(player.def), 6, 33, Color.blue);
+			terminal.write("/",8,33,Color.WHITE);
+			terminal.write(Integer.toString(player.startdef), 9, 33, Color.blue);
 		}
 
 		//damage out
 		if (player.def>1) {
-			terminal.write("DMG: ", 0, 32, Color.green);
-			terminal.write(Integer.toString(player.dmg), 5, 32, Color.green);
+			terminal.write("DMG: ", 0, 34, Color.green);
+			terminal.write(Integer.toString(player.dmg), 5, 34, Color.green);
 		}
 		else {
-			terminal.write("DMG: ", 0, 31, Color.green);
-			terminal.write(Integer.toString(player.dmg), 5, 31, Color.green);
+			terminal.write("DMG: ", 0, 34, Color.green);
+			terminal.write(Integer.toString(player.dmg), 5, 34, Color.green);
 		}
 
 		terminal.write("Map", 70, 30, Color.green);
