@@ -52,7 +52,7 @@ public class PlayScreen implements Screen {
 			terminal.write((char)254,k,31, Color.red);
 			else terminal.write((char)254,k,31, Color.green);
 		}
-		
+		terminal.write(Integer.toString(player.hp),9,32,Color.green);
 
 
 		// DEF out
