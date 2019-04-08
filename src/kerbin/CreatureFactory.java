@@ -34,7 +34,7 @@ public class CreatureFactory {
         return skeleton;
     }
     public Creature newMob(){
-        Creature mob = new Creature(world, '&', AsciiPanel.black, "mob",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5),11,10);
+        Creature mob = new Creature(world, '&', AsciiPanel.brightCyan, "mob",(int)(1+Math.random()*10),(int)(1+Math.random()*10),(int)(Math.random()*5),11,10);
         mob.setWeapon(itemFactory.newTeeth(mob));
         mob.setArmor(itemFactory.newHide(mob));
         world.addAtEmptyLocation(mob);

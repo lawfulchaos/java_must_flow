@@ -5,7 +5,6 @@ import asciiPanel.AsciiPanel;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SkeletonAi extends CreatureAi {
-
     public SkeletonAi(Creature creature) {
         super(creature);
     }
@@ -14,6 +13,25 @@ public class SkeletonAi extends CreatureAi {
         int my = ThreadLocalRandom.current().nextInt(-1, 2);
         this.creature.moveBy(mx, my);
     }*/
+
+    public boolean sssssssss(int mx, int my, boolean isMoved){
+        if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+            this.creature.moveBy(mx, my);
+            isMoved = true;
+            boolean isVisible=true;
+            for (int i =1; i<=10; i++){
+                if(creature.getWorld().tile(creature.x + i*mx, creature.y + i*my).isGround()&&isVisible){
+                    continue;
+                }
+                else{
+                    isVisible=false;
+                }
+            }
+            if(isVisible) creature.getWorld().projectileFactory.newBullet(creature.x, creature.y, mx, my);
+        }
+        return isMoved;
+    }
+
     public void onTurn(Creature player){
         if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) > creature.radius || Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) < 3){
             int mx = ThreadLocalRandom.current().nextInt(-1, 2);
@@ -27,81 +45,45 @@ public class SkeletonAi extends CreatureAi {
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
                 mx = -1;
                 my = -1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                    for (int i =1; i<=5; i++){
-                        if(creature.getWorld().tile(creature.x + i*mx, creature.y + i*my).isGround()&&!isVisible){
-                            continue;
-                        }
-                        else{
-                            //ProjectileFactory.newBullet(creature.x, creature.y); не понимаю, как загенерить новый буллет
-                            //Projectile bullet = ProjectileFactory.newBullet(creature.x, creature.y); ToDo как блятб загенерить новый буллет? я даже протетсить не могу, помогите дебилу
-                            //bullet.vectorx=mx;
-                            //bullet.vectory=my;
-                            isVisible=true;
-                        }
-                    }
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
 
             if (creature.x - player.x < 0 && creature.y - player.y < 0 && !isMoved) { //мышь слева снизу от игрока
                 mx = 1;
                 my = 1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
 
             if (creature.x - player.x > 0 && creature.y - player.y < 0 && !isMoved) { //мышь справа снизу от игрока
                 mx = -1;
                 my = 1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
 
             if (creature.x - player.x < 0 && creature.y - player.y > 0 && !isMoved) { //мышь слева сверху от игрока
                 mx = 1;
                 my = -1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
             if (creature.x - player.x == 0 && creature.y - player.y > 0 && !isMoved) { //мышь ровно сверху от игрока
                 mx = 0;
                 my = -1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
             if (creature.x - player.x == 0 && creature.y - player.y < 0 && !isMoved) { //мышь ровно снизу от игрока
                 mx = 0;
                 my = 1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
             if (creature.x - player.x > 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно справа от игрока
                 mx = -1;
                 my = 0;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
             if (creature.x - player.x < 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно слева от игрока
                 mx = 1;
                 my = 0;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = sssssssss(mx, my, isMoved);
             }
             if (!isMoved) {
                 mx = ThreadLocalRandom.current().nextInt(-1, 2);

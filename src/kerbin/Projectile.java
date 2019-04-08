@@ -28,6 +28,8 @@ public class Projectile {
             return color;
         }
 
+        public ProjectileAi ai;
+
     public Projectile(World world, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my, int vectorx, int vectory){
         this.world = world;
         this.glyph = glyph;
@@ -40,5 +42,6 @@ public class Projectile {
         this.my = my;
         this.vectorx=vectorx;
         this.vectory=vectory;
+        this.world.projectiles.add(this);
     }
 }

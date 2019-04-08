@@ -101,6 +101,12 @@ public class PlayScreen implements Screen {
 				terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
 			}
 		}
+		for(Projectile p : world.projectiles) {
+			if((p.x >= left && p.x < left + screenWidth) && (p.y >= top && p.y < top + screenHeight)) {
+				terminal.write(p.glyph(), p.x - left, p.y - top, p.color());
+			}
+		}
+
 		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 	}
 //Реакция на нажатие клавиши: ход нпс, после движение игрока
@@ -155,9 +161,12 @@ public class PlayScreen implements Screen {
 					break;
 			}
 				if (isAction) {
-					for (Creature creature : world.creatures) {
-						creature.ai.onTurn(player);
+					for (int j = 0; j < world.creatures.size();j++){
+						world.creatures.get(j).ai.onTurn(player);
+					}
 
+					for (int j = 0; j < world.projectiles.size();j++){
+						world.projectiles.get(j).ai.onTurn(world);
 					}
 				}
 

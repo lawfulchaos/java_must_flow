@@ -16,6 +16,7 @@ public class World {
 	private int height;
 	public int height() { return height; }
 	public TileFactory tileFactory;
+	public ProjectileFactory projectileFactory;
 	public List<Creature> creatures;
 	public List<Projectile> projectiles;
 
@@ -27,6 +28,7 @@ public class World {
 		this.creatures = new ArrayList();
 		this.projectiles = new ArrayList();
 		this.tileFactory = new TileFactory();
+		this.projectileFactory = new ProjectileFactory(this);
 		populateWorld();
 	}
 	//Создает мобов и предметы
@@ -40,8 +42,8 @@ public class World {
 			creatures.add(mouse);
 			Creature skeleton = creatureFactory.newSkeleton();
 			creatures.add(skeleton);
-			/*Creature mob = creatureFactory.newMob();
-			creatures.add(mob);*/
+			Creature mob = creatureFactory.newMob();
+			creatures.add(mob);
 		}
 		for (int j = 0; j < 3; j++) {
 			if (Math.random() > 0.5) itemFactory.newBattleaxe(null);

@@ -172,6 +172,11 @@ public class CreatureAi {
             Event.getInstance()
                     .init(String.format("A %s was killed! %s %s",c.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
         }
+        if (creature.hp <= 0&& creature.name!="player") {
+            creature.getWorld().creatures.remove(creature);
+            Event.getInstance()
+                    .init(String.format("A %s was killed! %s %s",creature.name, c.dmg, c.hp), 2, 3, AsciiPanel.brightWhite);
+        }
     }
 
     public void teleport(Tile tile){

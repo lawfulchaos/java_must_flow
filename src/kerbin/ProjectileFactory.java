@@ -10,9 +10,9 @@ public class ProjectileFactory {
         this.world = world;
     }
 
-    public Projectile newBullet(int x, int y) {
-        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 3,3,0,0);
-        new ProjectileAi();
+    public Projectile newBullet(int x, int y, int vectorx, int vectory) {
+        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 3, 3,vectorx,vectory);
+        bullet.ai = new ProjectileAi(bullet);
         return bullet;
 
     }
