@@ -75,11 +75,18 @@ public class PlayScreen implements Screen {
 		if (player.def>1) {
 			for (int k = 0;k<20;k++)
 			{
-				if (k>player.def*player.def/player.startdef) // Показывает процент целой брони от общей. TODO Установить макс значение брони и рассчитать знаменатель для него
+				double dobdef=(float)player.def/player.startdef*20;
+				if (k>((float)dobdef)) // Показывает процент целой брони от общей. TODO Установить макс значение брони и рассчитать знаменатель для него
 					terminal.write((char)176,k+22,32, Color.red);
 				else terminal.write((char)178,k+22,32, Color.blue);
 			}
 			terminal.write(Integer.toString(player.def),30,33,Color.green);
+			//terminal.write(Integer.toString(player.startdef),30,34,Color.green);
+			//terminal.write(Double.toString((double) player.def/player.startdef*20),30,35,Color.green);
+		}
+		else {
+			terminal.write("0",31,33, Color.green);
+			terminal.write("Nope",30,32, Color.red);
 		}
 
 		// TODO: Дамаг игроку на число, равное -def в случае модификатора cursed
