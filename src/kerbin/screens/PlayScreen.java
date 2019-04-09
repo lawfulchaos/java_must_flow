@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import asciiPanel.AsciiPanel;
 import kerbin.*;
 import kerbin.Event;
+import kerbin.items.Armor;
+
 public class PlayScreen implements Screen {
 	private World world;
 	public Creature player;
@@ -39,50 +41,78 @@ public class PlayScreen implements Screen {
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 
+
 		int left = getScrollX();
 		int top = getScrollY(); 
 		
 		displayTiles(terminal, left, top);
 
+		//Рамочка
+		for (int dx=0;dx<90;dx++) {
+			terminal.write((char) 196, dx, 30, Color.cyan);
+			if ((dx%21==0)&&(dx/21!=4)) {
+				for (int dy = 30; dy < 40; dy++)
+					terminal.write((char) 179, dx, dy, Color.cyan);
+				terminal.write((char) 194, dx, 30, Color.cyan);
+			}
+		}
+		terminal.write((char) 169,0,30,Color.cyan);
+
+
 		//Шмат хпшки
-		terminal.write((char) 157 +"YOUR HEALTHPOINT"+ (char) 157 ,1,30, Color.green);
+		terminal.write((char) 157 +" YOUR HEALTHPOINT "+ (char) 157 ,1,31, Color.green);
 		for (int k = 0;k<20;k++)
 		{
-			if (k>=(player.hp/5))
-			terminal.write((char)254,k,31, Color.red);
-			else terminal.write((char)254,k,31, Color.green);
+			if (k>=(player.hp/5)) //знаменатель - число очков здоровья, которое отображает символ
+			terminal.write((char)254,k+1,32, Color.red);
+			else terminal.write((char)254,k+1,32, Color.green);
 		}
-		terminal.write(Integer.toString(player.hp),9,32,Color.green);
+		terminal.write(Integer.toString(player.hp),9,33,Color.green);
 
 
 		// DEF out
+		terminal.write((char) 177 + "YOUR  DEFENCE" + (char) 177, 25, 31, Color.green);
 		if (player.def>1) {
-			terminal.write("DEF: ", 0, 33, Color.green);
-			terminal.write(Integer.toString(player.def), 6, 33, Color.blue);
-			terminal.write("/",8,33,Color.WHITE);
-			terminal.write(Integer.toString(player.startdef), 9, 33, Color.blue);
+			for (int k = 0;k<20;k++)
+			{
+				if (k>player.def*player.def/player.startdef) // Показывает процент целой брони от общей. TODO Установить макс значение брони и рассчитать знаменатель для него
+					terminal.write((char)176,k+22,32, Color.red);
+				else terminal.write((char)178,k+22,32, Color.blue);
+			}
+			terminal.write(Integer.toString(player.def),30,33,Color.green);
 		}
+
+		// TODO: Дамаг игроку на число, равное -def в случае модификатора cursed
+		/*if (player.inv.contains(Armor)<0) {
+			for (int k = 0; k < 20; k++)
+			{
+				if (k > player.def / 2.5)
+					terminal.write((char) 234, k + 22, 32, Color.gray);
+			}
+			player.hp -= player.armor.def;
+		}
+		/**/
 
 		//damage out
-		if (player.def>1) {
-			terminal.write("DMG: ", 0, 34, Color.green);
-			terminal.write(Integer.toString(player.dmg), 5, 34, Color.green);
-		}
-		else {
-			terminal.write("DMG: ", 0, 34, Color.green);
-			terminal.write(Integer.toString(player.dmg), 5, 34, Color.green);
-		}
 
-		terminal.write("Map", 70, 30, Color.green);
-		terminal.write(Integer.toString(player.level), 83, 30, Color.green);
+		terminal.write("-|YOUR WEAPON|-", 46, 31, Color.green);
+		if (player.dmg>3)terminal.write(player.weapon.name(), 45+player.weapon.name().length()/2, 32, Color.magenta);
+		else terminal.write("Fists", 51, 32, Color.magenta);
+		terminal.write(Integer.toString(player.dmg), 53, 33, Color.green);
 
-		terminal.write("Player level", 70, 31, Color.green);
-		terminal.write(Integer.toString(player.player_level ), 83, 31, Color.green);
 
-		terminal.write("Honor", 70, 32, Color.green);
-		terminal.write(Integer.toString(player.honor ), 81, 32, Color.green);
-		terminal.write("/", 83, 32, Color.green);
-		terminal.write(Integer.toString(player.max_honor ), 85, 32, Color.green);
+
+
+		terminal.write("Map", 65, 31, Color.green);
+		terminal.write(Integer.toString(player.level), 82, 31, Color.green);
+
+		terminal.write("Player level", 65, 32, Color.green);
+		terminal.write(Integer.toString(player.player_level ), 82, 32, Color.green);
+
+		terminal.write("Honor", 65, 33, Color.green);
+		terminal.write(Integer.toString(player.honor ), 82, 33, Color.green);
+		terminal.write("/", 84, 33, Color.green);
+		terminal.write(Integer.toString(player.max_honor ), 86, 33, Color.green);
 
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
