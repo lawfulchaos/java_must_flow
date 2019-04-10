@@ -27,7 +27,7 @@ public class SkeletonAi extends CreatureAi {
                     isVisible=false;
                 }
             }
-            if(isVisible) creature.getWorld().projectileFactory.newBullet(creature.x+mx, creature.y+my, mx, my);
+            if(!isVisible) creature.getWorld().projectileFactory.newBullet(creature.x+mx, creature.y+my, mx, my);
         }
         return isMoved;
     }
