@@ -1,19 +1,30 @@
 package kerbin;
 // Точка входа в программу, создание окна и обработка клавиатуры 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 
 import asciiPanel.AsciiFont;
 import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import kerbin.screens.Screen;
 import kerbin.screens.StartScreen;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class ApplicationMain extends JFrame implements KeyListener {
-	
+
 	private AsciiPanel terminal;
 	private Screen screen;
-	
+
 	public ApplicationMain(){
 		super();
 		terminal = new AsciiPanel(90,40, AsciiFont.CP437_9x16);
@@ -22,7 +33,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
 		screen = new StartScreen();
 		addKeyListener(this);
 		repaint();
-		
+
 	}
 // Вывод игрового поля в приложение
 	@Override
@@ -43,8 +54,28 @@ public class ApplicationMain extends JFrame implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) { }
-	
+
+	public static  void playMusic()
+	{
+		try {
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("C:/java_must_flow/sound.wav"));
+			Clip clip = AudioSystem.getClip();
+			clip.open(inputStream);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			while(clip.isRunning())
+			{
+				Thread.sleep(100);
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
+	}
+
 	public static void main(String[] args) {
+		playMusic();
 		ApplicationMain app = new ApplicationMain();
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		app.setVisible(true);
