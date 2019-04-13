@@ -58,7 +58,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
 	public static  void playMusic()
 	{
 		try {
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("C:/java_must_flow/sound.wav"));
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(inputStream);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
