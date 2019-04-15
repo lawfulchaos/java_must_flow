@@ -89,16 +89,7 @@ public class PlayScreen implements Screen {
 			terminal.write("Nope",30,32, Color.red);
 		}
 
-		// TODO: Дамаг игроку на число, равное -def в случае модификатора cursed
-		/*if (player.inv.contains(Armor)<0) {
-			for (int k = 0; k < 20; k++)
-			{
-				if (k > player.def / 2.5)
-					terminal.write((char) 234, k + 22, 32, Color.gray);
-			}
-			player.hp -= player.armor.def;
-		}
-		/**/
+		// TODO: Дамаг игроку на число, равное -def в случае модификатора cursed/**/
 
 		//damage out
 
@@ -121,6 +112,9 @@ public class PlayScreen implements Screen {
 		terminal.write("/", 84, 33, Color.green);
 		terminal.write(Integer.toString(player.max_honor ), 86, 33, Color.green);
 
+		terminal.write("Gold", 65, 34, Color.green);
+		terminal.write(Integer.toString(player.gold), 82, 34, Color.green);
+
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
 			subscreen.displayOutput(terminal);
@@ -137,6 +131,11 @@ public class PlayScreen implements Screen {
 			}
 		}
 		for(Creature c : world.creatures) {
+			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) {
+				terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
+			}
+		}
+		for(Creature c : world.npcs) {
 			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) {
 				terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
 			}
@@ -172,6 +171,8 @@ public class PlayScreen implements Screen {
 						player.level++;
 						return nextLvl;
 						}
+					else if (player.getWorld().checkMerchant(player.x, player.y)!=null)
+						subscreen = new ShopScreen(player, player.getWorld().checkMerchant(player.x, player.y));
 					break;
 
 				case KeyEvent.VK_LEFT:
@@ -204,10 +205,13 @@ public class PlayScreen implements Screen {
 					for (int j = 0; j < world.creatures.size();j++){
 						world.creatures.get(j).ai.onTurn(player);
 					}
-
+					for (int j = 0; j < world.npcs.size();j++){
+						world.npcs.get(j).ai.onTurn(player);
+					}
 					for (int j = 0; j < world.projectiles.size();j++){
 						world.projectiles.get(j).ai.onTurn(world);
 					}
+					player.ai.onTurn(player);
 				}
 
 			if (Event.getInstance().getLifetime() == 0) {

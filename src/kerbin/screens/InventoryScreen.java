@@ -87,12 +87,20 @@ public class InventoryScreen implements Screen {
                 }
                 terminal.write(((Weapon) it).dmg + "", 60, 10, Color.GREEN);
             } else if (it instanceof Armor) {
-                terminal.write("DEF:", 55, 10, Color.WHITE);
-                terminal.write(((Armor) it).def + "", 60, 10, Color.BLUE);
+                if (it.modifier!= null && it.modifier[0] == "Cursed") {
+                    terminal.write("HP:", 55, 10, Color.WHITE);
+                    terminal.write(((Armor) it).def + "", 60, 10, Color.RED);
+                }
+                    else {
+                        terminal.write("DEF:", 55, 10, Color.WHITE);
+                    terminal.write(((Armor) it).def + "", 60, 10, Color.BLUE);
+                }
             } else if (it instanceof Usable) {
                 terminal.write("HP: ", 55, 10, Color.WHITE);
                 terminal.write(((Usable) it).effect + "", 60, 10, Color.RED);
             }
+            terminal.write("GOLD: ", 65, 10, Color.WHITE);
+            terminal.write(it.cost + "", 71, 10, Color.ORANGE);
             //разбирваем на слова и проверяем длину описания, если больше экрана - переносим
             String[] description = it.desc.split(" ");
             int y = 11;

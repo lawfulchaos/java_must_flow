@@ -24,6 +24,7 @@ public class PlayerAi extends CreatureAi {
                 tile.item = null;
             }
             Creature c = creature.getWorld().creature(x,y);
+            Creature m = creature.getWorld().npc(x,y);
             if (c != null && c.name != "Player")
             {
                 int priority = 2;
@@ -33,10 +34,24 @@ public class PlayerAi extends CreatureAi {
                 }
                 super.battle(c);
             }
+            else if (m != null) {
+                int priority = 1;
+                if (priority > Event.getInstance().getPriority()) {
+                    Event.getInstance()
+                            .init(String.format("%s: Buy Something!", m.name), 2, 2, AsciiPanel.brightWhite);
+                }
+            }
             else{ creature.x=x; creature.y=y;}
             }
         super.teleport(tile);
 
     }
-    public void onTurn(){}
+    //Проверяет наличие эффекта и его длительность
+    public void onTurn(Creature player){
+        if (creature.effect != null) {
+            if (creature.effect[1] == 0) creature.effect = null;
+            else creature.hp += creature.effect[0];
+            creature.effect[1] -= 1;
+        }
+    }
 }

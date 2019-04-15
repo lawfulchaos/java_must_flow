@@ -1,5 +1,6 @@
 package kerbin;
 /* Физические характеристики существа, поведение обрабатывается в CreatureAi, создается CreatureFactory*/
+import javafx.util.Pair;
 import kerbin.items.Armor;
 import kerbin.items.Item;
 import kerbin.items.Weapon;
@@ -14,6 +15,7 @@ public class Creature {
     private World world;
     public int x;
     public int y;
+    public int gold; //деньги
     public int level=1; // счетчик уровня
     public int honor=0; // опыт героя
     public int player_level = 1; // уровень героя
@@ -30,6 +32,7 @@ public class Creature {
     //дамаг существ
     public int dmg;
     public int def;
+    public int[] effect; // Действующий эффект на хп существа [Сила, время]
     public int startdef;
     public Armor armor;
     public Weapon weapon;
@@ -42,7 +45,7 @@ public class Creature {
     private Color color;
     public Color color() { return color; }
 
-    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp, int radius){
+    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp, int radius, int gold){
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -55,6 +58,8 @@ public class Creature {
         this.armor = null;
         this.max_hp=max_hp;
         this.radius=radius;
+        this.gold = gold;
+        this.effect = null;
     }
     public void setWeapon(Weapon weapon)
     {
@@ -75,14 +80,25 @@ public class Creature {
         if (this.armor != null)
         {
             this.def -= this.armor.def;
-            if (this.def < 0) this.def = 0;
+            if (this.armor.modifier[0] == "Cursed")
+            {
+                this.effect = null;
+            }
+            if (this.def < 0)
+            {
+                this.def = 0;
+            }
             inv.add(this.armor);
             this.startdef=this.armor.startdef;
 
         }
         this.armor = armor;
         this.def += armor.def;
-        if (this.def < 0) this.def = 0;
+        if (this.def < 0)
+        {
+            this.effect = new int[]{this.armor.def, -1};
+            this.def = 0;
+        }
         this.startdef=this.armor.startdef;
     }
 //Движение, реакция на смещение обрабатывается AI

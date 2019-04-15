@@ -18,6 +18,8 @@ public class World {
 	public TileFactory tileFactory;
 	public ProjectileFactory projectileFactory;
 	public List<Creature> creatures;
+	//Нейтральные/Дружелюбные существа
+	public List<Creature> npcs;
 	public List<Projectile> projectiles;
 
 	public World(Tile[][] tiles){
@@ -26,6 +28,7 @@ public class World {
 		this.width = tiles.length;
 		this.height = tiles[0].length;
 		this.creatures = new ArrayList();
+		this.npcs = new ArrayList();
 		this.projectiles = new ArrayList();
 		this.tileFactory = new TileFactory();
 		this.projectileFactory = new ProjectileFactory(this);
@@ -45,6 +48,8 @@ public class World {
 			Creature mob = creatureFactory.newMob();
 			creatures.add(mob);
 		}
+		Creature merch = creatureFactory.newMerchant();
+		npcs.add(merch);
 		for (int j = 0; j < 3; j++) {
 			if (Math.random() > 0.5) itemFactory.newBattleaxe(null);
 			else itemFactory.newSword(null);
@@ -55,7 +60,7 @@ public class World {
 		for (int j = 0; j < 1; j++) {
 			itemFactory.newTeleport(null);
 		}
-		for (int j = 0; j < 2; j++) {
+		for (int j = 0; j < 25; j++) {
 			if (Math.random() > 0.5) itemFactory.newPlate(null);
 			else itemFactory.newMail(null);
 		}
@@ -109,7 +114,25 @@ public class World {
 		}
 		return null;
 	}
+//Возвращает нпс по коордам, при отсутствии возвращает null
+	public Creature npc(int x, int y){
+		for (Creature c : npcs){
+			if (c.x == x && c.y == y)
+				return c;
+		}
+		return null;
+	}
 //Возвращает итем по коордам, при отсутствии возвращает null
 	public Item item(int x, int y){ return tiles[x][y].item; }
-
+	//Проверяет наличие торговца рядом, при отсутствии возвращает null
+	public Creature checkMerchant(int x, int y)
+	{
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				Creature c = npc(x+i, y+j);
+				if (c != null) return c;
+			}
+		}
+		return null;
+	}
 }
