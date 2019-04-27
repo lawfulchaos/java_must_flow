@@ -12,8 +12,8 @@ public class ProjectileFactory  implements Serializable {
         this.world = world;
     }
 
-    public Projectile newBullet(int x, int y, int vectorx, int vectory) {
-        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, 1, 1,vectorx,vectory);
+    public Projectile newBullet(int x, int y, int mx, int my, int vectorx, int vectory) {
+        Projectile bullet = new Projectile(world, '*', AsciiPanel.red, "bullet", (int)(1+Math.random()*10), x, y, mx, my, vectorx,vectory);
         bullet.ai = new ProjectileAi(bullet);
         return bullet;
 

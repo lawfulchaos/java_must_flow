@@ -20,7 +20,7 @@ public class SkeletonAi extends CreatureAi implements Serializable {
             this.creature.moveBy(mx, my);
             isMoved = true;
             boolean isVisible=true;
-            for (int i =1; i<=10; i++){
+            for (int i =1; i<=5; i++){
                 if(creature.getWorld().tile(creature.x + i*mx, creature.y + i*my).isGround()&&isVisible){
                     continue;
                 }
@@ -28,7 +28,7 @@ public class SkeletonAi extends CreatureAi implements Serializable {
                     isVisible=false;
                 }
             }
-            if(!isVisible) creature.getWorld().projectileFactory.newBullet(creature.x+mx, creature.y+my, mx, my);
+            if(isVisible) creature.getWorld().projectileFactory.newBullet(creature.x+mx, creature.y+my, mx, my, mx, my);
         }
         return isMoved;
     }
