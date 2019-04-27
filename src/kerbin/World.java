@@ -41,12 +41,12 @@ public class World {
 		ItemFactory itemFactory = new ItemFactory(this);
 		this.player = creatureFactory.newPlayer();
 		for (int i = 0; i < 4; i++) {
-			Creature mouse = creatureFactory.newMouse();
-			creatures.add(mouse);
+			/*Creature mouse = creatureFactory.newMouse();
+			creatures.add(mouse);*/
 			Creature skeleton = creatureFactory.newSkeleton();
 			creatures.add(skeleton);
-			Creature mob = creatureFactory.newMob();
-			creatures.add(mob);
+			/*Creature mob = creatureFactory.newMob();
+			creatures.add(mob);*/
 		}
 		Creature merch = creatureFactory.newMerchant();
 		npcs.add(merch);
