@@ -199,7 +199,7 @@ public class PlayScreen implements Screen {
 				case KeyEvent.VK_5:
 					player.moveBy(0, 0);
 					break;
-				case KeyEvent.VK_P:
+				case KeyEvent.VK_F5:
 					isAction = false;
 					try {
 						File f = new File("\\saves\\save.txt");
@@ -219,7 +219,7 @@ public class PlayScreen implements Screen {
 						e.printStackTrace();
 					}
 					break;
-				case KeyEvent.VK_L:
+				case KeyEvent.VK_F9:
 					isAction = false;
 					try {
 						FileInputStream fi = new FileInputStream(new File("\\saves\\save.dat"));
