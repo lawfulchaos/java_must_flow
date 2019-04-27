@@ -32,6 +32,7 @@ public class Creature  implements Serializable {
     private char glyph;
     //хп существ
     public int hp;
+    public int kd;
     public int max_hp;
     //дамаг существ
     public int dmg;
@@ -49,7 +50,7 @@ public class Creature  implements Serializable {
     private Color color;
     public Color color() { return color; }
 
-    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp, int radius, int gold){
+    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp, int radius, int gold, int kd){
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -65,6 +66,7 @@ public class Creature  implements Serializable {
         this.gold = gold;
         this.effect = null;
         this.ammo=5;
+        this.kd=kd;
     }
     public void setWeapon(Weapon weapon)
     {

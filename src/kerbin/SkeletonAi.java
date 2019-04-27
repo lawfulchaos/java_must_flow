@@ -28,7 +28,10 @@ public class SkeletonAi extends CreatureAi implements Serializable {
                     isVisible=false;
                 }
             }
-            if(isVisible) creature.getWorld().projectileFactory.newBullet(creature,creature.x+mx, creature.y+my, mx, my, mx, my);
+            if(isVisible && creature.kd==0) {
+                creature.getWorld().projectileFactory.newBullet(creature, creature.x + mx, creature.y + my, mx, my, mx, my);
+                creature.kd=3;
+            }
         }
         return isMoved;
     }
@@ -95,6 +98,7 @@ public class SkeletonAi extends CreatureAi implements Serializable {
                 this.creature.moveBy(mx, my);
             }
         }
+        if(creature.kd>0) creature.kd--;
         }
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
