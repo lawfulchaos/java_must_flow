@@ -2,9 +2,10 @@ package kerbin;
 //ИИ мыши, передвигается случайно на свободную клетку
 import asciiPanel.AsciiPanel;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MouseAi extends CreatureAi {
+public class MouseAi extends CreatureAi implements Serializable {
 
     public MouseAi(Creature creature) {
             super(creature);
@@ -12,7 +13,7 @@ public class MouseAi extends CreatureAi {
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);
-            if (c != null && c.name != "mouse" && c.name != "skeleton") {
+            if (c != null && !(c.name.equals("skeleton")) && !(c.name.equals("mouse")) && !(c.name.equals("mob"))) {
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority()) {
                     Event.getInstance()

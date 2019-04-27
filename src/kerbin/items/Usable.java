@@ -3,8 +3,9 @@ package kerbin.items;
 import kerbin.Creature;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Usable extends Item{
+public class Usable extends Item implements Serializable {
     public int effect;
 
     public Usable(char glyph, Color color, String name, Creature owner, int effect, boolean isEquipable, String desc, int cost)

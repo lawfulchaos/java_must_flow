@@ -10,15 +10,10 @@ import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+
 
 import kerbin.screens.Screen;
 import kerbin.screens.StartScreen;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
 
 public class ApplicationMain extends JFrame implements KeyListener {
 

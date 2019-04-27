@@ -2,9 +2,10 @@ package kerbin;
 // Поведение существа, создается в CreatureFactory
 import asciiPanel.AsciiPanel;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class CreatureAi {
+public class CreatureAi  implements Serializable {
     protected Creature creature;
     public CreatureAi(Creature creature){
         this.creature = creature;

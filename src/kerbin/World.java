@@ -4,11 +4,12 @@ import kerbin.items.Item;
 import kerbin.items.ItemFactory;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class World {
+public class World implements Serializable {
 	public Tile[][] tiles;
 	private int width;
 	public int width() { return width; }
@@ -60,7 +61,7 @@ public class World {
 		for (int j = 0; j < 1; j++) {
 			itemFactory.newTeleport(null);
 		}
-		for (int j = 0; j < 25; j++) {
+		for (int j = 0; j < 5; j++) {
 			if (Math.random() > 0.5) itemFactory.newPlate(null);
 			else itemFactory.newMail(null);
 		}

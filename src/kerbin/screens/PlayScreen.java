@@ -2,6 +2,8 @@ package kerbin.screens;
 /* Основной игровой экран. содержит игровую логику, отображение и обработку клавиатуры */
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.*;
+
 import asciiPanel.AsciiPanel;
 import kerbin.*;
 import kerbin.Event;
@@ -196,6 +198,47 @@ public class PlayScreen implements Screen {
 					break;
 				case KeyEvent.VK_5:
 					player.moveBy(0, 0);
+					break;
+				case KeyEvent.VK_P:
+					isAction = false;
+					try {
+						File f = new File("\\saves\\save.txt");
+
+						f.getParentFile().mkdirs();
+						f.createNewFile();
+						FileOutputStream fo = new FileOutputStream(new File("\\saves\\save.dat"));
+						ObjectOutputStream o = new ObjectOutputStream(fo);
+
+						o.writeObject(world);
+						o.close();
+						fo.close();
+						Event.getInstance().init("Game saved", 2, 3, AsciiPanel.brightGreen);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+					break;
+				case KeyEvent.VK_L:
+					isAction = false;
+					try {
+						FileInputStream fi = new FileInputStream(new File("\\saves\\save.dat"));
+						ObjectInputStream oi = new ObjectInputStream(fi);
+
+						// Read objects
+						world = (World) oi.readObject();
+						player = world.player;
+						for (int i = 0; i < world.creatures.size(); i++) {
+							if (world.creatures.get(i).ai instanceof MouseAi)
+							System.out.println(world.creatures.get(i));
+						}
+						oi.close();
+						fi.close();
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 					break;
 				default:
 					isAction = false;

@@ -2,8 +2,10 @@ package kerbin;
 //Factory для тайлов, возвращает новый Tile
 import asciiPanel.AsciiPanel;
 
+import java.io.Serializable;
 
-public class TileFactory {
+
+public class TileFactory  implements Serializable {
 
     public TileFactory(){
     }

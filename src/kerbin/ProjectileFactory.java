@@ -3,7 +3,9 @@ package kerbin;
 
 import asciiPanel.AsciiPanel;
 
-public class ProjectileFactory {
+import java.io.Serializable;
+
+public class ProjectileFactory  implements Serializable {
     private World world;
 
     public ProjectileFactory(World world) {

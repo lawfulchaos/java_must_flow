@@ -2,8 +2,10 @@ package kerbin;
 
 import asciiPanel.AsciiPanel;
 
+import java.io.Serializable;
+
 //ИИ игрока, при заходе на свободную клетку подбирает предмет в инвентарь
-public class PlayerAi extends CreatureAi {
+public class PlayerAi extends CreatureAi implements Serializable {
 
     public PlayerAi(Creature creature) {
         super(creature);

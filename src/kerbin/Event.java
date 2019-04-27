@@ -15,10 +15,6 @@ public class Event {
 
     public Color getColor() { return color; }
 
-    public void setMsg(String msg) { this.msg = msg; }
-
-    public void setPriority(int priority) { this.priority = priority; }
-
     public void decreaseLifetime() { this.lifetime-=1; }
 
     public void setColor(Color color) { this.color = color; }
@@ -31,7 +27,7 @@ public class Event {
     private Map<String, Color> msgs = new HashMap<>();
     public Map<String, Color> getMsgs() {return msgs;}
 
-    private Event () {};
+    private Event () {}
 
     public void init(String msg, int priority, int lifetime, Color color)
     {

@@ -2,7 +2,9 @@ package kerbin;
 
 import asciiPanel.AsciiPanel;
 
-public class ProjectileAi {
+import java.io.Serializable;
+
+public class ProjectileAi  implements Serializable {
     public Projectile bullet;
     public ProjectileAi(Projectile bullet){
         this.bullet = bullet;

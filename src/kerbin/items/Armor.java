@@ -3,8 +3,9 @@ package kerbin.items;
 import kerbin.Creature;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Armor extends Item{
+public class Armor extends Item implements Serializable {
     public int def;
     public int startdef;
 

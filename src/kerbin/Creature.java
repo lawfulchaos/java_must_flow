@@ -6,10 +6,11 @@ import kerbin.items.Item;
 import kerbin.items.Weapon;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Creature {
+public class Creature  implements Serializable {
     public World getWorld() { return world; }
 
     private World world;

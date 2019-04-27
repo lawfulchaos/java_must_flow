@@ -4,7 +4,9 @@ import asciiPanel.AsciiPanel;
 import kerbin.Creature;
 import kerbin.World;
 
-public class ItemFactory {
+import java.io.Serializable;
+
+public class ItemFactory  implements Serializable {
     private World world;
 
     public ItemFactory(World world){

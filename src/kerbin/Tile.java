@@ -1,10 +1,12 @@
 package kerbin;
 //Тайл,  создается в TileFactory
 import java.awt.Color;
+import java.io.Serializable;
+
 import asciiPanel.AsciiPanel;
 import kerbin.items.Item;
 
-public class Tile {
+public class Tile  implements Serializable {
 	//FLOOR((char)250, AsciiPanel.yellow),
 	//WALL((char)177, AsciiPanel.yellow),
 	//BOUNDS('x', AsciiPanel.brightBlack);

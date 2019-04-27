@@ -2,9 +2,10 @@ package kerbin;
 //ИИ скелета
 import asciiPanel.AsciiPanel;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SkeletonAi extends CreatureAi {
+public class SkeletonAi extends CreatureAi implements Serializable {
     public SkeletonAi(Creature creature) {
         super(creature);
     }
@@ -98,7 +99,7 @@ public class SkeletonAi extends CreatureAi {
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);
-            if (c != null && c.name != "skeleton" && c.name != "mouse") {
+            if (c != null && !(c.name.equals("skeleton")) && !(c.name.equals("mouse")) && !(c.name.equals("mob"))) {
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority()) {
                     Event.getInstance()
