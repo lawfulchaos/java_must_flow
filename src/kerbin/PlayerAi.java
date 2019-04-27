@@ -18,6 +18,12 @@ public class PlayerAi extends CreatureAi implements Serializable {
             {
                 creature.inv.add(tile.item);
                 tile.item.owner = creature;
+                if (tile.item.name().equals("Bunch of arrows"))
+                {
+                    creature.inv.remove(tile.item);
+                    tile.item.owner = null;
+                    creature.ammo += 5;
+                }
                 int priority = 2;
                 if (priority >= Event.getInstance().getPriority())
                     if (tile.item.modifier != null)

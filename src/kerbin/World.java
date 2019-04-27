@@ -55,8 +55,14 @@ public class World implements Serializable {
 			if (Math.random() > 0.5) itemFactory.newBattleaxe(null);
 			else itemFactory.newSword(null);
 		}
+		for (int j = 0; j < 2; j++) {
+			itemFactory.newBow(null);
+		}
 		for (int j = 0; j < 3; j++) {
 			itemFactory.newHeal(null);
+		}
+		for (int j = 0; j < 2; j++) {
+			itemFactory.newArrows(null);
 		}
 		for (int j = 0; j < 1; j++) {
 			itemFactory.newTeleport(null);

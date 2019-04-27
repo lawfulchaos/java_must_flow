@@ -21,6 +21,8 @@ public class StartScreen implements Screen {
 
 		terminal.write("I to open inventory", 1,14);
 		terminal.write("U in inventory to use item, W to equip item, D to drop", 1,15);
+		terminal.write("F5/F9 to save/load", 1,16);
+		terminal.write("F to fire", 1,17);
 
 		terminal.writeCenter("-- press [enter] to next --", 37);
 	}

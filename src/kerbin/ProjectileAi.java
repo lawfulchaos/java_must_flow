@@ -13,7 +13,8 @@ public class ProjectileAi  implements Serializable {
         boolean isHit=false;
         for (int i =1; i<=3; i++){
             if (!world.tile(bullet.x+bullet.mx, bullet.y+bullet.my).isGround()
-                    || ((world.creature(bullet.x+bullet.mx, bullet.y+bullet.my) != null) && world.creature(bullet.x+bullet.mx, bullet.y+bullet.my).name.equals("Player"))) {
+                    || ((world.creature(bullet.x+bullet.mx, bullet.y+bullet.my) != null)
+                    && !(world.creature(bullet.x+bullet.mx, bullet.y+bullet.my).name.equals(bullet.owner.name)))) {
 
                 isHit = true;
                 break;
@@ -26,7 +27,7 @@ public class ProjectileAi  implements Serializable {
         if(isHit) hit(world);
     }
     void hit(World world) {
-            if (world.creature(bullet.x, bullet.y) != null && world.creature(bullet.x, bullet.y).name.equals("Player"))
+            if (world.creature(bullet.x, bullet.y) != null && !(world.creature(bullet.x, bullet.y).name.equals(bullet.owner.name)))
             {
                 world.creature(bullet.x, bullet.y).hp -= bullet.dmg;
                 Event.getInstance().init("attacked from a distance", 5, 3, AsciiPanel.brightWhite);

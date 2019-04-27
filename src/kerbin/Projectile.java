@@ -10,6 +10,7 @@ public class Projectile implements Serializable {
         }
 
         private World world;
+        public Creature owner;
         public int x;
         public int mx;
         public int y;
@@ -34,7 +35,8 @@ public class Projectile implements Serializable {
 
         public ProjectileAi ai;
 
-    public Projectile(World world, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my, int vectorx, int vectory){
+    public Projectile(World world, Creature owner, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my, int vectorx, int vectory){
+        this.owner = owner;
         this.world = world;
         this.glyph = glyph;
         this.color = color;

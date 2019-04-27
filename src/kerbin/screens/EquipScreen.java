@@ -8,6 +8,7 @@ import asciiPanel.AsciiPanel;
 import kerbin.Creature;
 import kerbin.items.Armor;
 import kerbin.items.Item;
+import kerbin.items.Ranged;
 import kerbin.items.Weapon;
 
 public class EquipScreen extends InventoryScreen implements Screen{
@@ -63,6 +64,15 @@ public class EquipScreen extends InventoryScreen implements Screen{
         if (Equipable instanceof Weapon)
         {
             player.setWeapon((Weapon)Equipable);
+            player.inv.remove(Equipable);
+            if (Equipable.modifier != null)
+                msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());
+            else msg = String.format("You took a %s in hands", Equipable.name());
+
+        }
+        else if (Equipable instanceof Ranged)
+        {
+            player.setWeapon((Ranged)Equipable);
             player.inv.remove(Equipable);
             if (Equipable.modifier != null)
                 msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());

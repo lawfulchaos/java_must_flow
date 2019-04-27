@@ -1,8 +1,8 @@
 package kerbin;
 /* Физические характеристики существа, поведение обрабатывается в CreatureAi, создается CreatureFactory*/
-import javafx.util.Pair;
 import kerbin.items.Armor;
 import kerbin.items.Item;
+import kerbin.items.Ranged;
 import kerbin.items.Weapon;
 
 import java.awt.Color;
@@ -17,7 +17,7 @@ public class Creature  implements Serializable {
     public int x;
     public int y;
     public int gold; //деньги
-
+    public int ammo;
     public int level=1; // счетчик уровня
     public int honor=0; // опыт героя
     public int player_level = 1; // уровень героя
@@ -64,6 +64,7 @@ public class Creature  implements Serializable {
         this.radius=radius;
         this.gold = gold;
         this.effect = null;
+        this.ammo=5;
     }
     public void setWeapon(Weapon weapon)
     {
@@ -79,6 +80,21 @@ public class Creature  implements Serializable {
         this.dmg += weapon.dmg;
         if (this.dmg < 0) this.dmg = 0;
     }
+
+    public void setRanged(Ranged weapon)
+    {
+        if (this.weapon != null)
+        {
+            this.dmg -= this.weapon.dmg;
+            if (this.dmg < 0) this.dmg = 0;
+            inv.add(this.weapon);
+        }
+        this.weapon = weapon;
+        this.dmg += weapon.dmg;
+        if (this.dmg < 0) this.dmg = 0;
+    }
+
+
     public void setArmor(Armor armor)
     {
         if (this.armor != null)

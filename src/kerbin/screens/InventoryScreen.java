@@ -82,8 +82,8 @@ public class InventoryScreen implements Screen {
                 terminal.write("DMG:", 55, 10, Color.WHITE);
                 if (it.modifier != null && it.modifier[0] == "Cursed" && it.name() == "Battleaxe")
                 {
-                    terminal.write("HP: ", 65, 10, Color.WHITE);
-                    terminal.write("-50", 69, 10, Color.RED);
+                    terminal.write("HP: ", 75, 10, Color.WHITE);
+                    terminal.write("-50", 79, 10, Color.RED);
                 }
                 terminal.write(((Weapon) it).dmg + "", 60, 10, Color.GREEN);
             } else if (it instanceof Armor) {
