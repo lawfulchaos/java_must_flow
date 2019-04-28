@@ -11,7 +11,7 @@ public class ProjectileAi  implements Serializable {
     }
     public void onTurn(World world){
         boolean isHit=false;
-        for (int i =1; i<=3; i++){
+        for (int i =1; i<=2; i++){
             if (!world.tile(bullet.x+bullet.mx, bullet.y+bullet.my).isGround()
                     || ((world.creature(bullet.x+bullet.mx, bullet.y+bullet.my) != null)
                     && !(world.creature(bullet.x+bullet.mx, bullet.y+bullet.my).name.equals(bullet.owner.name)))) {
