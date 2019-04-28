@@ -142,8 +142,10 @@ public class ShopScreen implements Screen {
             case KeyEvent.VK_ESCAPE:
                 return null;
             case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
                 if (chosen < i-1) chosen+=1;
                 break;
+            case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 if (chosen > 0) chosen-=1;
                 break;

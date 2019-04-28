@@ -79,13 +79,12 @@ public class PlayScreen implements Screen {
 		if (player.def > 1) {
 			for (int k = 0; k < 20; k++) {
 				double dobdef = (float) player.def / player.startdef * 20;
-				if (k > ((float) dobdef)) // Показывает процент целой брони от общей. TODO Установить макс значение брони и рассчитать знаменатель для него
+				if (k > ((float) dobdef)) // Показывает процент целой брони от общей.
 					terminal.write((char) 176, k + 22, 32, Color.red);
 				else terminal.write((char) 178, k + 22, 32, Color.blue);
 			}
 			terminal.write(Integer.toString(player.def), 30, 33, Color.green);
-			//terminal.write(Integer.toString(player.startdef),30,34,Color.green);
-			//terminal.write(Double.toString((double) player.def/player.startdef*20),30,35,Color.green);
+
 		} else {
 			terminal.write("0", 31, 33, Color.green);
 			terminal.write("Nope", 30, 32, Color.red);
@@ -96,7 +95,10 @@ public class PlayScreen implements Screen {
 
 		terminal.write("-|YOUR WEAPON|-", 46, 31, Color.green);
 		if (player.dmg > 3)
-			terminal.write(player.weapon.name(), 45 + player.weapon.name().length() / 2, 32, Color.magenta);
+			if (player.weapon.name().length()<6)
+				terminal.write(player.weapon.name(), 45 + player.weapon.name().length()+4, 32, Color.magenta);
+			else
+			terminal.write(player.weapon.name(), 45 + player.weapon.name().length()/2, 32, Color.magenta);
 		else terminal.write("Fists", 51, 32, Color.magenta);
 		terminal.write(Integer.toString(player.dmg), 53, 33, Color.green);
 
