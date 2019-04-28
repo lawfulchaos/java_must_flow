@@ -127,6 +127,7 @@ public class CreatureAi  implements Serializable {
         }
         else{
             int x=damage;
+            c.armor.def-=x;
             damage=0;
             c.def-=x;
         }
@@ -141,6 +142,7 @@ public class CreatureAi  implements Serializable {
             int x=damage;
             damage=0;
             creature.def-=x;
+            creature.armor.def-=x;
         }
         //если умер аутист
         if (c.hp <= 0) {

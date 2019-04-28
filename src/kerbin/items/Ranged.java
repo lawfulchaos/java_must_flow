@@ -10,7 +10,7 @@ public class Ranged extends Weapon implements Serializable {
     {
         super(glyph, color, name, owner, dmg, isEquipable, desc, cost);
         if (modifier != null) {
-            this.dmg += (Integer) modifier[2]/3;
+            this.dmg -= (Integer) modifier[2]* 1.5;
         }
     }
 }

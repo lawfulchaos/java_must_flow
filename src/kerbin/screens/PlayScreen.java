@@ -238,6 +238,7 @@ public class PlayScreen implements Screen {
 					player.moveBy(0, 1);
 					break;
 				case KeyEvent.VK_I: //инвентарь
+					isAction = false;
 					subscreen = new InventoryScreen(player);
 					break;
 				case KeyEvent.VK_F: //Стрельба
