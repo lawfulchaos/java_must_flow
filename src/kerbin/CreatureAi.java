@@ -173,6 +173,7 @@ public class CreatureAi  implements Serializable {
                 creature.hp=creature.max_hp;
                 creature.honor=0;
                 creature.dmg++;
+                creature.gold+=100;
                 creature.max_honor= creature.max_honor*2;
             }
 
@@ -204,6 +205,7 @@ public class CreatureAi  implements Serializable {
                 c.hp=c.max_hp;
                 c.honor=0;
                 c.dmg++;
+                c.gold+=100;
                 c.max_honor= c.max_honor*2;
             }
 
