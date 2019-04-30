@@ -169,6 +169,10 @@ public class CreatureAi  implements Serializable {
 
             if(creature.honor >= creature.max_honor){
                 creature.player_level++;
+                creature.max_hp=creature.max_hp+15;
+                creature.hp=creature.max_hp;
+                creature.honor=0;
+                creature.dmg++;
                 creature.max_honor= creature.max_honor*2;
             }
 
@@ -177,6 +181,32 @@ public class CreatureAi  implements Serializable {
         }
         if (creature.hp <= 0&& creature.name!="player") {
             creature.getWorld().creatures.remove(creature);
+
+            switch (creature.name){
+                case("mouse"):
+                    c.honor = c.honor + 15;
+                    break;
+
+                case("skeleton"):
+                    c.honor = c.honor + 20;
+                    break;
+
+                case("mob"):
+                    c.honor = c.honor + 10;
+                    break;
+
+
+            }
+
+            if(c.honor >= c.max_honor){
+                c.player_level++;
+                c.max_hp=c.max_hp+15;
+                c.hp=c.max_hp;
+                c.honor=0;
+                c.dmg++;
+                c.max_honor= c.max_honor*2;
+            }
+
             Event.getInstance()
                     .init(String.format("A %s was killed! %s %s",creature.name, c.dmg, c.hp), 2, 3, AsciiPanel.brightWhite);
         }

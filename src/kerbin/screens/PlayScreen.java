@@ -94,7 +94,7 @@ public class PlayScreen implements Screen {
 		//damage out
 
 		terminal.write("-|YOUR WEAPON|-", 46, 31, Color.green);
-		if (player.dmg > 3)
+		if (player.weapon != null)
 			if (player.weapon.name().length()<6)
 				terminal.write(player.weapon.name(), 45 + player.weapon.name().length()+4, 32, Color.magenta);
 			else
