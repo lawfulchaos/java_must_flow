@@ -152,18 +152,18 @@ public class CreatureAi  implements Serializable {
             else if (Math.random()>0.8) creature.getWorld().tile(c.x, c.y).item = c.armor;
             */
             switch (c.name){
-                case("mouse"):{
-                    creature.honor = creature.honor + 20;
-                    break;
-                }
-                case("skeleton"):{
+                case("mouse"):
                     creature.honor = creature.honor + 15;
                     break;
-                }
-                case("mob"):{
+
+                case("skeleton"):
+                    creature.honor = creature.honor + 20;
+                    break;
+
+                case("mob"):
                     creature.honor = creature.honor + 10;
                     break;
-                }
+
 
             }
 
