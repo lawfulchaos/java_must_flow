@@ -67,7 +67,7 @@ public class WorldBuilder {
             int x = (int) (Math.random() * width);
             int y = (int) (Math.random() * height);
 
-            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null ) {
+            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null) {
                 x = (int) (Math.random() * width);
                 y = (int) (Math.random() * height);
             }

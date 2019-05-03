@@ -178,7 +178,7 @@ public class CreatureAi  implements Serializable {
             }
 
             Event.getInstance()
-                    .init(String.format("A %s was killed! %s %s",c.name, creature.dmg, creature.hp), 2, 3, AsciiPanel.brightWhite);
+                    .init(String.format("A %s was killed!",c.name), 2, 3, AsciiPanel.brightWhite);
         }
         if (creature.hp <= 0&& creature.name!="player") {
             creature.getWorld().creatures.remove(creature);
@@ -210,7 +210,7 @@ public class CreatureAi  implements Serializable {
             }
 
             Event.getInstance()
-                    .init(String.format("A %s was killed! %s %s",creature.name, c.dmg, c.hp), 2, 3, AsciiPanel.brightWhite);
+                    .init(String.format("A %s was killed!",creature.name), 2, 3, AsciiPanel.brightWhite);
         }
     }
 
