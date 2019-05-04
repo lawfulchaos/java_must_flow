@@ -31,7 +31,8 @@ public class PlayScreen implements Screen {
         this.player = player;
         world.player = player;
         player.setWorld(world);
-        world.addAtEmptyLocation(player);
+        if (player.level % 2 != 0) world.addAtEmptyLocation(player);
+        else world.addAtBossLevel(player);
     }
 	//Создает мир, внутри мира генерируются мобы и игрок
 	private void createWorld() {
@@ -254,7 +255,7 @@ public class PlayScreen implements Screen {
 						PlayScreen nextLvl = new PlayScreen();
 						nextLvl.setPlayer(player);
 						nextLvl.createWorld();
-						player.setWorld(nextLvl.world);
+						nextLvl.setPlayer(player);
 						return nextLvl;
 						}
 					else if (player.getWorld().checkMerchant(player.x, player.y)!=null)

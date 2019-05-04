@@ -85,13 +85,13 @@ public class World implements Serializable {
 		itemFactory.newArrows(null);
 		itemFactory.newHeal(null);
 		itemFactory.newRandom(null);
-		Creature mouse = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 120,15,20,120,10, 200,1);
-		mouse.setWeapon(itemFactory.newTeeth(mouse));
-		mouse.setArmor(itemFactory.newHide(mouse));
-		mouse.x = 45;
-		mouse.y = 25;
-		new MouseAi(mouse);
-		creatures.add(mouse);
+		Creature boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 120,15,20,120,10, 200,6);
+		boss.setWeapon(itemFactory.newTeeth(boss));
+		boss.setArmor(itemFactory.newHide(boss));
+		boss.x = 45;
+		boss.y = 25;
+		new BossAi(boss);
+		creatures.add(boss);
 	}
 	//Возращает тайл по заданным коордам. Semi-deprecated
 	public Tile tile(int x, int y){
