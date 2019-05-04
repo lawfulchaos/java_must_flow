@@ -110,7 +110,7 @@ public class PlayScreen implements Screen {
 		terminal.write("Player level:", 65, 32, Color.green);
 		terminal.write(Integer.toString(player.player_level), 82, 32, Color.green);
 
-		
+
 
 		String honors = String.format("/ %d",player.max_honor);
 		terminal.write("Honor:", 65, 33, Color.green);
@@ -121,9 +121,17 @@ public class PlayScreen implements Screen {
 
 
 		terminal.write("Gold:", 65, 34, Color.green);
-		terminal.write(Integer.toString(player.gold), 82, 34, Color.green);
+		if (player.gold>0)
+			terminal.write(Integer.toString(player.gold), 82 - ((int) (Math.log10(player.gold)))/2, 34, Color.green);
+		else terminal.write(Integer.toString(player.gold), 82, 34, Color.green);
+
 		terminal.write("Ammo:", 65, 35, Color.green);
-		terminal.write(Integer.toString(player.ammo), 82, 35, Color.green);
+		//terminal.write(Integer.toString(player.ammo), 82, 35, Color.green);
+
+		if (player.ammo>10)
+			terminal.write(Integer.toString(player.ammo), 81 - ((int) (Math.log10(player.ammo)))/2, 35, Color.green);
+		else terminal.write(Integer.toString(player.ammo), 82, 35, Color.green);
+
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
 			subscreen.displayOutput(terminal);
