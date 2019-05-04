@@ -111,6 +111,12 @@ public class PlayScreen implements Screen {
 		terminal.write(Integer.toString(player.player_level), 82, 32, Color.green);
 
 
+		terminal.write("Honor", 65, 33, Color.green);
+		terminal.write(Integer.toString(player.honor), 80, 33, Color.green);
+		terminal.write("/", 84, 33, Color.green);
+		terminal.write(Integer.toString(player.max_honor), 86, 33, Color.green);
+
+
 		String honors = String.format("/ %d",player.max_honor);
 		terminal.write("Honor:", 65, 33, Color.green);
 		if (player.honor>0)

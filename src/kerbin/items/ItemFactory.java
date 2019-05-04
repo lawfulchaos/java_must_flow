@@ -15,7 +15,7 @@ public class ItemFactory  implements Serializable {
 
     //Случайный предмет
     public Item newRandom(Creature owner) {
-        int choice = (int)(Math.random() * 5);
+        int choice = (int)(Math.random() * 6);
         switch (choice) {
             case 0:
                 return newSword(owner);

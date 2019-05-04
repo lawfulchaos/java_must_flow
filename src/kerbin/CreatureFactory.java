@@ -57,4 +57,6 @@ public class CreatureFactory {
         new MobAi(mob);
         return mob;
     }
+
+
 }
