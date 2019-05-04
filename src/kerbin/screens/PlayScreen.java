@@ -67,16 +67,26 @@ public class PlayScreen implements Screen {
 		displayTiles(terminal, left, top);
 
 		//Рамочка
+		for (int dy = 30; dy < 39; dy++)
+			terminal.write((char) 186, 89, dy, Color.cyan);
+
 		for (int dx = 0; dx < 90; dx++) {
 			terminal.write((char) 196, dx, 30, Color.cyan);
 			if ((dx % 21 == 0) && (dx / 21 != 4)) {
-				for (int dy = 30; dy < 40; dy++)
-					terminal.write((char) 179, dx, dy, Color.cyan);
-				terminal.write((char) 194, dx, 30, Color.cyan);
+				for (int dy = 30; dy < 39; dy++)
+					terminal.write((char) 186, dx, dy, Color.cyan);
+				terminal.write((char) 203, dx, 30, Color.cyan);
+				terminal.write((char) 202, dx, 38, Color.cyan);
 			}
+			else
+			terminal.write((char) 196, dx, 38, Color.cyan);
 		}
-		terminal.write((char) 169, 0, 30, Color.cyan);
-		terminal.write((char) 169, 1, 30, Color.cyan);
+
+
+		terminal.write((char) 187, 89, 30, Color.cyan);
+		terminal.write((char) 202, 89, 38, Color.cyan);
+		terminal.write((char) 201, 0, 30, Color.cyan);
+
 
 
 		//Шмат хпшки
@@ -124,7 +134,7 @@ public class PlayScreen implements Screen {
 		terminal.write("Player level:", 65, 32, Color.green);
 		terminal.write(Integer.toString(player.player_level), 82, 32, Color.green);
 
-		
+
 
 		String honors = String.format("/ %d",player.max_honor);
 		terminal.write("Honor:", 65, 33, Color.green);
@@ -135,9 +145,15 @@ public class PlayScreen implements Screen {
 
 
 		terminal.write("Gold:", 65, 34, Color.green);
-		terminal.write(Integer.toString(player.gold), 82, 34, Color.green);
+		if (player.gold>0)
+			terminal.write(Integer.toString(player.gold), 82 - ((int) (Math.log10(player.gold)))/2, 34, Color.green);
+		else terminal.write(Integer.toString(player.gold), 82, 34, Color.green);
+
 		terminal.write("Ammo:", 65, 35, Color.green);
-		terminal.write(Integer.toString(player.ammo), 82, 35, Color.green);
+		if (player.ammo>10)
+			terminal.write(Integer.toString(player.ammo), 81 - ((int) (Math.log10(player.ammo)))/2, 35, Color.green);
+		else terminal.write(Integer.toString(player.ammo), 82, 35, Color.green);
+
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
 			subscreen.displayOutput(terminal);
