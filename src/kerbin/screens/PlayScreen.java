@@ -62,6 +62,7 @@ public class PlayScreen implements Screen {
 			}
 		}
 		terminal.write((char) 169, 0, 30, Color.cyan);
+		terminal.write((char) 169, 1, 30, Color.cyan);
 
 
 		//Шмат хпшки
@@ -103,20 +104,24 @@ public class PlayScreen implements Screen {
 		terminal.write(Integer.toString(player.dmg), 53, 33, Color.green);
 
 
-		terminal.write("Map", 65, 31, Color.green);
+		terminal.write("Map:", 65, 31, Color.green);
 		terminal.write(Integer.toString(player.level), 82, 31, Color.green);
 
-		terminal.write("Player level", 65, 32, Color.green);
+		terminal.write("Player level:", 65, 32, Color.green);
 		terminal.write(Integer.toString(player.player_level), 82, 32, Color.green);
 
-		terminal.write("Honor", 65, 33, Color.green);
-		terminal.write(Integer.toString(player.honor), 82, 33, Color.green);
-		terminal.write("/", 84, 33, Color.green);
-		terminal.write(Integer.toString(player.max_honor), 86, 33, Color.green);
 
-		terminal.write("Gold", 65, 34, Color.green);
+		String honors = String.format("/ %d",player.max_honor);
+		terminal.write("Honor:", 65, 33, Color.green);
+		if (player.honor>0)
+			terminal.write(Integer.toString(player.honor), 80 - ((int) (Math.log10(player.honor))), 33, Color.green);
+		else terminal.write(Integer.toString(player.honor), 80, 33, Color.green);
+			terminal.write(honors, 82, 33, Color.green);
+
+
+		terminal.write("Gold:", 65, 34, Color.green);
 		terminal.write(Integer.toString(player.gold), 82, 34, Color.green);
-		terminal.write("Ammo", 65, 35, Color.green);
+		terminal.write("Ammo:", 65, 35, Color.green);
 		terminal.write(Integer.toString(player.ammo), 82, 35, Color.green);
 		terminal.write(Event.getInstance().getMsg(), 0, 39, Event.getInstance().getColor());
 		if (subscreen != null)
