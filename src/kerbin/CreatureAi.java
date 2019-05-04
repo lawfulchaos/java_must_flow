@@ -13,10 +13,6 @@ public class CreatureAi  implements Serializable {
     }
 //Реакция на перемещение
     public void onEnter(int x, int y, Tile tile) {
-        /*if (tile.isGround()) {
-            creature.x = x;
-            creature.y = y;
-        }*/
     }
 //Ход существа
     public void onTurn(Creature player) {

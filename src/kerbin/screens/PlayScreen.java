@@ -34,9 +34,23 @@ public class PlayScreen implements Screen {
         world.addAtEmptyLocation(player);
     }
 	//Создает мир, внутри мира генерируются мобы и игрок
-	private void createWorld(){
-		world = new WorldBuilder(90, 32).build();
-		player = world.player;
+	private void createWorld() {
+		if (player!=null && player.level % 2 == 0) {
+			world = new WorldBuilder(90, 32).buildBossLevel();
+			world.addAtBossLevel(player);
+		}
+		else if (player == null)
+		{
+			world = new WorldBuilder(90, 32).build();
+			player = world.player;
+			world.addAtEmptyLocation(player);
+		}
+		else
+		{
+			world = new WorldBuilder(90, 32).build();
+			world.addAtEmptyLocation(player);
+		}
+
 	}
 // Сдвиг экрана при движении игрока
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
@@ -220,9 +234,11 @@ public class PlayScreen implements Screen {
 				//	return new LoseScreen();
 				case KeyEvent.VK_ENTER:
 					if(player.getWorld().tile(player.x, player.y).glyph() == '#' && player.getWorld().creatures.size() ==0){
+						player.level++;
 						PlayScreen nextLvl = new PlayScreen();
 						nextLvl.setPlayer(player);
-						player.level++;
+						nextLvl.createWorld();
+						player.setWorld(nextLvl.world);
 						return nextLvl;
 						}
 					else if (player.getWorld().checkMerchant(player.x, player.y)!=null)

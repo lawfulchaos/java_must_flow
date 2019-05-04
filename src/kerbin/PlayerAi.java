@@ -38,7 +38,7 @@ public class PlayerAi extends CreatureAi implements Serializable {
                 int priority = 2;
                 if (priority > Event.getInstance().getPriority()) {
                     Event.getInstance()
-                            .init(String.format("%s: You shall not pass! %s: It`s going to be a great battle! %s %s", c.name, c.name, creature.dmg, creature.hp), 2, 2, AsciiPanel.brightWhite);
+                            .init(String.format("You fight %s", c.name), 2, 2, AsciiPanel.brightWhite);
                 }
                 super.battle(c);
             }

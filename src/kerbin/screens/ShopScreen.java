@@ -162,6 +162,7 @@ public class ShopScreen implements Screen {
                         sold.cost *= 0.83;
                         player.inv.add(sold);
                         merchant.inv.remove(sold);
+                        sold.owner = player;
                         if (chosen > 0) chosen -= 1;
                     }
                     else {msg = "You have not enough gold";}
@@ -178,6 +179,7 @@ public class ShopScreen implements Screen {
                         sold.cost *= 1.2;
                         merchant.inv.add(sold);
                         player.inv.remove(sold);
+                        sold.owner = merchant;
                         if (chosen > 0) chosen -= 1;
                     }
                     else {msg = "Merchant doesn't have enough gold";}

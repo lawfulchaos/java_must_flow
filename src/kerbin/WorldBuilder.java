@@ -24,8 +24,18 @@ public class WorldBuilder {
 
     public World build() {
         this.makeMap();
-        return new World(tiles);
+        World world = new World(tiles);
+        world.populateWorld();
+        return world;
     }
+
+    public World buildBossLevel() {
+        this.makeBossLevel();
+        World world = new World(tiles);
+        world.populateBossWorld();
+        return world;
+    }
+
     public void create_room(Rect room) {
         for (int x = room.x1 + 1; x < room.x2; x++) {
             for (int y = room.y1 + 1; y < room.y2; y++) {
@@ -64,8 +74,8 @@ public class WorldBuilder {
 
     public void add_stairs(int[] coords) {
         for (int i = -1; i < 2; i++) {
-            if (tiles[coords[0] + i][coords[1] + i].item == null) {
-                tiles[coords[0] + i][coords[1] + i] = tileFactory.newStairs();
+            if (tiles[coords[0]][coords[1] + i].item == null) {
+                tiles[coords[0]][coords[1] + i] = tileFactory.newStairs();
                 break;
             }
         }
@@ -115,5 +125,14 @@ public class WorldBuilder {
 
         }
         add_stairs(rooms.get(rooms.size()-2).center());
+    }
+    //Уровень босса, две комнаты, в одной спавнится игрок, в другой босс
+    public void makeBossLevel() {
+        Rect playerRoom = new Rect(41, 3, 6, 6);
+        Rect bossRoom = new Rect(30, 20, 30, 30);
+        create_room(playerRoom);
+        create_room(bossRoom);
+        create_v_tunnel(playerRoom.center()[1],bossRoom.center()[1], playerRoom.center()[0]);
+        add_stairs(bossRoom.center());
     }
 }

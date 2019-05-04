@@ -1,5 +1,6 @@
 package kerbin;
 //Общий класс мира
+import asciiPanel.AsciiPanel;
 import kerbin.items.Item;
 import kerbin.items.ItemFactory;
 
@@ -16,8 +17,12 @@ public class World implements Serializable {
 	public Creature player;
 	private int height;
 	public int height() { return height; }
+
 	public TileFactory tileFactory;
 	public ProjectileFactory projectileFactory;
+	public CreatureFactory creatureFactory;
+	public ItemFactory itemFactory;
+
 	public List<Creature> creatures;
 	//Нейтральные/Дружелюбные существа
 	public List<Creature> npcs;
@@ -33,14 +38,16 @@ public class World implements Serializable {
 		this.projectiles = new ArrayList();
 		this.tileFactory = new TileFactory();
 		this.projectileFactory = new ProjectileFactory(this);
-		populateWorld();
+		this.creatureFactory = new CreatureFactory(this);
+		this.player = creatureFactory.newPlayer();
+		this.itemFactory = new ItemFactory(this);
+
+
 	}
 	//Создает мобов и предметы
 	public void populateWorld()
 	{
-		CreatureFactory creatureFactory = new CreatureFactory(this);
 		ItemFactory itemFactory = new ItemFactory(this);
-		this.player = creatureFactory.newPlayer();
 		for (int i = 0; i < 4; i++) {
 			Creature mouse = creatureFactory.newMouse();
 			creatures.add(mouse);
@@ -72,7 +79,21 @@ public class World implements Serializable {
 			else itemFactory.newMail(null);
 		}
 	}
-//Возращает тайл по заданным коордам. Semi-deprecated
+//Спавнит предметы и босса
+	public void populateBossWorld()
+	{
+		itemFactory.newArrows(null);
+		itemFactory.newHeal(null);
+		itemFactory.newRandom(null);
+		Creature mouse = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 120,15,20,120,10, 200,1);
+		mouse.setWeapon(itemFactory.newTeeth(mouse));
+		mouse.setArmor(itemFactory.newHide(mouse));
+		mouse.x = 45;
+		mouse.y = 25;
+		new MouseAi(mouse);
+		creatures.add(mouse);
+	}
+	//Возращает тайл по заданным коордам. Semi-deprecated
 	public Tile tile(int x, int y){
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return tileFactory.newBound();
@@ -111,6 +132,11 @@ public class World implements Serializable {
 		while (!tile(x,y).isGround() || item(x,y)!=null && !tile(x,y).isUtil);
 
 		tiles[x][y].item = i;
+	}
+//Спавнит игрока на уровне босса
+	public void addAtBossLevel(Creature creature){
+		creature.x = 45;
+		creature.y = 5;
 	}
 //Возвращает существо по коордам, при отсутствии возвращает null
 	public Creature creature(int x, int y){
