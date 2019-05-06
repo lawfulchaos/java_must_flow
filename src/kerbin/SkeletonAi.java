@@ -29,7 +29,7 @@ public class SkeletonAi extends CreatureAi implements Serializable {
                 }
             }
             if(isVisible && creature.kd==0) {
-                creature.getWorld().projectileFactory.newBullet(creature, creature.x + mx, creature.y + my, mx, my, mx, my);
+                creature.getWorld().projectileFactory.newBullet(creature, creature.x + mx, creature.y + my, mx, my, mx, my, 1+(int)(Math.random()*10));
                 creature.kd=3;
             }
         }

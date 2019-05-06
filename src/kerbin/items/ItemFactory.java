@@ -36,17 +36,17 @@ public class ItemFactory  implements Serializable {
     }
         //оружие, броня для игрока
     public Weapon newSword(Creature owner){
-        Weapon weapon = new Weapon('!', AsciiPanel.green, "Sword", owner, 4, true, "Stick them with the pointy end", 100);
+        Weapon weapon = new Weapon('!', AsciiPanel.green, "Sword", owner, 4, true, "Stick them with the pointy end", 100, 6);
         if (owner == null) world.addAtEmptyLocation(weapon);
         return weapon;
     }
     public Weapon newBattleaxe(Creature owner) {
-        Weapon weapon = new Weapon('%', AsciiPanel.green, "Battleaxe", owner, 6, true, "It's heavy, it's dangerous, it will do", 150);
+        Weapon weapon = new Weapon('%', AsciiPanel.green, "Battleaxe", owner, 6, true, "It's heavy, it's dangerous, it will do", 150, 6);
         if (owner == null) world.addAtEmptyLocation(weapon);
         return weapon;
     }
     public Ranged newBow(Creature owner){
-        Ranged bow = new Ranged('}', AsciiPanel.brightMagenta, "Bow", owner, 4, true, "A stick with a string to dominate over diistance", 150);
+        Ranged bow = new Ranged('}', AsciiPanel.brightMagenta, "Bow", owner, 4, true, "A stick with a string to dominate over distance", 150, 6);
         if (owner == null) world.addAtEmptyLocation(bow);
         return bow;
     }
@@ -64,7 +64,7 @@ public class ItemFactory  implements Serializable {
 
     //Оружие, броня для мобов
     public Weapon newTeeth(Creature owner){
-        Weapon weapon = new Weapon('(', AsciiPanel.green, "Teeth", owner, 1, false, "Monster fang, looks sharp enough", 10);
+        Weapon weapon = new Weapon('(', AsciiPanel.green, "Teeth", owner, 1, false, "Monster fang, looks sharp enough", 10, 12000);
         return weapon;
     }
     public Armor newHide(Creature owner){

@@ -78,7 +78,7 @@ public class World implements Serializable {
 		for (int j = 0; j < 1; j++) {
 			items.add(itemFactory.newTeleport(null));
 		}
-		for (int j = 0; j < 5; j++) {
+		for (int j = 0; j < 30; j++) {
 			if (Math.random() > 0.5) items.add(itemFactory.newPlate(null));
 			else items.add(itemFactory.newMail(null));
 		}
@@ -89,11 +89,11 @@ public class World implements Serializable {
 		itemFactory.newArrows(null);
 		itemFactory.newHeal(null);
 		itemFactory.newRandom(null);
-		Creature boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 120,15,20,120,10, 200,6);
+		Creature boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 35,5,20,999,10, 500,6);
 		boss.setWeapon(itemFactory.newTeeth(boss));
 		boss.setArmor(itemFactory.newHide(boss));
-		boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 15, true,
-				"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450));
+		boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 30, true,
+				"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
 		boss.x = 45;
 		boss.y = 25;
 		new BossAi(boss);

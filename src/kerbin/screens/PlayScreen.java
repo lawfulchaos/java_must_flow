@@ -212,25 +212,25 @@ public class PlayScreen implements Screen {
 			switch (key.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
-					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0);
+					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0, player.weapon.dmg*2);
 					player.ammo -= 1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_RIGHT:
 				case KeyEvent.VK_D:
-					if(world.tile(player.x+1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player,player.x+1, player.y, +1, 0, +1, 0);
+					if(world.tile(player.x+1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player,player.x+1, player.y, +1, 0, +1, 0, player.weapon.dmg*2);
 					player.ammo -= 1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_UP:
 				case KeyEvent.VK_W:
-					if(world.tile(player.x, player.y-1).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x, player.y-1, 0, -1, 0, -1);
+					if(world.tile(player.x, player.y-1).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x, player.y-1, 0, -1, 0, -1, player.weapon.dmg*2);
 					player.ammo -= 1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_DOWN:
 				case KeyEvent.VK_S:
-					if(world.tile(player.x, player.y+1).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x, player.y+1, 0, 1, 0, 1);
+					if(world.tile(player.x, player.y+1).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x, player.y+1, 0, 1, 0, 1, player.weapon.dmg*2);
 					player.ammo -= 1;
 					isShooting = false;
 					break;

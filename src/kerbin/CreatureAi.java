@@ -2,6 +2,7 @@ package kerbin;
 // Поведение существа, создается в CreatureFactory
 import asciiPanel.AsciiPanel;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -113,11 +114,8 @@ public class CreatureAi  implements Serializable {
 
     public void battle(Creature c){
         int damage = creature.dmg;
-        if (creature.weapon != null && creature.weapon.modifier != null && creature.weapon.modifier[0] != null && creature.weapon.modifier[0].equals("Cursed"))
-        {
-            if (creature.name.equals("Player"))System.out.println("БОЛЬНА");
-            creature.hp -= creature.dmg;
-        }
+        if (creature.weapon != null && creature.weapon.modifier != null && creature.weapon.modifier[0] != null && creature.weapon.modifier[0].equals("Cursed")) { creature.hp -= creature.dmg; }
+        if (c.weapon != null && c.weapon.modifier != null && c.weapon.modifier[0] != null && c.weapon.modifier[0].equals("Cursed")) { c.hp -= c.dmg; }
         //боевка атакующий лупит аутиста
         //допилить шанс уклона
         if(c.def<=damage){
@@ -214,6 +212,44 @@ public class CreatureAi  implements Serializable {
 
             Event.getInstance()
                     .init(String.format("A %s was killed!",creature.name), 2, 3, AsciiPanel.brightWhite);
+        }
+        if (creature.weapon != null)
+        {
+            if (creature.weapon.durability != 0) creature.weapon.durability--;
+            else
+            {
+                int priority = 4;
+                if (priority >= Event.getInstance().getPriority()) {
+                    if (creature.weapon.modifier == null) Event.getInstance()
+                            .init(String.format("Your %s is broken", creature.weapon.name()), priority, 3, new Color(255, 88, 0));
+                    else
+                    {
+                        Event.getInstance()
+                                .init(String.format("Your %s %s is broken", creature.weapon.modifier[0], creature.weapon.name()), priority, 3, new Color(255, 88, 0));
+                    }
+                }
+                creature.dmg = 2 + creature.player_level;
+                creature.weapon = null;
+            }
+        }
+        if (c.weapon != null)
+        {
+            if (c.weapon.durability != 0) c.weapon.durability--;
+            else
+            {
+                int priority = 4;
+                if (priority >= Event.getInstance().getPriority()) {
+                    if (c.weapon.modifier == null) Event.getInstance()
+                            .init(String.format("Your %s is broken", c.weapon.name()), priority, 3, new Color(255, 88, 0));
+                    else
+                    {
+                        Event.getInstance()
+                                .init(String.format("Your %s %s is broken", c.weapon.modifier[0], c.weapon.name()), priority, 3, new Color(255, 88, 0));
+                    }
+                }
+                c.dmg = 2+c.player_level;
+                c.weapon = null;
+            }
         }
     }
 

@@ -13,7 +13,11 @@ public class Armor extends Item implements Serializable {
     {
         super(glyph, color, name, owner, isEquipable, desc, cost);
         this.def = def;
-        if (modifier != null) this.def += (Integer) modifier[2]*2;
+        if (modifier != null)
+        {
+            if (modifier[0].equals("Cursed")) this.def -= (Integer) modifier[2]*2;
+            else this.def += (Integer) modifier[2]*2;
+        }
         this.startdef=this.def;
     }
 }

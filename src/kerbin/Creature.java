@@ -102,7 +102,7 @@ public class Creature  implements Serializable {
         if (this.armor != null)
         {
             this.def -= this.armor.def;
-            if (this.armor.modifier != null && this.armor.modifier[0] == "Cursed")
+            if (this.armor.modifier != null && this.armor.modifier[0].equals("Cursed"))
             {
                 this.effect = null;
             }
