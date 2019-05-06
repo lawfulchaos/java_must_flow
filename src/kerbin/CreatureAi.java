@@ -147,6 +147,7 @@ public class CreatureAi  implements Serializable {
             /*if (Math.random() > 0.8) creature.getWorld().tile(c.x, c.y).item = c.weapon;
             else if (Math.random()>0.8) creature.getWorld().tile(c.x, c.y).item = c.armor;
             */
+            if (c.inv.size()!=0)creature.getWorld().tile(c.x, c.y).item = c.inv.get(0);
             switch (c.name){
                 case("mouse"):
                     creature.honor = creature.honor + 15;
@@ -178,6 +179,7 @@ public class CreatureAi  implements Serializable {
         }
         if (creature.hp <= 0&& creature.name!="player") {
             creature.getWorld().creatures.remove(creature);
+            if (creature.inv.size() != 0)creature.getWorld().tile(creature.x, creature.y).item = creature.inv.get(0);
 
             switch (creature.name){
                 case("mouse"):

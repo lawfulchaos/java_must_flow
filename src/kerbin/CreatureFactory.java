@@ -5,8 +5,9 @@ import kerbin.items.Item;
 import kerbin.items.ItemFactory;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class CreatureFactory {
+public class CreatureFactory implements Serializable {
     private World world;
     private ItemFactory itemFactory;
     public CreatureFactory(World world){

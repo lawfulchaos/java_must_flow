@@ -3,6 +3,7 @@ package kerbin;
 import asciiPanel.AsciiPanel;
 import kerbin.items.Item;
 import kerbin.items.ItemFactory;
+import kerbin.items.Weapon;
 
 import java.awt.Color;
 import java.io.Serializable;
@@ -88,6 +89,8 @@ public class World implements Serializable {
 		Creature boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 120,15,20,120,10, 200,6);
 		boss.setWeapon(itemFactory.newTeeth(boss));
 		boss.setArmor(itemFactory.newHide(boss));
+		boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 15, true,
+				"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450));
 		boss.x = 45;
 		boss.y = 25;
 		new BossAi(boss);

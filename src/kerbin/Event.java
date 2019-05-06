@@ -1,10 +1,11 @@
 package kerbin;
 //Синглтон-сообщение для вывода в ХУДе, генерируются действиями ИИ нпс и игрока, имеют срок жизни, цвет и приоритет (больше - важнее)
 import java.awt.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Event {
+public class Event implements Serializable {
     private static Event instance;
 
     public String getMsg() { return msg; }

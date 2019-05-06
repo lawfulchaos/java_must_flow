@@ -13,23 +13,6 @@ public class BossAi extends MouseAi implements Serializable {
     public BossAi(Creature creature) {
         super(creature);
     }
-
-  /*  public void onTurn(Creature player)
-    {
-        super.onTurn(player);
-        if (creature.hp <= 0) {
-            player.honor += 200;
-            creature.getWorld().tile(creature.x, creature.y).item = new Weapon('%', Color.yellow, "Guitar", null, 15, true,
-                    "A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450);
-
-            int priority = 5;
-            if (priority >= Event.getInstance().getPriority()) {
-                Event.getInstance()
-                        .init("MOUSE WAYS BETRAYED ME", priority, 3, Color.RED);
-            }
-        }
-    }*/
-
     public void onEnter(int x, int y, Tile tile) {
         super.onEnter(x, y, tile);
         if (creature.kd == 0) {
