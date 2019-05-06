@@ -256,6 +256,10 @@ public class PlayScreen implements Screen {
 						nextLvl.setPlayer(player);
 						nextLvl.createWorld();
 						nextLvl.setPlayer(player);
+						for (Creature creature:nextLvl.world.creatures) {
+							creature.hp*=1.5;
+							creature.dmg*=1.5;
+						}
 						return nextLvl;
 						}
 					else if (player.getWorld().checkMerchant(player.x, player.y)!=null)
