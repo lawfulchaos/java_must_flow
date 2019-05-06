@@ -17,7 +17,6 @@ public class Weapon extends Item implements Serializable {
             if (name == "Battleaxe" && modifier[0] == "Cursed")
             {
                 this.desc = "BLOOD FOR THE BLOOD GOD";
-                this.dmg += Math.abs((Integer) modifier[2] * 2);
             }
         }
     }

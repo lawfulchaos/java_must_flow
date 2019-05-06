@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 public class Item  implements Serializable {
     //Словарь модификаторов, {Эффект, Название, Цвет}
     Object[][] modifiers = {
-            {"Cursed", Color.RED, -10},
+            {"Cursed", Color.RED, 13},
             {"Relic", Color.WHITE, 3},
             {"Blessed", Color.BLUE, 5},
             {"Holy", Color.GREEN, 10}

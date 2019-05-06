@@ -113,6 +113,11 @@ public class CreatureAi  implements Serializable {
 
     public void battle(Creature c){
         int damage = creature.dmg;
+        if (creature.weapon != null && creature.weapon.modifier != null && creature.weapon.modifier[0] != null && creature.weapon.modifier[0].equals("Cursed"))
+        {
+            if (creature.name.equals("Player"))System.out.println("БОЛЬНА");
+            creature.hp -= creature.dmg;
+        }
         //боевка атакующий лупит аутиста
         //допилить шанс уклона
         if(c.def<=damage){

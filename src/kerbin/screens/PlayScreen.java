@@ -30,7 +30,7 @@ public class PlayScreen implements Screen {
         this.player = player;
         world.player = player;
         player.setWorld(world);
-        if (player.level % 2 != 0) world.addAtEmptyLocation(player);
+        if (player.level % 3 != 0) world.addAtEmptyLocation(player);
         else world.addAtBossLevel(player);
     }
 	//Создает мир, внутри мира генерируются мобы и игрок
