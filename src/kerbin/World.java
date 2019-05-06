@@ -69,6 +69,7 @@ public class World implements Serializable {
 		for (int j = 0; j < 2; j++) {
 			items.add(itemFactory.newBow(null));
 		}
+
 		for (int j = 0; j < 3; j++) {
 			items.add(itemFactory.newHeal(null));
 		}
@@ -78,7 +79,7 @@ public class World implements Serializable {
 		for (int j = 0; j < 1; j++) {
 			items.add(itemFactory.newTeleport(null));
 		}
-		for (int j = 0; j < 30; j++) {
+		for (int j = 0; j < 3; j++) {
 			if (Math.random() > 0.5) items.add(itemFactory.newPlate(null));
 			else items.add(itemFactory.newMail(null));
 		}
