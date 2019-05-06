@@ -7,8 +7,7 @@ import java.io.*;
 import asciiPanel.AsciiPanel;
 import kerbin.*;
 import kerbin.Event;
-import kerbin.items.Armor;
-import kerbin.items.Ranged;
+import kerbin.items.*;
 
 public class PlayScreen implements Screen {
 	private World world;
@@ -257,8 +256,25 @@ public class PlayScreen implements Screen {
 						nextLvl.createWorld();
 						nextLvl.setPlayer(player);
 						for (Creature creature:nextLvl.world.creatures) {
-							creature.hp*=1.5;
-							creature.dmg*=1.5;
+							creature.hp*=player.level;
+							creature.dmg*=player.level;
+						}
+						for (Item item : nextLvl.world.items) {
+							if (item instanceof Weapon)
+							{
+								((Weapon)item).dmg *= (player.level * 0.8);
+								((Weapon)item).cost *= (player.level * 0.8);
+							}
+							else if (item instanceof Armor)
+							{
+								((Armor)item).def *= (player.level * 0.8);
+								((Armor)item).cost *= (player.level * 0.8);
+							}
+							else if (item instanceof Usable)
+							{
+								((Usable)item).effect *= (player.level * 0.8);
+								((Usable)item).cost *= (player.level * 0.8);
+							}
 						}
 						return nextLvl;
 						}
