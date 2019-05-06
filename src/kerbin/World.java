@@ -3,6 +3,7 @@ package kerbin;
 import asciiPanel.AsciiPanel;
 import kerbin.items.Item;
 import kerbin.items.ItemFactory;
+import kerbin.items.Usable;
 import kerbin.items.Weapon;
 
 import java.awt.Color;
@@ -28,6 +29,7 @@ public class World implements Serializable {
 	//Нейтральные/Дружелюбные существа
 	public List<Creature> npcs;
 	public List<Projectile> projectiles;
+	public List<Item> items;
 
 	public World(Tile[][] tiles){
 		this.tiles = tiles;
@@ -37,6 +39,7 @@ public class World implements Serializable {
 		this.creatures = new ArrayList();
 		this.npcs = new ArrayList();
 		this.projectiles = new ArrayList();
+		this.items = new ArrayList();
 		this.tileFactory = new TileFactory();
 		this.projectileFactory = new ProjectileFactory(this);
 		this.creatureFactory = new CreatureFactory(this);
@@ -60,24 +63,24 @@ public class World implements Serializable {
 		Creature merch = creatureFactory.newMerchant();
 		npcs.add(merch);
 		for (int j = 0; j < 3; j++) {
-			if (Math.random() > 0.5) itemFactory.newBattleaxe(null);
-			else itemFactory.newSword(null);
+			if (Math.random() > 0.5) items.add(itemFactory.newBattleaxe(null));
+			else items.add(itemFactory.newSword(null));
 		}
 		for (int j = 0; j < 2; j++) {
-			itemFactory.newBow(null);
+			items.add(itemFactory.newBow(null));
 		}
 		for (int j = 0; j < 3; j++) {
-			itemFactory.newHeal(null);
+			items.add(itemFactory.newHeal(null));
 		}
 		for (int j = 0; j < 2; j++) {
-			itemFactory.newArrows(null);
+			items.add(itemFactory.newArrows(null));
 		}
 		for (int j = 0; j < 1; j++) {
-			itemFactory.newTeleport(null);
+			items.add(itemFactory.newTeleport(null));
 		}
 		for (int j = 0; j < 5; j++) {
-			if (Math.random() > 0.5) itemFactory.newPlate(null);
-			else itemFactory.newMail(null);
+			if (Math.random() > 0.5) items.add(itemFactory.newPlate(null));
+			else items.add(itemFactory.newMail(null));
 		}
 	}
 //Спавнит предметы и босса

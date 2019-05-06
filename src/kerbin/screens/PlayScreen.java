@@ -36,7 +36,7 @@ public class PlayScreen implements Screen {
     }
 	//Создает мир, внутри мира генерируются мобы и игрок
 	private void createWorld() {
-		if (player!=null && player.level % 2 == 0) {
+		if (player!=null && player.level % 3 == 0) {
 			world = new WorldBuilder(90, 32).buildBossLevel();
 			world.addAtBossLevel(player);
 		}
