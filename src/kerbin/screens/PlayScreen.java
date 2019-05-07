@@ -196,6 +196,29 @@ public class PlayScreen implements Screen {
 		}
 		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 	}
+	public void loadGame()
+	{
+		try {
+			FileInputStream fi = new FileInputStream(new File("\\saves\\save.dat"));
+			ObjectInputStream oi = new ObjectInputStream(fi);
+
+			// Read objects
+			world = (World) oi.readObject();
+			player = world.player;
+			for (int i = 0; i < world.creatures.size(); i++) {
+				if (world.creatures.get(i).ai instanceof MouseAi)
+					System.out.println(world.creatures.get(i));
+			}
+			oi.close();
+			fi.close();
+			Event.getInstance().init("Game loaded", 2, 3, AsciiPanel.brightGreen);
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 //Реакция на нажатие клавиши: ход нпс, после движение игрока
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
@@ -343,26 +366,7 @@ public class PlayScreen implements Screen {
 					break;
 				case KeyEvent.VK_F9:
 					isAction = false;
-					try {
-						FileInputStream fi = new FileInputStream(new File("\\saves\\save.dat"));
-						ObjectInputStream oi = new ObjectInputStream(fi);
-
-						// Read objects
-						world = (World) oi.readObject();
-						player = world.player;
-						for (int i = 0; i < world.creatures.size(); i++) {
-							if (world.creatures.get(i).ai instanceof MouseAi)
-							System.out.println(world.creatures.get(i));
-						}
-						oi.close();
-						fi.close();
-						Event.getInstance().init("Game loaded", 2, 3, AsciiPanel.brightGreen);
-
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-					}
+					loadGame();
 					break;
 				default:
 					isAction = false;

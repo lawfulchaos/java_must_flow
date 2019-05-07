@@ -125,7 +125,6 @@ public class InventoryScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        char c = key.getKeyChar();
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 return null;
