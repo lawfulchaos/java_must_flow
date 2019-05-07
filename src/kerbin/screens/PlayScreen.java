@@ -120,10 +120,7 @@ public class PlayScreen implements Screen {
 
 		terminal.write("-|YOUR WEAPON|-", 46, 31, Color.green);
 		if (player.weapon != null)
-			if (player.weapon.name().length()<6)
-				terminal.write(player.weapon.name(), 45 + player.weapon.name().length()+4, 32, Color.magenta);
-			else
-			terminal.write(player.weapon.name(), 45 + player.weapon.name().length()/2, 32, Color.magenta);
+		terminal.write(player.weapon.name(), 53 - player.weapon.name().length()/2, 32, Color.magenta);
 		else terminal.write("Fists", 51, 32, Color.magenta);
 		terminal.write(Integer.toString(player.dmg), 53, 33, Color.green);
 
