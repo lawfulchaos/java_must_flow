@@ -92,7 +92,8 @@ public class PlayScreen implements Screen {
 		//Шмат хпшки
 		terminal.write((char) 157 + " YOUR HEALTHPOINT " + (char) 157, 1, 31, Color.green);
 		for (int k = 0; k < 20; k++) {
-			if (k >= (player.hp / 5)) //знаменатель - число очков здоровья, которое отображает символ
+			double dobhp = (float) player.hp/player.max_hp * 20;
+			if (k > ((float) dobhp-0.5))
 				terminal.write((char) 254, k + 1, 32, Color.red);
 			else terminal.write((char) 254, k + 1, 32, Color.green);
 		}
@@ -120,10 +121,7 @@ public class PlayScreen implements Screen {
 
 		terminal.write("-|YOUR WEAPON|-", 46, 31, Color.green);
 		if (player.weapon != null)
-			if (player.weapon.name().length()<6)
-				terminal.write(player.weapon.name(), 45 + player.weapon.name().length()+4, 32, Color.magenta);
-			else
-			terminal.write(player.weapon.name(), 45 + player.weapon.name().length()/2, 32, Color.magenta);
+		terminal.write(player.weapon.name(), 53 - player.weapon.name().length()/2, 32, Color.magenta);
 		else terminal.write("Fists", 51, 32, Color.magenta);
 		terminal.write(Integer.toString(player.dmg), 53, 33, Color.green);
 
@@ -235,7 +233,7 @@ public class PlayScreen implements Screen {
 			switch (key.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
-					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0, player.weapon.dmg*2);
+					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0, player.weapon.dmg*3);
 					player.ammo -= 1;
 					isShooting = false;
 					break;

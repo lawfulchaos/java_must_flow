@@ -77,6 +77,13 @@ public class ItemFactory  implements Serializable {
         if (owner == null) world.addAtEmptyLocation(arrows);
         return arrows;
     }
+    //сюжет
+    public Story newStory(Creature owner,String name,String disc){
+        Story storyb = new Story((char) 63, AsciiPanel.white, name, owner, false, disc, 30);
+        if (owner == null) world.addAtEmptyLocation(storyb);
+        return storyb;
+    }
+
     //Зелья и иже с ними
     public Usable newHeal(Creature owner){
         Usable heal = new Usable('+', AsciiPanel.cyan, "Heal potion", owner, 20, false, "Glows red", 60);
