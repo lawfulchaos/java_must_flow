@@ -1,10 +1,7 @@
 package kerbin;
 //Общий класс мира
 import asciiPanel.AsciiPanel;
-import kerbin.items.Item;
-import kerbin.items.ItemFactory;
-import kerbin.items.Usable;
-import kerbin.items.Weapon;
+import kerbin.items.*;
 
 import java.awt.Color;
 import java.io.Serializable;
@@ -90,11 +87,31 @@ public class World implements Serializable {
 		itemFactory.newArrows(null);
 		itemFactory.newHeal(null);
 		itemFactory.newRandom(null);
-		Creature boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 35,5,20,999,10, 500,6);
-		boss.setWeapon(itemFactory.newTeeth(boss));
-		boss.setArmor(itemFactory.newHide(boss));
-		boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 30, true,
-				"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
+		Creature boss;
+		switch (player.level / 3)
+		{
+			case 1:
+				boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 35, 5, 20, 999, 10, 500, 6);
+				boss.setWeapon(itemFactory.newTeeth(boss));
+				boss.setArmor(itemFactory.newHide(boss));
+				boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 30, true,
+						"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
+				break;
+			case 0:
+				boss = new Creature(this, 'R', AsciiPanel.yellow, "Reality Bender", 15, 3, 10, 15 * player.player_level, 10, 500, 6);
+				boss.setWeapon(itemFactory.newTeeth(boss));
+				boss.setArmor(itemFactory.newHide(boss));
+				boss.inv.add(new Usable('+', Color.yellow, "Java class", null, 10, true,
+						"Unknown words of ancient origin fill you with renowned berserk rage, empowering you with unprecedented strength", 450));
+				break;
+			default:
+				boss = new Creature(this, 'S', AsciiPanel.red, "Lord Mousarium", 35, 5, 20, 999, 10, 500, 6);
+				boss.setWeapon(itemFactory.newTeeth(boss));
+				boss.setArmor(itemFactory.newHide(boss));
+				boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 30, true,
+						"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
+				break;
+		}
 		boss.x = 45;
 		boss.y = 25;
 		new BossAi(boss);

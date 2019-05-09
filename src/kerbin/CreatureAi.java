@@ -247,7 +247,7 @@ public class CreatureAi  implements Serializable {
                                 .init(String.format("Your %s %s is broken", c.weapon.modifier[0], c.weapon.name()), priority, 3, new Color(255, 88, 0));
                     }
                 }
-                c.dmg = 2+c.player_level;
+                c.dmg -= c.weapon.dmg;
                 c.weapon = null;
             }
         }

@@ -69,7 +69,7 @@ public class ShopScreen implements Screen {
 
         showHeader(terminal);
         int y = 4;
-        int x = 28;
+        int x = 32;
         i = 0;
         int my = 4;
         int mx = 4;
@@ -148,6 +148,19 @@ public class ShopScreen implements Screen {
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 if (chosen > 0) chosen-=1;
+                break;
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
+                if (chosen < merchant.inv.size() && chosen < player.inv.size())
+                    chosen += merchant.inv.size();
+                else if (chosen >= merchant.inv.size() && chosen-merchant.inv.size() < merchant.inv.size())
+                    chosen -= merchant.inv.size();
+                else if (chosen < merchant.inv.size())
+                    chosen = merchant.inv.size()+player.inv.size()-1;
+                else
+                    chosen = merchant.inv.size() - 1;
                 break;
             case KeyEvent.VK_ENTER:
                 if (chosen < merchant.inv.size()) {

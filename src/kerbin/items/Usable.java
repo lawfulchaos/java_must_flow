@@ -22,17 +22,23 @@ public class Usable extends Item implements Serializable {
     public String use() {
         if (name().equals("Heal potion")) {
             this.owner().hp += effect;
-            if (owner().hp > 100) owner().hp = 100;
+            if (owner().hp >  owner().max_hp) owner().hp =  owner().max_hp;
             this.owner().inv.remove(this);
             return String.format("You used a %s, now you have %d HP", name(), owner.hp);
         }
-        else if (name().equals("Teleport potion"))
+        else if (name().equals("Teleport"))
         {
             owner.hp += effect;
-            if (owner().hp > 100) owner().hp = 100;
+            if (owner().hp > owner().max_hp) owner().hp = owner().max_hp;
             owner.getWorld().addAtEmptyLocation(owner);
             this.owner().inv.remove(this);
             return String.format("You used a %s, teleporting away, now you have %d HP", name(), owner.hp);
+        }
+        else if (name().equals("Java class"))
+        {
+            owner.dmg += effect;
+            this.owner().inv.remove(this);
+            return String.format("You used a %s, fuelling your rage, entering frenzied state", name());
         }
         return "You use unknown magic";
     }

@@ -84,7 +84,7 @@ public class ItemFactory  implements Serializable {
         return heal;
     }
     public Usable newTeleport(Creature owner){
-        Usable heal = new Usable(')', AsciiPanel.cyan, "Teleport potion", owner, -15, false, "Glows white. It will get you away, for a price", 70);
+        Usable heal = new Usable(')', AsciiPanel.cyan, "Teleport", owner, -15, false, "Glows white. It will get you away, for a price", 70);
         if (owner == null) world.addAtEmptyLocation(heal);
         return heal;
     }

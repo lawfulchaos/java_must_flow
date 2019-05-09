@@ -33,7 +33,7 @@ public class PlayerAi extends CreatureAi implements Serializable {
             }
             Creature c = creature.getWorld().creature(x,y);
             Creature m = creature.getWorld().npc(x,y);
-            if (c != null && c.name != "Player")
+            if (c != null && !(c.name.equals("Player")))
             {
                 int priority = 2;
                 if (priority > Event.getInstance().getPriority()) {
