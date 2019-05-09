@@ -92,7 +92,8 @@ public class PlayScreen implements Screen {
 		//Шмат хпшки
 		terminal.write((char) 157 + " YOUR HEALTHPOINT " + (char) 157, 1, 31, Color.green);
 		for (int k = 0; k < 20; k++) {
-			if (k >= (player.hp / 5)) //знаменатель - число очков здоровья, которое отображает символ
+			double dobhp = (float) player.hp/player.max_hp * 20;
+			if (k > ((float) dobhp-0.5))
 				terminal.write((char) 254, k + 1, 32, Color.red);
 			else terminal.write((char) 254, k + 1, 32, Color.green);
 		}
@@ -232,7 +233,7 @@ public class PlayScreen implements Screen {
 			switch (key.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
-					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0, player.weapon.dmg*2);
+					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0, player.weapon.dmg*3);
 					player.ammo -= 1;
 					isShooting = false;
 					break;
