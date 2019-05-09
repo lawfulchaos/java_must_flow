@@ -230,34 +230,56 @@ public class PlayScreen implements Screen {
 		//стрельба
 		else if (isShooting)
 		{
+			if (player.weapon == null)
+			{
+				isShooting = false;
+				return this;
+			}
 			switch (key.getKeyCode()) {
 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
 					if(world.tile(player.x-1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x-1, player.y, -1, 0, -1, 0, player.weapon.dmg*3);
 					player.ammo -= 1;
+					player.weapon.durability-=1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_RIGHT:
 				case KeyEvent.VK_D:
 					if(world.tile(player.x+1, player.y).isGround()) player.getWorld().projectileFactory.newBullet(player,player.x+1, player.y, +1, 0, +1, 0, player.weapon.dmg*2);
 					player.ammo -= 1;
+					player.weapon.durability-=1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_UP:
 				case KeyEvent.VK_W:
 					if(world.tile(player.x, player.y-1).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x, player.y-1, 0, -1, 0, -1, player.weapon.dmg*2);
 					player.ammo -= 1;
+					player.weapon.durability-=1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_DOWN:
 				case KeyEvent.VK_S:
 					if(world.tile(player.x, player.y+1).isGround()) player.getWorld().projectileFactory.newBullet(player, player.x, player.y+1, 0, 1, 0, 1, player.weapon.dmg*2);
 					player.ammo -= 1;
+					player.weapon.durability-=1;
 					isShooting = false;
 					break;
 				case KeyEvent.VK_ESCAPE:
 					isShooting = false;
 					break;
+			}
+			if (player.weapon.durability < 0) {
+				int priority = 4;
+				if (priority >= Event.getInstance().getPriority()) {
+					if (player.weapon.modifier == null) Event.getInstance()
+							.init(String.format("Your %s is broken", player.weapon.name()), priority, 3, new Color(255, 88, 0));
+					else {
+						Event.getInstance()
+								.init(String.format("Your %s %s is broken", player.weapon.modifier[0], player.weapon.name()), priority, 3, new Color(255, 88, 0));
+					}
+				}
+				player.dmg -= player.weapon.dmg;
+				player.weapon = null;
 			}
 			if (player.ammo < 0) player.ammo = 0;
 			return this;
