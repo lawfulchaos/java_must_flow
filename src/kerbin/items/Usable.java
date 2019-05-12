@@ -34,7 +34,7 @@ public class Usable extends Item implements Serializable {
             this.owner().inv.remove(this);
             return String.format("You used a %s, teleporting away, now you have %d HP", name(), owner.hp);
         }
-        else if (name().equals("Java class"))
+        else if (name().equals("CTF Guide"))
         {
             owner.dmg += effect;
             this.owner().inv.remove(this);

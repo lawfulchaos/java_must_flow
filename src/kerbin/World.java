@@ -49,7 +49,7 @@ public class World implements Serializable {
 	//Создает мобов и предметы
 	public void populateWorld()
 	{
-		ItemFactory itemFactory = new ItemFactory(this);
+		System.out.println(player.level);
 		for (int i = 0; i < 4; i++) {
 			Creature mouse = creatureFactory.newMouse();
 			creatures.add(mouse);
@@ -58,8 +58,8 @@ public class World implements Serializable {
 			Creature mob = creatureFactory.newMob();
 			creatures.add(mob);
 		}
-		itemFactory.newStory(null,story[0][player.level-1],story[1][player.level-1]);
-
+		ItemFactory itemFactory = new ItemFactory(this);
+		itemFactory.newStory(null, story[0][player.level - 1], story[1][player.level - 1]);
 		Creature merch = creatureFactory.newMerchant();
 		npcs.add(merch);
 		for (int j = 0; j < 3; j++) {
@@ -86,28 +86,40 @@ public class World implements Serializable {
 	}
 
 //Спавнит предметы и босса
-	public void populateBossWorld()
-	{
+	public void populateBossWorld() {
 		itemFactory.newArrows(null);
 		itemFactory.newHeal(null);
 		itemFactory.newRandom(null);
 		Creature boss;
-		switch (player.level / 3)
-		{
-			case 1:
+		switch (player.level / 3) {
+			case 3:
 				boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 35, 5, 20, 999, 10, 500, 6);
 				boss.setWeapon(itemFactory.newTeeth(boss));
 				boss.setArmor(itemFactory.newHide(boss));
-				boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 30, true,
-						"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
+				boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 35, true,
+						"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path. It feels like part of something greater", 450, 12));
 				break;
-			case 0:
-				boss = new Creature(this, 'R', AsciiPanel.yellow, "Reality Bender", 15, 3, 10, 15 * player.player_level, 10, 500, 6);
+			case 2:
+				boss = new Creature(this, 'R', AsciiPanel.yellow, "Reality Hacker", 15, 3, 10, 15 * player.player_level, 10, 500, 6);
 				boss.setWeapon(itemFactory.newTeeth(boss));
 				boss.setArmor(itemFactory.newHide(boss));
-				boss.inv.add(new Usable('+', Color.yellow, "Java class", null, 10, true,
-						"Unknown words of ancient origin fill you with renowned berserk rage, empowering you with unprecedented strength", 450));
+				boss.inv.add(new Usable('+', Color.yellow, "CTF Guide", null, 10, true,
+						"Unknown words of ancient origin, spoken only by Hacker, they fill you with renowned berserk rage, empowering you with unprecedented strength. It feels like part of something greater", 450));
 				break;
+			case 1:
+				boss = new Creature(this, 'S', AsciiPanel.red, "Father of skeletons", 20, 4, 10, 20 * player.player_level, 10, 500, 15);
+				boss.setWeapon(itemFactory.newTeeth(boss));
+				boss.setArmor(itemFactory.newHide(boss));
+				boss.inv.add(new Armor((char) 127, Color.yellow, "Meizu Backpack", null, 90, true,
+						"An exotic armor piece from Far East of the world, used by the First of the Skeletons, for some reason you are sure that you wearing it wrong. It feels like part of something greater", 450));
+				break;
+			case 0:
+				boss = new Creature(this, 'H', AsciiPanel.red, "Hikkihino", 20, 4, 20, 20 * player.player_level, 10, 500, 15);
+				boss.setWeapon(itemFactory.newTeeth(boss));
+				boss.setArmor(itemFactory.newHide(boss));
+				boss.inv.add(new Ranged('}', Color.yellow, "Notebook", null, 35, true,
+						"Shiny notebook, owned by Hikkihino, bearing part of its owners wild flow of destructive ideas, allowing you to devastate minds of your enemies. It feels like part of something greater", 450, 30));
+						break;
 			default:
 				boss = new Creature(this, 'S', AsciiPanel.red, "Lord Mousarium", 35, 5, 20, 999, 10, 500, 6);
 				boss.setWeapon(itemFactory.newTeeth(boss));
@@ -116,10 +128,12 @@ public class World implements Serializable {
 						"A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
 				break;
 		}
-		boss.x = 45;
-		boss.y = 25;
-		new BossAi(boss);
-		creatures.add(boss);
+		if (boss != null) {
+			boss.x = 45;
+			boss.y = 25;
+			new BossAi(boss);
+			creatures.add(boss);
+		}
 	}
 	//Возращает тайл по заданным коордам. Semi-deprecated
 	public Tile tile(int x, int y){

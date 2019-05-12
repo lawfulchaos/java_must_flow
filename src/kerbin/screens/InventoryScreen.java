@@ -96,7 +96,7 @@ public class InventoryScreen implements Screen {
                     terminal.write(((Armor) it).def + "", 60, 10, Color.BLUE);
                 }
             } else if (it instanceof Usable) {
-                if (it.name().equals("Java class")) terminal.write("DMG: ", 55, 10, Color.WHITE);
+                if (it.name().equals("CTF Guide")) terminal.write("DMG: ", 55, 10, Color.WHITE);
                 else terminal.write("HP: ", 55, 10, Color.WHITE);
                 terminal.write(((Usable) it).effect + "", 60, 10, Color.RED);
             }

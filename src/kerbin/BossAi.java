@@ -30,13 +30,12 @@ public class BossAi extends MouseAi implements Serializable {
                     Creature mouse = creatureFactory.newMouse();
                     creature.getWorld().creatures.add(mouse);
                 }
-            }
-            else if (creature.name.equals("Reality Bender")) {
+            } else if (creature.name.equals("Reality Hacker")) {
                 if (creature.hp < creature.max_hp - 20) {
                     int priority = 3;
                     if (priority >= Event.getInstance().getPriority()) {
                         Event.getInstance()
-                                .init("Reality Bender executes this.hp = max_hp, replenishing his health", priority, 3, Color.RED);
+                                .init("Reality Hacker executes this.hp = max_hp, replenishing his health", priority, 3, Color.RED);
                     }
                     creature.hp = creature.max_hp;
                     creature.dmg -= 7;
@@ -45,7 +44,37 @@ public class BossAi extends MouseAi implements Serializable {
                     kd_mod += 1;
                 }
             }
+                else if (creature.name.equals("Father of skeletons")) {
+                    int priority = 3;
+                    if (priority >= Event.getInstance().getPriority()) {
+                        Event.getInstance()
+                                .init("Father of skeletons glitches out of reality, shooting out of nowhere", priority, 3, Color.RED);
+                    }
+                    boolean flag = true;
+                    for (int mx = -1; mx <= 1; mx++) {
+                        for (int my = -1; my <= 1; my++) {
+                            if (creature.getWorld().tile(creature.getWorld().player.x+(mx*4), creature.getWorld().player.y+(my*4)).isGround() && creature.getWorld().creature(creature.getWorld().player.x+(mx*4), creature.getWorld().player.y+(my*4)) == null)
+                            {
+                                creature.getWorld().projectileFactory.newBullet(this.creature, creature.getWorld().player.x+(mx*4), creature.getWorld().player.y+(my*4), -mx, -my, -mx, -my,20);
+                                if (flag) {
+                                    creature.x = creature.getWorld().player.x + (mx * 4);
+                                    creature.y = creature.getWorld().player.y + (my * 4);
+                                    flag = false;
+                                }
+                            }
+                        }
+                    }
+                    creature.kd = 8;
+                }
+            /*else if (creature.name.equals("Hikkihino")) {
+                int priority = 3;
+                if (priority >= Event.getInstance().getPriority()) {
+                    Event.getInstance()
+                            .init("Hikkihino", priority, 3, Color.RED);
+                }
+
+                creature.kd = 8;
+            }*/
+            } else creature.kd--;
         }
-        else creature.kd--;
     }
-}
