@@ -41,7 +41,6 @@ public class World implements Serializable {
 		this.tileFactory = new TileFactory();
 		this.projectileFactory = new ProjectileFactory(this);
 		this.creatureFactory = new CreatureFactory(this);
-		this.player = creatureFactory.newPlayer();
 		this.itemFactory = new ItemFactory(this);
 
 
@@ -49,7 +48,6 @@ public class World implements Serializable {
 	//Создает мобов и предметы
 	public void populateWorld()
 	{
-		System.out.println(player.level);
 		for (int i = 0; i < 4; i++) {
 			Creature mouse = creatureFactory.newMouse();
 			creatures.add(mouse);
@@ -60,6 +58,7 @@ public class World implements Serializable {
 		}
 		ItemFactory itemFactory = new ItemFactory(this);
 		itemFactory.newStory(null, story[0][player.level - 1], story[1][player.level - 1]);
+		itemFactory.newLootbox(null);
 		Creature merch = creatureFactory.newMerchant();
 		npcs.add(merch);
 		for (int j = 0; j < 3; j++) {

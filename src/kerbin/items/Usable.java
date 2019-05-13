@@ -14,8 +14,15 @@ public class Usable extends Item implements Serializable {
         this.effect = effect;
         if (modifier != null)
         {
-            this.effect += (Integer) modifier[2] * 3;
-            if (modifier[0].equals("Cursed")) this.desc = "Glows viciously" + " " + desc.split(" ")[1];
+            if (modifier[0].equals("Cursed"))
+            {
+                this.desc = "Glows viciously" + " " + desc.split(" ")[1];
+                this.effect -= (Integer) modifier[2] * 3;
+            }
+            else
+            {
+                this.effect += (Integer) modifier[2] * 3;
+            }
         }
     }
     //Использование предмета. Возвращает сообщение
@@ -39,6 +46,26 @@ public class Usable extends Item implements Serializable {
             owner.dmg += effect;
             this.owner().inv.remove(this);
             return String.format("You used a %s, fuelling your rage, entering frenzied state", name());
+        }
+        else if (name().equals("Lootbox"))
+        {
+            ItemFactory itemFactory = new ItemFactory(this.owner.getWorld());
+            this.owner().inv.remove(this);
+            double chance = Math.random();
+            if (this.modifier != null) chance *= ((double)((int)modifier[2] / 2));
+            if (this.modifier != null && this.modifier[0].equals("Cursed"))
+            {
+                this.owner.gold-=100;
+                if (this.owner.gold < 0) this.owner.gold = 0;
+                return "You open empty lootbox, buying key for 100 gold. You feel robbed";
+            }
+            else if (chance > 0.75)
+            {
+                Item item = itemFactory.newRandom(this.owner);
+                this.owner.inv.add(item);
+                return String.format("You open lootbox, getting brand new %s", item.name());
+            }
+            return "You open lootbox, getting nothing";
         }
         return "You use unknown magic";
     }

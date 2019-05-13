@@ -1,8 +1,11 @@
 package kerbin.screens;
 /* Основной игровой экран. содержит игровую логику, отображение и обработку клавиатуры */
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import asciiPanel.AsciiPanel;
 import kerbin.*;
@@ -16,12 +19,23 @@ public class PlayScreen implements Screen {
 	private int screenHeight;
 	private Screen subscreen;
 	private boolean isShooting;
-	/* Генерация нового экрана и добавление игрока в CreateWorld*/
-	public PlayScreen(){
+	/* Генерация нового экрана и добавление игрока*/
+	public PlayScreen(Creature player){
 		screenWidth = 90;
 		screenHeight = 30;
 		isShooting = false;
-		createWorld();
+		if (player != null)
+		{
+			this.player = player;
+			if (player.level % 3 == 0) createBossWorld();
+			else createWorld();
+		}
+		else
+		{
+			createWorld();
+			this.player = new CreatureFactory(world).newPlayer();
+		}
+		setPlayer(this.player);
 		Event.getInstance().init("You are playing WORK now", 0, -1, AsciiPanel.brightWhite);
 	}
 
@@ -30,28 +44,20 @@ public class PlayScreen implements Screen {
         this.player = player;
         world.player = player;
         player.setWorld(world);
-        if (player.level % 3 != 0) world.addAtEmptyLocation(player);
-        else world.addAtBossLevel(player);
+        if (player.level % 3 != 0)
+		{
+			world.addAtEmptyLocation(player);
+			world.populateWorld();
+		}
+        else
+		{
+			world.addAtBossLevel(player);
+			world.populateBossWorld();
+		}
     }
 	//Создает мир, внутри мира генерируются мобы и игрок
-	private void createWorld() {
-		if (player!=null && player.level % 3 == 0) {
-			world = new WorldBuilder(90, 32).buildBossLevel();
-			world.addAtBossLevel(player);
-		}
-		else if (player == null)
-		{
-			world = new WorldBuilder(90, 32).build();
-			player = world.player;
-			world.addAtEmptyLocation(player);
-		}
-		else
-		{
-			world = new WorldBuilder(90, 32).build();
-			world.addAtEmptyLocation(player);
-		}
-
-	}
+	private void createWorld() { world = new WorldBuilder(90, 32).build(); }
+	private void createBossWorld() { world = new WorldBuilder(90, 32).buildBossLevel(); }
 // Сдвиг экрана при движении игрока
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
 
@@ -217,6 +223,29 @@ public class PlayScreen implements Screen {
 			e.printStackTrace();
 		}
 	}
+
+	private List<Item> updateItems(List<Item> items)
+	{
+		for (Item item : items) {
+			if (item instanceof Weapon)
+			{
+				((Weapon)item).dmg *= (player.level * 0.8);
+				((Weapon)item).cost *= (player.level * 0.8);
+			}
+			else if (item instanceof Armor)
+			{
+				((Armor)item).def *= (player.level * 0.8);
+				((Armor)item).cost *= (player.level * 0.8);
+			}
+			else if (item instanceof Usable)
+			{
+				((Usable)item).effect *= (player.level * 0.8);
+				((Usable)item).cost *= (player.level * 0.8);
+			}
+		}
+		return items;
+	}
+
 //Реакция на нажатие клавиши: ход нпс, после движение игрока
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
@@ -294,31 +323,13 @@ public class PlayScreen implements Screen {
 				case KeyEvent.VK_ENTER:
 					if(player.getWorld().tile(player.x, player.y).glyph() == '#' && player.getWorld().creatures.size() ==0){
 						player.level++;
-						PlayScreen nextLvl = new PlayScreen();
-						nextLvl.setPlayer(player);
-						nextLvl.createWorld();
-						nextLvl.setPlayer(player);
+						PlayScreen nextLvl = new PlayScreen(player);
 						for (Creature creature:nextLvl.world.creatures) {
 							creature.hp*=player.level;
 							creature.dmg*=player.level;
 						}
-						for (Item item : nextLvl.world.items) {
-							if (item instanceof Weapon)
-							{
-								((Weapon)item).dmg *= (player.level * 0.8);
-								((Weapon)item).cost *= (player.level * 0.8);
-							}
-							else if (item instanceof Armor)
-							{
-								((Armor)item).def *= (player.level * 0.8);
-								((Armor)item).cost *= (player.level * 0.8);
-							}
-							else if (item instanceof Usable)
-							{
-								((Usable)item).effect *= (player.level * 0.8);
-								((Usable)item).cost *= (player.level * 0.8);
-							}
-						}
+						nextLvl.world.items = updateItems(nextLvl.world.items);
+						nextLvl.world.npcs.get(0).inv = updateItems(nextLvl.world.npcs.get(0).inv);
 						return nextLvl;
 						}
 					else if (player.getWorld().checkMerchant(player.x, player.y)!=null)

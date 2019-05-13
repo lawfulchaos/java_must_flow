@@ -25,14 +25,12 @@ public class WorldBuilder {
     public World build() {
         this.makeMap();
         World world = new World(tiles);
-        world.populateWorld();
         return world;
     }
 
     public World buildBossLevel() {
         this.makeBossLevel();
         World world = new World(tiles);
-        world.populateBossWorld();
         return world;
     }
 

@@ -15,21 +15,23 @@ public class ItemFactory  implements Serializable {
 
     //Случайный предмет
     public Item newRandom(Creature owner) {
-        int choice = (int)(Math.random() * 6);
+        int choice = (int)(Math.random() * 7);
         switch (choice) {
             case 0:
-                return newSword(owner);
+                return newLootbox(owner);
             case 1:
-                return newBattleaxe(owner);
+                return newSword(owner);
             case 2:
-                return newMail(owner);
+                return newBattleaxe(owner);
             case 3:
-                return newPlate(owner);
+                return newMail(owner);
             case 4:
-                return newHeal(owner);
+                return newPlate(owner);
             case 5:
-                return newTeleport(owner);
+                return newHeal(owner);
             case 6:
+                return newTeleport(owner);
+            case 7:
                 return newBow(owner);
         }
         return null;
@@ -94,5 +96,10 @@ public class ItemFactory  implements Serializable {
         Usable heal = new Usable(')', AsciiPanel.cyan, "Teleport", owner, -15, false, "Glows white. It will get you away, for a price", 70);
         if (owner == null) world.addAtEmptyLocation(heal);
         return heal;
+    }
+    public Usable newLootbox(Creature owner){
+        Usable lootbox = new Usable((char)155, AsciiPanel.cyan, "Lootbox", null, 0,false, "A box, probably containing brand new skin for your sword, or maybe something more useful. Only for 39.99 $", 40);
+        if (owner == null) world.addAtEmptyLocation(lootbox);
+        return lootbox;
     }
 }

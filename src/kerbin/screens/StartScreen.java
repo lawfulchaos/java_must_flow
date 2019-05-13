@@ -60,7 +60,7 @@ public class StartScreen implements Screen {
 					case 0:
 						return new PreScreen();
 					case 1:
-						PlayScreen loadLvl = new PlayScreen();
+						PlayScreen loadLvl = new PlayScreen(null);
 						loadLvl.loadGame();
 						return loadLvl;
 					case 2:
