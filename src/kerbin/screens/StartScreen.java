@@ -58,9 +58,9 @@ public class StartScreen implements Screen {
 			case KeyEvent.VK_ENTER:
 				switch (chosen){
 					case 0:
-						return new PreScreen();
+						return new PreScreen(frame);
 					case 1:
-						PlayScreen loadLvl = new PlayScreen(null);
+						PlayScreen loadLvl = new PlayScreen(frame);
 						loadLvl.loadGame();
 						return loadLvl;
 					case 2:

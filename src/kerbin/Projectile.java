@@ -2,7 +2,6 @@ package kerbin;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Projectile implements Serializable {
         public World getWorld() {

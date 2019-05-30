@@ -12,34 +12,40 @@ import kerbin.*;
 import kerbin.Event;
 import kerbin.items.*;
 
+import javax.swing.*;
+
 public class PlayScreen implements Screen {
 	private World world;
 	public Creature player;
 	private int screenWidth;
 	private int screenHeight;
 	private Screen subscreen;
+	private JFrame frame;
 	private boolean isShooting;
 	/* Генерация нового экрана и добавление игрока*/
-	public PlayScreen(Creature player){
+	public PlayScreen(JFrame frame) {
+		screenWidth = 90;
+		this.frame = frame;
+		screenHeight = 30;
+		isShooting = false;
+		createWorld();
+		this.player = new CreatureFactory(world).newPlayer();
+		setPlayer(this.player);
+		Event.getInstance().init("You are playing WORK now", 0, -1, AsciiPanel.brightWhite);
+
+	}
+	public PlayScreen(Creature player) {
 		screenWidth = 90;
 		screenHeight = 30;
 		isShooting = false;
-		if (player != null)
-		{
-			this.player = player;
-			if (player.level % 3 == 0) createBossWorld();
-			else createWorld();
-		}
-		else
-		{
-			createWorld();
-			this.player = new CreatureFactory(world).newPlayer();
-		}
+		this.player = player;
+		if (player.level % 3 == 0) createBossWorld();
+		else createWorld();
 		setPlayer(this.player);
 		Event.getInstance().init("You are playing WORK now", 0, -1, AsciiPanel.brightWhite);
 	}
 
-	public void setPlayer(Creature player)
+		public void setPlayer(Creature player)
     {
         this.player = player;
         world.player = player;
@@ -200,6 +206,26 @@ public class PlayScreen implements Screen {
 		}
 		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 	}
+	public void saveGame()
+	{
+		try {
+			File f = new File("\\saves\\save.txt");
+
+			f.getParentFile().mkdirs();
+			f.createNewFile();
+			FileOutputStream fo = new FileOutputStream(new File("\\saves\\save.dat"));
+			ObjectOutputStream o = new ObjectOutputStream(fo);
+
+			o.writeObject(world);
+			o.close();
+			fo.close();
+			Event.getInstance().init("Game saved", 2, 3, AsciiPanel.brightGreen);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public void loadGame()
 	{
 		try {
@@ -250,7 +276,7 @@ public class PlayScreen implements Screen {
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		if(player.hp<=0){
-			return new LoseScreen();
+			return new LoseScreen(frame);
 		}
 		if (subscreen != null) {
 			subscreen = subscreen.respondToUserInput(key);
@@ -318,8 +344,9 @@ public class PlayScreen implements Screen {
 			//Проверяем, если нажата клавиша не из списка управления - игноририруем.
 			boolean isAction = true;
 			switch (key.getKeyCode()) {
-				//case KeyEvent.VK_ESCAPE:
-				//	return new LoseScreen();
+				case KeyEvent.VK_ESCAPE:
+					isAction = false;
+					return new MenuScreen(frame, this);
 				case KeyEvent.VK_ENTER:
 					if(player.getWorld().tile(player.x, player.y).glyph() == '#' && player.getWorld().creatures.size() ==0){
 						player.level++;
@@ -377,23 +404,7 @@ public class PlayScreen implements Screen {
 					// Сейвлоад
 				case KeyEvent.VK_F5:
 					isAction = false;
-					try {
-						File f = new File("\\saves\\save.txt");
-
-						f.getParentFile().mkdirs();
-						f.createNewFile();
-						FileOutputStream fo = new FileOutputStream(new File("\\saves\\save.dat"));
-						ObjectOutputStream o = new ObjectOutputStream(fo);
-
-						o.writeObject(world);
-						o.close();
-						fo.close();
-						Event.getInstance().init("Game saved", 2, 3, AsciiPanel.brightGreen);
-					}
-					catch (Exception e)
-					{
-						e.printStackTrace();
-					}
+					saveGame();
 					break;
 				case KeyEvent.VK_F9:
 					isAction = false;

@@ -5,7 +5,14 @@ import java.awt.event.KeyEvent;
 
 import asciiPanel.AsciiPanel;
 
+import javax.swing.*;
+
 public class PreScreen implements Screen {
+    private JFrame frame;
+    PreScreen(JFrame frame)
+    {
+        this.frame = frame;
+    }
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
@@ -39,6 +46,6 @@ public class PreScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        return key.getKeyCode() == KeyEvent.VK_ENTER ? new PlayScreen(null) : this;
+        return key.getKeyCode() == KeyEvent.VK_ENTER ? new PlayScreen(frame) : this;
     }
 }

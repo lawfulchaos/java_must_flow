@@ -35,7 +35,7 @@ public class CreatureFactory implements Serializable {
     }
 
     public Creature newMouse(){
-        Creature mouse = new Creature(world, 'm', AsciiPanel.red, "mouse",(int)(1+Math.random()*7),(int)(1+Math.random()*7),(int)(Math.random()*5),11,10, 10,1);
+        Creature mouse = new Creature(world, 'm', AsciiPanel.red, "mouse",(int)(1+Math.random()*7), (int)(1+Math.random()*7),(int)(Math.random()*5),11,10, 10,1);
         mouse.setWeapon(itemFactory.newTeeth(mouse));
         mouse.setArmor(itemFactory.newHide(mouse));
         world.addAtEmptyLocation(mouse);

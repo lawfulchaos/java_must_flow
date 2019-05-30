@@ -97,8 +97,9 @@ public class InventoryScreen implements Screen {
                 }
             } else if (it instanceof Usable) {
                 if (it.name().equals("CTF Guide")) terminal.write("DMG: ", 55, 10, Color.WHITE);
+                else if (it.name().equals("Lootbox"));
                 else terminal.write("HP: ", 55, 10, Color.WHITE);
-                terminal.write(((Usable) it).effect + "", 60, 10, Color.RED);
+                if (!it.name().equals("Lootbox")) terminal.write(((Usable) it).effect + "", 60, 10, Color.RED);
             }
             terminal.write("GOLD: ", 65, 10, Color.WHITE);
             terminal.write(it.cost + "", 71, 10, Color.ORANGE);
