@@ -53,7 +53,7 @@ public class StartScreen implements Screen {
                         loadLvl.loadGame();
                         return loadLvl;
                     case 2:
-                        return new ControlScreen(frame);
+                        return new ControlScreen(frame,null);
                     case 3:
                         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                         break;

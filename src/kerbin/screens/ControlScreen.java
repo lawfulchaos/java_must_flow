@@ -8,9 +8,11 @@ import java.awt.event.KeyEvent;
 
 public class ControlScreen implements Screen {
     private JFrame frame;
+    private PlayScreen game;
 
-    public ControlScreen(JFrame frame) {
+    public ControlScreen(JFrame frame,PlayScreen game) {
         this.frame = frame;
+        this.game = game;
     }
 
     @Override
@@ -29,6 +31,13 @@ public class ControlScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        return key.getKeyCode() == KeyEvent.VK_ENTER ? new StartScreen(frame) : this;
+        switch (key.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                if (game!=null)
+                    return game;
+                else return new StartScreen(frame);
+
+        }
+        return this;
     }
 }

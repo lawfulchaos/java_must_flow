@@ -31,7 +31,8 @@ public class MenuScreen implements Screen {
         terminal.write("Resume", 3, 12);
         terminal.write("Save Game", 3, 13);
         terminal.write("Load Game", 3, 14);
-        terminal.write("Exit", 3, 15);
+        terminal.write("Controls", 3, 15);
+        terminal.write("Exit", 3, 16);
         terminal.write(">", 1, chosen + 12, AsciiPanel.brightWhite);
         terminal.clear(' ', 0, 38, 80, 1);
         terminal.write(msg, 0, 39, AsciiPanel.brightGreen);
@@ -47,12 +48,12 @@ public class MenuScreen implements Screen {
             case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
                 chosen += 1;
-                if (chosen > 3) chosen = 0;
+                if (chosen > 4) chosen = 0;
                 break;
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 chosen -= 1;
-                if (chosen < 0) chosen = 3;
+                if (chosen < 0) chosen = 4;
                 break;
             case KeyEvent.VK_ENTER:
                 switch (chosen) {
@@ -66,7 +67,10 @@ public class MenuScreen implements Screen {
                         game.loadGame();
                         return game;
                     case 3:
+                        return new ControlScreen(frame,game);
+                    case 4:
                         return new StartScreen(frame);
+
                 }
         }
         return this;
