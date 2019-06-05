@@ -3,9 +3,6 @@ package kerbin.items;
 import kerbin.Creature;
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Item  implements Serializable {
     //Словарь модификаторов, {Эффект, Название, Цвет}

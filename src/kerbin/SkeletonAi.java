@@ -9,11 +9,6 @@ public class SkeletonAi extends CreatureAi implements Serializable {
     public SkeletonAi(Creature creature) {
         super(creature);
     }
-    /*public void onTurn(Creature player) {
-        int mx = ThreadLocalRandom.current().nextInt(-1, 2);
-        int my = ThreadLocalRandom.current().nextInt(-1, 2);
-        this.creature.moveBy(mx, my);
-    }*/
 
     public boolean sssssssss(int mx, int my, boolean isMoved){
         if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {

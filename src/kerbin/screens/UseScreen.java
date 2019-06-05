@@ -3,7 +3,7 @@ package kerbin.screens;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
-//Экран использования предметов, TODO Почистить код
+//Экран использования предметов
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
 import kerbin.items.Item;

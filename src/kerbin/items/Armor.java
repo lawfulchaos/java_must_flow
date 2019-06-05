@@ -1,5 +1,5 @@
 package kerbin.items;
-//Класс брони, наследуется от итема, создается в ItemFactory TODO
+//Класс брони, наследуется от итема, создается в ItemFactory
 import kerbin.Creature;
 
 import java.awt.*;

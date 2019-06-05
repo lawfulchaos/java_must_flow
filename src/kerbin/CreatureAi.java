@@ -17,9 +17,6 @@ public class CreatureAi  implements Serializable {
     }
 //Ход существа
     public void onTurn(Creature player) {
-        /*int mx = ThreadLocalRandom.current().nextInt(-1, 2);
-        int my = ThreadLocalRandom.current().nextInt(-1, 2);
-        this.creature.moveBy(mx, my);*/
         if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) <= creature.radius) {
             int mx, my;
             boolean isMoved = false;
@@ -117,7 +114,6 @@ public class CreatureAi  implements Serializable {
         if (creature.weapon != null && creature.weapon.modifier != null && creature.weapon.modifier[0] != null && creature.weapon.modifier[0].equals("Cursed")) { creature.hp -= creature.dmg; }
         if (c.weapon != null && c.weapon.modifier != null && c.weapon.modifier[0] != null && c.weapon.modifier[0].equals("Cursed")) { c.hp -= c.dmg; }
         //боевка атакующий лупит аутиста
-        //допилить шанс уклона
         if(c.def<=damage){
             damage-=c.def;
             c.def=0;
@@ -146,10 +142,6 @@ public class CreatureAi  implements Serializable {
         //если умер аутист
         if (c.hp <= 0) {
             creature.getWorld().creatures.remove(c);
-            //Лут, временно закомменчен, чтобы не засорять инвентарь TODO: Придумать, что делать с лутом
-            /*if (Math.random() > 0.8) creature.getWorld().tile(c.x, c.y).item = c.weapon;
-            else if (Math.random()>0.8) creature.getWorld().tile(c.x, c.y).item = c.armor;
-            */
             if (c.inv.size()!=0)creature.getWorld().tile(c.x, c.y).item = c.inv.get(0);
             switch (c.name){
                 case("mouse"):

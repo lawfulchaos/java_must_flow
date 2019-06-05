@@ -1,9 +1,8 @@
 package kerbin;
-//ИИ мыши, передвигается случайно на свободную клетку
+//ИИ мыши, передвигается на свободную клетку в сторону игрока
 import asciiPanel.AsciiPanel;
 
 import java.io.Serializable;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MouseAi extends CreatureAi implements Serializable {
 

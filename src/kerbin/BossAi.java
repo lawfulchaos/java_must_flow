@@ -1,12 +1,8 @@
 package kerbin;
 //ИИ мыши, передвигается случайно на свободную клетку
-import asciiPanel.AsciiPanel;
-import kerbin.items.ItemFactory;
-import kerbin.items.Weapon;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BossAi extends MouseAi implements Serializable {
 
@@ -66,15 +62,6 @@ public class BossAi extends MouseAi implements Serializable {
                     }
                     creature.kd = 8;
                 }
-            /*else if (creature.name.equals("Hikkihino")) {
-                int priority = 3;
-                if (priority >= Event.getInstance().getPriority()) {
-                    Event.getInstance()
-                            .init("Hikkihino", priority, 3, Color.RED);
-                }
-
-                creature.kd = 8;
-            }*/
             } else creature.kd--;
         }
     }

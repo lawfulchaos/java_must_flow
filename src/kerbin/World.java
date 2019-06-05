@@ -6,7 +6,6 @@ import kerbin.items.*;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class World implements Serializable {

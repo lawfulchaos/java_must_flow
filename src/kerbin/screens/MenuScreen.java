@@ -1,7 +1,6 @@
 package kerbin.screens;
 //Стартовый экран, отображает меню и создает новый игровой экран. TODO: Обучение
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 
 import asciiPanel.AsciiPanel;
 

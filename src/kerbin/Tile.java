@@ -3,14 +3,9 @@ package kerbin;
 import java.awt.Color;
 import java.io.Serializable;
 
-import asciiPanel.AsciiPanel;
 import kerbin.items.Item;
 
 public class Tile  implements Serializable {
-	//FLOOR((char)250, AsciiPanel.yellow),
-	//WALL((char)177, AsciiPanel.yellow),
-	//BOUNDS('x', AsciiPanel.brightBlack);
-	
 	private char glyph;
 	public char glyph() { return glyph; }
 	

@@ -2,8 +2,6 @@ package kerbin.screens;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Set;
-import java.util.SplittableRandom;
 //Базовый класс инвентаря, выводит предметы TODO Крафт(?)
 import asciiPanel.AsciiPanel;
 import kerbin.Creature;
@@ -28,8 +26,6 @@ public class ShopScreen implements Screen {
     //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
     protected void showHeader(AsciiPanel terminal)
     {
-        int y = 4;
-        int x = 3;
         i = 0;
         terminal.clear();
         terminal.write("Shop gold: ", 1, 1, Color.WHITE);
