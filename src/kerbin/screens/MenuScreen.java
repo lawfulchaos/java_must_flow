@@ -31,7 +31,8 @@ public class MenuScreen implements Screen {
         terminal.write("Resume", 3, 12);
         terminal.write("Save Game", 3, 13);
         terminal.write("Load Game", 3, 14);
-        terminal.write("Exit", 3, 15);
+        terminal.write("Controls", 3, 15);
+        terminal.write("Exit", 3, 16);
         terminal.write(">", 1, chosen + 12, AsciiPanel.brightWhite);
         terminal.clear(' ', 0, 38, 80, 1);
         terminal.write(msg, 0, 39, AsciiPanel.brightGreen);
@@ -66,7 +67,10 @@ public class MenuScreen implements Screen {
                         game.loadGame();
                         return game;
                     case 3:
+                        return new ControlScreen(frame,game);
+                    case 4:
                         return new StartScreen(frame);
+
                 }
         }
         return this;
