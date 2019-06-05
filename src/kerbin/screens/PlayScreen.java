@@ -4,13 +4,17 @@ package kerbin.screens;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import asciiPanel.AsciiPanel;
-import kerbin.*;
+import kerbin.AI.MouseAi;
 import kerbin.Event;
+import kerbin.creatures.Creature;
+import kerbin.creatures.CreatureFactory;
 import kerbin.items.*;
+import kerbin.projectiles.Projectile;
+import kerbin.world.World;
+import kerbin.world.WorldBuilder;
 
 import javax.swing.*;
 

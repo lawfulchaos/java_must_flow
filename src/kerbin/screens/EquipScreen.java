@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 //Класс экрана экипирования предметов, выводит предметы, которые можно надеть
 import asciiPanel.AsciiPanel;
-import kerbin.Creature;
+import kerbin.creatures.Creature;
 import kerbin.items.Armor;
 import kerbin.items.Item;
 import kerbin.items.Ranged;

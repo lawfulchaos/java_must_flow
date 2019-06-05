@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 //Экран использования предметов
 import asciiPanel.AsciiPanel;
-import kerbin.Creature;
+import kerbin.creatures.Creature;
 import kerbin.items.Item;
 import kerbin.items.Usable;
 

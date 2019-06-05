@@ -1,6 +1,6 @@
 package kerbin.items;
 //Класс брони, наследуется от итема, создается в ItemFactory
-import kerbin.Creature;
+import kerbin.creatures.Creature;
 
 import java.awt.*;
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package kerbin.items;
 //Класс юзабельных вещей (хилка и т.д.), наследуется от итема, создается в ItemFactory TODO
-import kerbin.Creature;
+import kerbin.creatures.Creature;
 
 import java.awt.*;
 import java.io.Serializable;

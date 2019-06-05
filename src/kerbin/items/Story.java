@@ -1,6 +1,6 @@
 package kerbin.items;
 
-import kerbin.Creature;
+import kerbin.creatures.Creature;
 
 import java.awt.*;
 import java.io.Serializable;

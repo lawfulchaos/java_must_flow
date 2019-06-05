@@ -1,8 +1,8 @@
 package kerbin.items;
 //Общий Factory для итемов, генерирует в т.ч. классы-наследники
 import asciiPanel.AsciiPanel;
-import kerbin.Creature;
-import kerbin.World;
+import kerbin.creatures.Creature;
+import kerbin.world.World;
 
 import java.io.Serializable;
 

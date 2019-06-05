@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 //Базовый класс инвентаря, выводит предметы
 import asciiPanel.AsciiPanel;
-import kerbin.Creature;
+import kerbin.creatures.Creature;
 import kerbin.items.Armor;
 import kerbin.items.Item;
 import kerbin.items.Usable;
