@@ -14,7 +14,7 @@ public class SkeletonAi extends CreatureAi implements Serializable {
         super(creature);
     }
 
-    public boolean sssssssss(int mx, int my, boolean isMoved) {
+    public boolean CheckVisibility(int mx, int my, boolean isMoved) {
         if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
             this.creature.moveBy(mx, my);
             isMoved = true;
@@ -45,45 +45,45 @@ public class SkeletonAi extends CreatureAi implements Serializable {
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
                 mx = -1;
                 my = -1;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
 
             if (creature.x - player.x < 0 && creature.y - player.y < 0 && !isMoved) { //мышь слева снизу от игрока
                 mx = 1;
                 my = 1;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
 
             if (creature.x - player.x > 0 && creature.y - player.y < 0 && !isMoved) { //мышь справа снизу от игрока
                 mx = -1;
                 my = 1;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
 
             if (creature.x - player.x < 0 && creature.y - player.y > 0 && !isMoved) { //мышь слева сверху от игрока
                 mx = 1;
                 my = -1;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
             if (creature.x - player.x == 0 && creature.y - player.y > 0 && !isMoved) { //мышь ровно сверху от игрока
                 mx = 0;
                 my = -1;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
             if (creature.x - player.x == 0 && creature.y - player.y < 0 && !isMoved) { //мышь ровно снизу от игрока
                 mx = 0;
                 my = 1;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
             if (creature.x - player.x > 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно справа от игрока
                 mx = -1;
                 my = 0;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
             if (creature.x - player.x < 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно слева от игрока
                 mx = 1;
                 my = 0;
-                isMoved = sssssssss(mx, my, isMoved);
+                isMoved = CheckVisibility(mx, my, isMoved);
             }
             if (!isMoved) {
                 mx = ThreadLocalRandom.current().nextInt(-1, 2);
