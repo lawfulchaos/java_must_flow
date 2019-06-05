@@ -48,12 +48,12 @@ public class MenuScreen implements Screen {
             case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
                 chosen += 1;
-                if (chosen > 3) chosen = 0;
+                if (chosen > 4) chosen = 0;
                 break;
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 chosen -= 1;
-                if (chosen < 0) chosen = 3;
+                if (chosen < 0) chosen = 4;
                 break;
             case KeyEvent.VK_ENTER:
                 switch (chosen) {
