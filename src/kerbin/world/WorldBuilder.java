@@ -19,7 +19,7 @@ public class WorldBuilder {
         this.height = height;
         this.tiles = new Tile[width][height];
         this.tileFactory = new TileFactory();
-        for (Tile[] tileset: tiles) Arrays.fill(tileset, tileFactory.newWall());
+        for (Tile[] tileset : tiles) Arrays.fill(tileset, tileFactory.newWall());
     }
 
     public World build() {
@@ -55,12 +55,12 @@ public class WorldBuilder {
         }
     }
 
-    public void add_teleport(boolean check){
-        if(check == true) {
+    public void add_teleport(boolean check) {
+        if (check == true) {
             int x = (int) (Math.random() * width);
             int y = (int) (Math.random() * height);
 
-            while (!(tiles[x][y].glyph() == (char)250) || tiles[x][y].item != null || (tiles[x][y].glyph() == '#')) {
+            while (!(tiles[x][y].glyph() == (char) 250) || tiles[x][y].item != null || (tiles[x][y].glyph() == '#')) {
                 x = (int) (Math.random() * width);
                 y = (int) (Math.random() * height);
             }
@@ -98,15 +98,14 @@ public class WorldBuilder {
                     break;
                 }
             }
-            if (!failed)
-            {
+            if (!failed) {
                 create_room(new_room);
 
                 add_teleport(check_teleport);
-                check_teleport=false;
+                check_teleport = false;
 
                 int[] center = new_room.center();
-                if (num_rooms>0) {
+                if (num_rooms > 0) {
                     int[] prev_center = rooms.get(num_rooms - 1).center();
                     if (ThreadLocalRandom.current().nextInt(0, 1) > 0) {
                         create_h_tunnel(prev_center[0], center[0], prev_center[1]);
@@ -122,15 +121,16 @@ public class WorldBuilder {
             }
 
         }
-        add_stairs(rooms.get(rooms.size()-2).center());
+        add_stairs(rooms.get(rooms.size() - 2).center());
     }
+
     //Уровень босса, две комнаты, в одной спавнится игрок, в другой босс
     public void makeBossLevel() {
         Rect playerRoom = new Rect(41, 3, 6, 6);
         Rect bossRoom = new Rect(30, 20, 30, 30);
         create_room(playerRoom);
         create_room(bossRoom);
-        create_v_tunnel(playerRoom.center()[1],bossRoom.center()[1], playerRoom.center()[0]);
+        create_v_tunnel(playerRoom.center()[1], bossRoom.center()[1], playerRoom.center()[0]);
         add_stairs(bossRoom.center());
     }
 }

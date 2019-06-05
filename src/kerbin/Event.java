@@ -1,5 +1,6 @@
 package kerbin;
 //Синглтон-сообщение для вывода в ХУДе, генерируются действиями ИИ нпс и игрока, имеют срок жизни, цвет и приоритет (больше - важнее)
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -8,17 +9,29 @@ import java.util.Map;
 public class Event implements Serializable {
     private static Event instance;
 
-    public String getMsg() { return msg; }
+    public String getMsg() {
+        return msg;
+    }
 
-    public int getPriority() { return priority; }
+    public int getPriority() {
+        return priority;
+    }
 
-    public int getLifetime() { return lifetime; }
+    public int getLifetime() {
+        return lifetime;
+    }
 
-    public Color getColor() { return color; }
+    public Color getColor() {
+        return color;
+    }
 
-    public void decreaseLifetime() { this.lifetime-=1; }
+    public void decreaseLifetime() {
+        this.lifetime -= 1;
+    }
 
-    public void setColor(Color color) { this.color = color; }
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     private String msg;
     private int priority;
@@ -26,12 +39,15 @@ public class Event implements Serializable {
     private Color color;
     // Журнал сообщений
     private Map<String, Color> msgs = new HashMap<>();
-    public Map<String, Color> getMsgs() {return msgs;}
 
-    private Event () {}
+    public Map<String, Color> getMsgs() {
+        return msgs;
+    }
 
-    public void init(String msg, int priority, int lifetime, Color color)
-    {
+    private Event() {
+    }
+
+    public void init(String msg, int priority, int lifetime, Color color) {
         this.msg = msg;
         this.priority = priority;
         this.lifetime = lifetime;

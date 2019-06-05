@@ -1,14 +1,16 @@
 package kerbin.screens;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-//Базовый класс инвентаря, выводит предметы TODO Крафт(?)
 import asciiPanel.AsciiPanel;
 import kerbin.creatures.Creature;
 import kerbin.items.Armor;
 import kerbin.items.Item;
 import kerbin.items.Usable;
 import kerbin.items.Weapon;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
+//Базовый класс инвентаря, выводит предметы TODO Крафт(?)
 
 public class ShopScreen implements Screen {
     protected Creature player;
@@ -17,28 +19,28 @@ public class ShopScreen implements Screen {
     protected int i;
     private String msg;
     protected int chosen;
+
     public ShopScreen(Creature player, Creature merchant) {
         this.player = player;
         this.merchant = merchant;
         chosen = 0;
         msg = "";
     }
+
     //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
-    protected void showHeader(AsciiPanel terminal)
-    {
+    protected void showHeader(AsciiPanel terminal) {
         i = 0;
         terminal.clear();
         terminal.write("Shop gold: ", 1, 1, Color.WHITE);
-        terminal.write(merchant.gold+"", 12, 1, Color.ORANGE);
+        terminal.write(merchant.gold + "", 12, 1, Color.ORANGE);
         terminal.write("Your gold: ", 28, 1, Color.WHITE);
-        terminal.write(player.gold+"", 40, 1, Color.ORANGE);
+        terminal.write(player.gold + "", 40, 1, Color.ORANGE);
         terminal.write("Shop: ", 1, 2, Color.WHITE);
         terminal.write("Inventory: ", 28, 2, Color.WHITE);
         terminal.write("Equipped: ", 55, 2, Color.WHITE);
         terminal.write("Weapon: ", 55, 3);
         terminal.write("Armor: ", 55, 4);
-        if (player.weapon != null)
-        {
+        if (player.weapon != null) {
             int wx = 65;
             if (player.weapon.modifier != null) {
                 String modifier = (String) player.weapon.modifier[0];
@@ -47,8 +49,7 @@ public class ShopScreen implements Screen {
             }
             terminal.write(player.weapon.name(), wx, 3);
         }
-        if (player.armor != null)
-        {
+        if (player.armor != null) {
             int wx = 65;
             if (player.armor.modifier != null) {
                 String modifier = (String) player.armor.modifier[0];
@@ -59,6 +60,7 @@ public class ShopScreen implements Screen {
         }
         terminal.write("Description: ", 55, 8, Color.WHITE);
     }
+
     @Override
     public void displayOutput(AsciiPanel terminal) {
         terminal.clear();
@@ -78,8 +80,7 @@ public class ShopScreen implements Screen {
             showItem(terminal, item, x, y);
             y++;
             i++;
-            if (i != 0 && i % 36 == 0)
-            {
+            if (i != 0 && i % 36 == 0) {
                 y = 4;
                 x += 25;
             }
@@ -87,15 +88,14 @@ public class ShopScreen implements Screen {
         terminal.write(msg, 0, 39, AsciiPanel.brightGreen);
         terminal.repaint();
     }
+
     //Отображение предмета, используется в наследниках
-    public void showItem(AsciiPanel terminal, Item it, int ix, int iy)
-    {
-        if (this.i==chosen) {
+    public void showItem(AsciiPanel terminal, Item it, int ix, int iy) {
+        if (this.i == chosen) {
             terminal.write("> ", ix - 4, iy, Color.WHITE);
             if (it instanceof Weapon) {
                 terminal.write("DMG:", 55, 10, Color.WHITE);
-                if (it.modifier != null && it.modifier[0] == "Cursed" && it.name() == "Battleaxe")
-                {
+                if (it.modifier != null && it.modifier[0] == "Cursed" && it.name() == "Battleaxe") {
                     terminal.write("HP: ", 65, 10, Color.WHITE);
                     terminal.write("-50", 69, 10, Color.RED);
                 }
@@ -119,14 +119,14 @@ public class ShopScreen implements Screen {
                     x = 55;
                 }
                 terminal.write(word, x, y);
-                x += word.length()+1;
+                x += word.length() + 1;
             }
         }
         terminal.write(alphabet[this.i] + ":  ", ix - 2, iy);
         if (it.modifier != null) {
             String modifier = (String) it.modifier[0];
             terminal.write(modifier, ix, iy, (Color) it.modifier[1]);
-            ix+=modifier.length()+1;
+            ix += modifier.length() + 1;
         }
         terminal.write(it.name(), ix, iy);
     }
@@ -139,11 +139,11 @@ public class ShopScreen implements Screen {
                 return null;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                if (chosen < i-1) chosen+=1;
+                if (chosen < i - 1) chosen += 1;
                 break;
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
-                if (chosen > 0) chosen-=1;
+                if (chosen > 0) chosen -= 1;
                 break;
             case KeyEvent.VK_D:
             case KeyEvent.VK_RIGHT:
@@ -151,10 +151,10 @@ public class ShopScreen implements Screen {
             case KeyEvent.VK_LEFT:
                 if (chosen < merchant.inv.size() && chosen < player.inv.size())
                     chosen += merchant.inv.size();
-                else if (chosen >= merchant.inv.size() && chosen-merchant.inv.size() < merchant.inv.size())
+                else if (chosen >= merchant.inv.size() && chosen - merchant.inv.size() < merchant.inv.size())
                     chosen -= merchant.inv.size();
                 else if (chosen < merchant.inv.size())
-                    chosen = merchant.inv.size()+player.inv.size()-1;
+                    chosen = merchant.inv.size() + player.inv.size() - 1;
                 else
                     chosen = merchant.inv.size() - 1;
                 break;
@@ -173,10 +173,10 @@ public class ShopScreen implements Screen {
                         merchant.inv.remove(sold);
                         sold.owner = player;
                         if (chosen > 0) chosen -= 1;
+                    } else {
+                        msg = "You have not enough gold";
                     }
-                    else {msg = "You have not enough gold";}
-                }
-                else {
+                } else {
                     if (merchant.gold >= player.inv.get(chosen - merchant.inv.size()).cost) {
                         Item sold = player.inv.get(chosen - merchant.inv.size());
                         if (sold.modifier != null)
@@ -190,8 +190,9 @@ public class ShopScreen implements Screen {
                         player.inv.remove(sold);
                         sold.owner = merchant;
                         if (chosen > 0) chosen -= 1;
+                    } else {
+                        msg = "Merchant doesn't have enough gold";
                     }
-                    else {msg = "Merchant doesn't have enough gold";}
                 }
                 break;
         }

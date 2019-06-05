@@ -1,8 +1,9 @@
 package kerbin.AI;
 //ИИ скелета
+
 import asciiPanel.AsciiPanel;
-import kerbin.creatures.Creature;
 import kerbin.Event;
+import kerbin.creatures.Creature;
 import kerbin.world.Tile;
 
 import java.io.Serializable;
@@ -13,34 +14,32 @@ public class SkeletonAi extends CreatureAi implements Serializable {
         super(creature);
     }
 
-    public boolean sssssssss(int mx, int my, boolean isMoved){
+    public boolean sssssssss(int mx, int my, boolean isMoved) {
         if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
             this.creature.moveBy(mx, my);
             isMoved = true;
-            boolean isVisible=true;
-            for (int i =1; i<=5; i++){
-                if(creature.getWorld().tile(creature.x + i*mx, creature.y + i*my).isGround()&&isVisible){
+            boolean isVisible = true;
+            for (int i = 1; i <= 5; i++) {
+                if (creature.getWorld().tile(creature.x + i * mx, creature.y + i * my).isGround() && isVisible) {
                     continue;
-                }
-                else{
-                    isVisible=false;
+                } else {
+                    isVisible = false;
                 }
             }
-            if(isVisible && creature.kd==0) {
-                creature.getWorld().projectileFactory.newBullet(creature, creature.x + mx, creature.y + my, mx, my, mx, my, 1+(int)(Math.random()*10));
-                creature.kd=3;
+            if (isVisible && creature.kd == 0) {
+                creature.getWorld().projectileFactory.newBullet(creature, creature.x + mx, creature.y + my, mx, my, mx, my, 1 + (int) (Math.random() * 10));
+                creature.kd = 3;
             }
         }
         return isMoved;
     }
 
-    public void onTurn(Creature player){
-        if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) > creature.radius || Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) < 3){
+    public void onTurn(Creature player) {
+        if (Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) > creature.radius || Math.pow(Math.pow(creature.x - player.x, 2) + Math.pow(creature.y - player.y, 2), 0.5) < 3) {
             int mx = ThreadLocalRandom.current().nextInt(-1, 2);
             int my = ThreadLocalRandom.current().nextInt(-1, 2);
             this.creature.moveBy(mx, my);
-        }
-        else{
+        } else {
             int mx, my;
             boolean isMoved = false;
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
@@ -96,8 +95,9 @@ public class SkeletonAi extends CreatureAi implements Serializable {
                 this.creature.moveBy(mx, my);
             }
         }
-        if(creature.kd>0) creature.kd--;
-        }
+        if (creature.kd > 0) creature.kd--;
+    }
+
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);

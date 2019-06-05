@@ -1,8 +1,5 @@
 package kerbin.screens;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-//Базовый класс инвентаря, выводит предметы
 import asciiPanel.AsciiPanel;
 import kerbin.creatures.Creature;
 import kerbin.items.Armor;
@@ -10,18 +7,24 @@ import kerbin.items.Item;
 import kerbin.items.Usable;
 import kerbin.items.Weapon;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
+//Базовый класс инвентаря, выводит предметы
+
 public class InventoryScreen implements Screen {
     protected Creature player;
     protected char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     protected int i;
     protected int chosen;
+
     public InventoryScreen(Creature player) {
         this.player = player;
         chosen = 0;
     }
+
     //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
-    protected void showHeader(AsciiPanel terminal)
-    {
+    protected void showHeader(AsciiPanel terminal) {
         int y = 4;
         int x = 3;
         i = 0;
@@ -30,8 +33,7 @@ public class InventoryScreen implements Screen {
         terminal.write("Equipped: ", 55, 1, Color.WHITE);
         terminal.write("Weapon: ", 55, 3);
         terminal.write("Armor: ", 55, 4);
-        if (player.weapon != null)
-        {
+        if (player.weapon != null) {
             int wx = 65;
             if (player.weapon.modifier != null) {
                 String modifier = (String) player.weapon.modifier[0];
@@ -40,8 +42,7 @@ public class InventoryScreen implements Screen {
             }
             terminal.write(player.weapon.name(), wx, 3);
         }
-        if (player.armor != null)
-        {
+        if (player.armor != null) {
             int wx = 65;
             if (player.armor.modifier != null) {
                 String modifier = (String) player.armor.modifier[0];
@@ -52,6 +53,7 @@ public class InventoryScreen implements Screen {
         }
         terminal.write("Description: ", 55, 8, Color.WHITE);
     }
+
     @Override
     public void displayOutput(AsciiPanel terminal) {
         showHeader(terminal);
@@ -62,8 +64,7 @@ public class InventoryScreen implements Screen {
             showItem(terminal, item, x, y);
             y++;
             i++;
-            if (i != 0 && i % 36 == 0)
-            {
+            if (i != 0 && i % 36 == 0) {
                 y = 4;
                 x += 25;
             }
@@ -72,31 +73,29 @@ public class InventoryScreen implements Screen {
         terminal.clear(' ', 0, 23, 80, 1);
         terminal.repaint();
     }
+
     //Отображение предмета, используется в наследниках
-    public void showItem(AsciiPanel terminal, Item it, int ix, int iy)
-    {
-        if (this.i==chosen) {
+    public void showItem(AsciiPanel terminal, Item it, int ix, int iy) {
+        if (this.i == chosen) {
             terminal.write("> ", ix - 4, iy, Color.WHITE);
             if (it instanceof Weapon) {
                 terminal.write("DMG:", 55, 10, Color.WHITE);
-                if (it.modifier != null && it.modifier[0] == "Cursed" && it.name() == "Battleaxe")
-                {
+                if (it.modifier != null && it.modifier[0] == "Cursed" && it.name() == "Battleaxe") {
                     terminal.write("HP: ", 75, 10, Color.WHITE);
                     terminal.write("-50", 79, 10, Color.RED);
                 }
                 terminal.write(((Weapon) it).dmg + "", 60, 10, Color.GREEN);
             } else if (it instanceof Armor) {
-                if (it.modifier!= null && it.modifier[0] == "Cursed") {
+                if (it.modifier != null && it.modifier[0] == "Cursed") {
                     terminal.write("HP:", 55, 10, Color.WHITE);
                     terminal.write(((Armor) it).def + "", 60, 10, Color.RED);
-                }
-                    else {
-                        terminal.write("DEF:", 55, 10, Color.WHITE);
+                } else {
+                    terminal.write("DEF:", 55, 10, Color.WHITE);
                     terminal.write(((Armor) it).def + "", 60, 10, Color.BLUE);
                 }
             } else if (it instanceof Usable) {
                 if (it.name().equals("CTF Guide")) terminal.write("DMG: ", 55, 10, Color.WHITE);
-                else if (it.name().equals("Lootbox"));
+                else if (it.name().equals("Lootbox")) ;
                 else terminal.write("HP: ", 55, 10, Color.WHITE);
                 if (!it.name().equals("Lootbox")) terminal.write(((Usable) it).effect + "", 60, 10, Color.RED);
             }
@@ -112,14 +111,14 @@ public class InventoryScreen implements Screen {
                     x = 55;
                 }
                 terminal.write(word, x, y);
-                x += word.length()+1;
+                x += word.length() + 1;
             }
         }
         terminal.write(alphabet[this.i] + ":  ", ix - 2, iy);
         if (it.modifier != null) {
             String modifier = (String) it.modifier[0];
             terminal.write(modifier, ix, iy, (Color) it.modifier[1]);
-            ix+=modifier.length()+1;
+            ix += modifier.length() + 1;
         }
         terminal.write(it.name(), ix, iy);
     }
@@ -136,12 +135,12 @@ public class InventoryScreen implements Screen {
             case KeyEvent.VK_D:
                 return new DropScreen(player);
             case KeyEvent.VK_DOWN:
-                if (chosen < i-1) chosen+=1;
+                if (chosen < i - 1) chosen += 1;
                 break;
             case KeyEvent.VK_UP:
-                if (chosen > 0) chosen-=1;
+                if (chosen > 0) chosen -= 1;
                 break;
         }
-            return this;
+        return this;
     }
 }

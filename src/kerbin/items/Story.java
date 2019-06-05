@@ -9,7 +9,7 @@ public class
 Story extends Item implements Serializable {
 
     public Story(char glyph, Color color, String name, Creature owner, boolean isEquipable, String desc, int cost) {
-        super (glyph, color, name, owner, isEquipable, desc, cost);
+        super(glyph, color, name, owner, isEquipable, desc, cost);
         modifier = null;
     }
 }

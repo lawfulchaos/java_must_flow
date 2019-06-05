@@ -1,8 +1,9 @@
 package kerbin.AI;
 //ИИ мыши, передвигается случайно на свободную клетку
+
 import asciiPanel.AsciiPanel;
-import kerbin.creatures.Creature;
 import kerbin.Event;
+import kerbin.creatures.Creature;
 import kerbin.world.Tile;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ public class MobAi extends CreatureAi implements Serializable {
     public MobAi(Creature creature) {
         super(creature);
     }
+
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);

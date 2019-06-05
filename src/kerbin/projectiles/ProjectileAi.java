@@ -6,17 +6,19 @@ import kerbin.world.World;
 
 import java.io.Serializable;
 
-public class ProjectileAi  implements Serializable {
+public class ProjectileAi implements Serializable {
     public Projectile bullet;
-    public ProjectileAi(Projectile bullet){
+
+    public ProjectileAi(Projectile bullet) {
         this.bullet = bullet;
     }
-    public void onTurn(World world){
-        boolean isHit=false;
-        for (int i =1; i<=3; i++){
-            if (!world.tile(bullet.x+bullet.mx, bullet.y+bullet.my).isGround()
-                    || ((world.creature(bullet.x+bullet.mx, bullet.y+bullet.my) != null)
-                    && !(world.creature(bullet.x+bullet.mx, bullet.y+bullet.my).name.equals(bullet.owner.name)))) {
+
+    public void onTurn(World world) {
+        boolean isHit = false;
+        for (int i = 1; i <= 3; i++) {
+            if (!world.tile(bullet.x + bullet.mx, bullet.y + bullet.my).isGround()
+                    || ((world.creature(bullet.x + bullet.mx, bullet.y + bullet.my) != null)
+                    && !(world.creature(bullet.x + bullet.mx, bullet.y + bullet.my).name.equals(bullet.owner.name)))) {
 
                 isHit = true;
                 break;
@@ -26,17 +28,16 @@ public class ProjectileAi  implements Serializable {
         }
         bullet.x += bullet.mx;
         bullet.y += bullet.my;
-        if(isHit) hit(world);
+        if (isHit) hit(world);
     }
+
     void hit(World world) {
-            if (world.creature(bullet.x, bullet.y) != null && !(world.creature(bullet.x, bullet.y).name.equals(bullet.owner.name)))
-            {
-                world.creature(bullet.x, bullet.y).hp -= bullet.dmg;
-                Event.getInstance().init("attacked from a distance", 5, 3, AsciiPanel.brightWhite);
-                bullet.getWorld().projectiles.remove(bullet);
-            }
-            else{
-                bullet.getWorld().projectiles.remove(bullet);
-            }
+        if (world.creature(bullet.x, bullet.y) != null && !(world.creature(bullet.x, bullet.y).name.equals(bullet.owner.name))) {
+            world.creature(bullet.x, bullet.y).hp -= bullet.dmg;
+            Event.getInstance().init("attacked from a distance", 5, 3, AsciiPanel.brightWhite);
+            bullet.getWorld().projectiles.remove(bullet);
+        } else {
+            bullet.getWorld().projectiles.remove(bullet);
         }
     }
+}

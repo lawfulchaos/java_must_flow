@@ -7,7 +7,7 @@ import kerbin.world.World;
 
 import java.io.Serializable;
 
-public class ProjectileFactory  implements Serializable {
+public class ProjectileFactory implements Serializable {
     private World world;
 
     public ProjectileFactory(World world) {
@@ -15,7 +15,7 @@ public class ProjectileFactory  implements Serializable {
     }
 
     public Projectile newBullet(Creature owner, int x, int y, int mx, int my, int vectorx, int vectory, int dmg) {
-        Projectile bullet = new Projectile(world, owner,'*', AsciiPanel.red, "bullet", dmg, x, y, mx, my, vectorx,vectory);
+        Projectile bullet = new Projectile(world, owner, '*', AsciiPanel.red, "bullet", dmg, x, y, mx, my, vectorx, vectory);
         bullet.ai = new ProjectileAi(bullet);
         return bullet;
 

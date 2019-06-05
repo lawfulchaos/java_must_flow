@@ -1,9 +1,5 @@
 package kerbin.screens;
 
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import java.util.List;
-//Класс экрана экипирования предметов, выводит предметы, которые можно надеть
 import asciiPanel.AsciiPanel;
 import kerbin.creatures.Creature;
 import kerbin.items.Armor;
@@ -11,10 +7,17 @@ import kerbin.items.Item;
 import kerbin.items.Ranged;
 import kerbin.items.Weapon;
 
-public class EquipScreen extends InventoryScreen implements Screen{
+import java.awt.event.KeyEvent;
+import java.util.Arrays;
+import java.util.List;
+
+//Класс экрана экипирования предметов, выводит предметы, которые можно надеть
+
+public class EquipScreen extends InventoryScreen implements Screen {
     private String msg;
     private String c_string;
     private List<String> alph_short;
+
     public EquipScreen(Creature player) {
         super(player);
         msg = "";
@@ -33,8 +36,7 @@ public class EquipScreen extends InventoryScreen implements Screen{
                 this.showItem(terminal, it, x, y);
                 y++;
                 i++;
-                if (i != 0 && i % 36 == 0)
-                {
+                if (i != 0 && i % 36 == 0) {
                     y = 4;
                     x += 25;
                 }
@@ -46,45 +48,38 @@ public class EquipScreen extends InventoryScreen implements Screen{
         terminal.repaint();
     }
 
-    public void wearItem()
-    {
-        Item Equipable=null;
-        int j=0;
+    public void wearItem() {
+        Item Equipable = null;
+        int j = 0;
         for (int z = 0; z < player.inv.size(); z++) {
-            if (player.inv.get(z).isEquipable)
-            {
-                if (alph_short.indexOf(c_string) == j)
-                {
-                    Equipable=player.inv.get(z);
+            if (player.inv.get(z).isEquipable) {
+                if (alph_short.indexOf(c_string) == j) {
+                    Equipable = player.inv.get(z);
                     break;
                 }
                 j++;
             }
         }
-        if (Equipable instanceof Weapon)
-        {
-            player.setWeapon((Weapon)Equipable);
+        if (Equipable instanceof Weapon) {
+            player.setWeapon((Weapon) Equipable);
             player.inv.remove(Equipable);
             if (Equipable.modifier != null)
                 msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());
             else msg = String.format("You took a %s in hands", Equipable.name());
 
-        }
-        else if (Equipable instanceof Ranged)
-        {
-            player.setWeapon((Ranged)Equipable);
+        } else if (Equipable instanceof Ranged) {
+            player.setWeapon((Ranged) Equipable);
             player.inv.remove(Equipable);
             if (Equipable.modifier != null)
                 msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());
             else msg = String.format("You took a %s in hands", Equipable.name());
 
-        }
-        else if (Equipable instanceof Armor)
-        {
-            player.setArmor((Armor)Equipable);
+        } else if (Equipable instanceof Armor) {
+            player.setArmor((Armor) Equipable);
             player.inv.remove(Equipable);
-            if (Equipable.modifier != null) msg = String.format("You now wear %s %s", Equipable.modifier[0], Equipable.name());
-            else  msg = String.format("You now wear %s", Equipable.name());
+            if (Equipable.modifier != null)
+                msg = String.format("You now wear %s %s", Equipable.modifier[0], Equipable.name());
+            else msg = String.format("You now wear %s", Equipable.name());
         }
     }
 
@@ -98,21 +93,19 @@ public class EquipScreen extends InventoryScreen implements Screen{
             case KeyEvent.VK_ESCAPE:
                 return new InventoryScreen(player);
             case KeyEvent.VK_DOWN:
-                if (chosen < i-1) chosen+=1;
+                if (chosen < i - 1) chosen += 1;
                 break;
             case KeyEvent.VK_UP:
-                if (chosen > 0) chosen-=1;
+                if (chosen > 0) chosen -= 1;
                 break;
             case KeyEvent.VK_ENTER:
-                if (player.inv.size() > 0)
-                {
+                if (player.inv.size() > 0) {
                     c_string = alph_short.get(chosen);
-                    if (chosen > 0) chosen-=1;
+                    if (chosen > 0) chosen -= 1;
                 }
                 break;
         }
-        if (alph_short.contains(c_string))
-        {
+        if (alph_short.contains(c_string)) {
             this.wearItem();
         }
         return this;

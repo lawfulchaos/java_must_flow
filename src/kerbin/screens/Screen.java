@@ -1,11 +1,12 @@
 package kerbin.screens;
 // Общий интерфейс для всех экранов
-import java.awt.event.KeyEvent;
 
 import asciiPanel.AsciiPanel;
 
+import java.awt.event.KeyEvent;
+
 public interface Screen {
-	void displayOutput(AsciiPanel terminal);
-	
-	Screen respondToUserInput(KeyEvent key);
+    void displayOutput(AsciiPanel terminal);
+
+    Screen respondToUserInput(KeyEvent key);
 }

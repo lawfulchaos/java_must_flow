@@ -1,5 +1,6 @@
 package kerbin.creatures;
 /* Физические характеристики существа, поведение обрабатывается в CreatureAi, создается CreatureFactory*/
+
 import kerbin.AI.CreatureAi;
 import kerbin.items.Armor;
 import kerbin.items.Item;
@@ -7,21 +8,23 @@ import kerbin.items.Ranged;
 import kerbin.items.Weapon;
 import kerbin.world.World;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Creature  implements Serializable {
-    public World getWorld() { return world; }
+public class Creature implements Serializable {
+    public World getWorld() {
+        return world;
+    }
 
     private World world;
     public int x;
     public int y;
     public int gold; //деньги
     public int ammo;
-    public int level=1; // счетчик уровня
-    public int honor=0; // опыт героя
+    public int level = 1; // счетчик уровня
+    public int honor = 0; // опыт героя
     public int player_level = 1; // уровень героя
     public int max_honor = 50; // экспа для перехода на следующий лвл
 
@@ -29,8 +32,12 @@ public class Creature  implements Serializable {
     public String name;
     public CreatureAi ai;
     public List<Item> inv;
-    public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
-// Символ существа
+
+    public void setCreatureAi(CreatureAi ai) {
+        this.ai = ai;
+    }
+
+    // Символ существа
     private char glyph;
     //хп существ
     public int hp;
@@ -44,36 +51,42 @@ public class Creature  implements Serializable {
     public Armor armor;
     public Weapon weapon;
     public int radius;
-    public char glyph() { return glyph; }
-    public void setWorld(World world)
-    {
-        this.world=world;
-    }
-    private Color color;
-    public Color color() { return color; }
 
-    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def,int max_hp, int radius, int gold, int kd){
+    public char glyph() {
+        return glyph;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    private Color color;
+
+    public Color color() {
+        return color;
+    }
+
+    public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def, int max_hp, int radius, int gold, int kd) {
         this.world = world;
         this.glyph = glyph;
         this.color = color;
         this.inv = new ArrayList<>();
         this.name = name;
-        this.hp=hp;
-        this.dmg=dmg;
-        this.def=def;
+        this.hp = hp;
+        this.dmg = dmg;
+        this.def = def;
         this.weapon = null;
         this.armor = null;
-        this.max_hp=max_hp;
-        this.radius=radius;
+        this.max_hp = max_hp;
+        this.radius = radius;
         this.gold = gold;
         this.effect = null;
-        this.ammo=5;
-        this.kd=kd;
+        this.ammo = 5;
+        this.kd = kd;
     }
-    public void setWeapon(Weapon weapon)
-    {
-        if (this.weapon != null)
-        {
+
+    public void setWeapon(Weapon weapon) {
+        if (this.weapon != null) {
             this.dmg -= this.weapon.dmg;
             if (this.dmg < 0) this.dmg = 0;
             inv.add(this.weapon);
@@ -85,10 +98,8 @@ public class Creature  implements Serializable {
         if (this.dmg < 0) this.dmg = 0;
     }
 
-    public void setRanged(Ranged weapon)
-    {
-        if (this.weapon != null)
-        {
+    public void setRanged(Ranged weapon) {
+        if (this.weapon != null) {
             this.dmg -= this.weapon.dmg;
             if (this.dmg < 0) this.dmg = 0;
             inv.add(this.weapon);
@@ -99,35 +110,31 @@ public class Creature  implements Serializable {
     }
 
 
-    public void setArmor(Armor armor)
-    {
-        if (this.armor != null)
-        {
+    public void setArmor(Armor armor) {
+        if (this.armor != null) {
             this.def -= this.armor.def;
-            if (this.armor.modifier != null && this.armor.modifier[0].equals("Cursed"))
-            {
+            if (this.armor.modifier != null && this.armor.modifier[0].equals("Cursed")) {
                 this.effect = null;
             }
-            if (this.def < 0)
-            {
+            if (this.def < 0) {
                 this.def = 0;
             }
             inv.add(this.armor);
-            this.startdef=this.armor.startdef;
+            this.startdef = this.armor.startdef;
 
         }
         this.armor = armor;
         this.def += armor.def;
-        if (this.def < 0)
-        {
+        if (this.def < 0) {
             this.effect = new int[]{this.armor.def, -1};
             this.def = 0;
         }
-        this.startdef=this.armor.startdef;
+        this.startdef = this.armor.startdef;
     }
-//Движение, реакция на смещение обрабатывается AI
-    public void moveBy(int mx, int my){
-        ai.onEnter(x+mx, y+my, world.tile(x+mx, y+my));
+
+    //Движение, реакция на смещение обрабатывается AI
+    public void moveBy(int mx, int my) {
+        ai.onEnter(x + mx, y + my, world.tile(x + mx, y + my));
     }
 
 }

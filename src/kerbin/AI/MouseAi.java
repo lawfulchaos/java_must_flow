@@ -1,8 +1,9 @@
 package kerbin.AI;
 //ИИ мыши, передвигается на свободную клетку в сторону игрока
+
 import asciiPanel.AsciiPanel;
-import kerbin.creatures.Creature;
 import kerbin.Event;
+import kerbin.creatures.Creature;
 import kerbin.world.Tile;
 
 import java.io.Serializable;
@@ -10,8 +11,9 @@ import java.io.Serializable;
 public class MouseAi extends CreatureAi implements Serializable {
 
     public MouseAi(Creature creature) {
-            super(creature);
+        super(creature);
     }
+
     public void onEnter(int x, int y, Tile tile) {
         if (tile.isGround()) {
             Creature c = creature.getWorld().creature(x, y);
