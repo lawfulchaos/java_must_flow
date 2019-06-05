@@ -43,7 +43,7 @@ public class MenuScreen implements Screen {
         //return key.getKeyCode() == KeyEvent.VK_ENTER ? new PreScreen() : this;
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
-                return null;
+                return game;
             case KeyEvent.VK_S:
             case KeyEvent.VK_DOWN:
                 chosen += 1;
