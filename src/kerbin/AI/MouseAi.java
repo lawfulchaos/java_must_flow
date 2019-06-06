@@ -25,7 +25,7 @@ public class MouseAi extends CreatureAi implements Serializable {
                 }
                 super.battle(c);
                 super.teleport(tile);
-            } else {
+            } else if (creature.getWorld().checkMerchant(x, y) == null) {
                 creature.x = x;
                 creature.y = y;
             }
