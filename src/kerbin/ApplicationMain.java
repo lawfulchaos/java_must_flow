@@ -52,7 +52,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
             ex.printStackTrace();
         }
     }
-    private static void playSound() {
+    public static void playSound() {
         try {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
             clip = AudioSystem.getClip();

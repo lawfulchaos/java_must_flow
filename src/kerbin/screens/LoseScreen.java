@@ -1,6 +1,7 @@
 package kerbin.screens;
 
 import asciiPanel.AsciiPanel;
+import kerbin.ApplicationMain;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -32,6 +33,7 @@ public class LoseScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
+        ApplicationMain.playSound();
         return key.getKeyCode() == KeyEvent.VK_ENTER ? new PlayScreen(frame) : this;
     }
 }

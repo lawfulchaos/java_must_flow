@@ -2,7 +2,7 @@ package kerbin.screens;
 
 import asciiPanel.AsciiPanel;
 import kerbin.ApplicationMain;
-import kerbin.Sound;
+
 import kerbin.creatures.Creature;
 import kerbin.items.Armor;
 import kerbin.items.Item;
