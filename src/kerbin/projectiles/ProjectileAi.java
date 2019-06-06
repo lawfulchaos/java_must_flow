@@ -1,9 +1,14 @@
 package kerbin.projectiles;
 
 import asciiPanel.AsciiPanel;
+import kerbin.ApplicationMain;
 import kerbin.Event;
 import kerbin.world.World;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.io.Serializable;
 
 public class ProjectileAi implements Serializable {
@@ -36,6 +41,8 @@ public class ProjectileAi implements Serializable {
             world.creature(bullet.x, bullet.y).hp -= bullet.dmg;
             Event.getInstance().init("attacked from a distance", 5, 3, AsciiPanel.brightWhite);
             bullet.getWorld().projectiles.remove(bullet);
+            //звук
+            ApplicationMain.playSound("getbullet.wav");
         } else {
             bullet.getWorld().projectiles.remove(bullet);
         }

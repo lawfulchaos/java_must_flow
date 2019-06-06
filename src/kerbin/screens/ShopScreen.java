@@ -1,11 +1,14 @@
 package kerbin.screens;
 
 import asciiPanel.AsciiPanel;
+import kerbin.ApplicationMain;
+import kerbin.Sound;
 import kerbin.creatures.Creature;
 import kerbin.items.Armor;
 import kerbin.items.Item;
 import kerbin.items.Usable;
 import kerbin.items.Weapon;
+import kerbin.projectiles.ProjectileAi;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -146,15 +149,10 @@ public class ShopScreen implements Screen {
                             msg = String.format("You bought a %s %s for  %s gold", sold.modifier[0], sold.name(), sold.cost);
                         else
                             msg = String.format("You bought a %s for  %s gold", sold.name(), sold.cost);
-                        player.gold -= sold.cost;
-                        merchant.gold += sold.cost;
-                        sold.cost *= 0.83;
-                        player.inv.add(sold);
-                        merchant.inv.remove(sold);
-                        sold.owner = player;
-                        if (chosen > 0) chosen -= 1;
+                        makePurchase(sold, player, merchant, 0.83);
                     } else {
                         msg = "You have not enough gold";
+                        playSound();
                     }
                 } else {
                     if (merchant.gold >= player.inv.get(chosen - merchant.inv.size()).cost) {
@@ -163,19 +161,28 @@ public class ShopScreen implements Screen {
                             msg = String.format("You sold a %s %s for  %s gold", sold.modifier[0], sold.name(), sold.cost);
                         else
                             msg = String.format("You sold a %s for  %s gold", sold.name(), sold.cost);
-                        merchant.gold -= sold.cost;
-                        player.gold += sold.cost;
-                        sold.cost *= 1.2;
-                        merchant.inv.add(sold);
-                        player.inv.remove(sold);
-                        sold.owner = merchant;
-                        if (chosen > 0) chosen -= 1;
+                        makePurchase(sold, merchant, player, 1.2);
                     } else {
                         msg = "Merchant doesn't have enough gold";
+                        playSound();
                     }
                 }
                 break;
         }
         return this;
+    }
+
+    private void makePurchase(Item sold, Creature merchant, Creature player, double v) {
+        merchant.gold -= sold.cost;
+        player.gold += sold.cost;
+        sold.cost *= v;
+        merchant.inv.add(sold);
+        player.inv.remove(sold);
+        sold.owner = merchant;
+        if (chosen > 0) chosen -= 1;
+    }
+
+    private void playSound() {
+        ApplicationMain.playSound("gold");
     }
 }

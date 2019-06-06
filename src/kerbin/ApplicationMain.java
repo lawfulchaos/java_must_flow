@@ -30,28 +30,23 @@ public class ApplicationMain extends JFrame implements KeyListener {
 
     }
 
-    private static void playMusic() {
-        try {
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(inputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            while (clip.isRunning()) {
-                Thread.sleep(100);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
-
     public static void main(String[] args) {
-        playMusic();
+        playSound("sound.wav");
         ApplicationMain app = new ApplicationMain();
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setVisible(true);
     }
 
+    public static void playSound(String name) {
+        try {
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(name));
+            Clip clip = AudioSystem.getClip();
+            clip.open(inputStream);
+            clip.loop(0);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     // Вывод игрового поля в приложение
     @Override
     public void repaint() {

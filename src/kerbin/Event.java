@@ -3,8 +3,6 @@ package kerbin;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Event implements Serializable {
     private static Event instance;
@@ -12,8 +10,6 @@ public class Event implements Serializable {
     private int priority;
     private int lifetime;
     private Color color;
-    // Журнал сообщений
-    private Map<String, Color> msgs = new HashMap<>();
 
     private Event() {
     }
@@ -54,6 +50,5 @@ public class Event implements Serializable {
         this.priority = priority;
         this.lifetime = lifetime;
         this.color = color;
-        msgs.put(msg, color);
     }
 }
