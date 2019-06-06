@@ -152,7 +152,7 @@ public class ShopScreen implements Screen {
                         makePurchase(sold, player, merchant, 0.83);
                     } else {
                         msg = "You have not enough gold";
-                        playSound();
+                        ApplicationMain.playSound("gold.wav");
                     }
                 } else {
                     if (merchant.gold >= player.inv.get(chosen - merchant.inv.size()).cost) {
@@ -164,7 +164,7 @@ public class ShopScreen implements Screen {
                         makePurchase(sold, merchant, player, 1.2);
                     } else {
                         msg = "Merchant doesn't have enough gold";
-                        playSound();
+                        ApplicationMain.playSound("gold.wav");
                     }
                 }
                 break;
@@ -180,9 +180,5 @@ public class ShopScreen implements Screen {
         player.inv.remove(sold);
         sold.owner = merchant;
         if (chosen > 0) chosen -= 1;
-    }
-
-    private void playSound() {
-        ApplicationMain.playSound("gold");
     }
 }

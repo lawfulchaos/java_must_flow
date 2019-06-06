@@ -4,11 +4,6 @@ import asciiPanel.AsciiPanel;
 import kerbin.ApplicationMain;
 import kerbin.Event;
 import kerbin.world.World;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
 import java.io.Serializable;
 
 public class ProjectileAi implements Serializable {
