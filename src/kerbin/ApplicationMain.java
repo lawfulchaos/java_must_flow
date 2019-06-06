@@ -31,7 +31,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
     }
 
     public static void main(String[] args) {
-        playSound("sound.wav");
+        playSound();
         ApplicationMain app = new ApplicationMain();
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setVisible(true);
@@ -43,6 +43,16 @@ public class ApplicationMain extends JFrame implements KeyListener {
             Clip clip = AudioSystem.getClip();
             clip.open(inputStream);
             clip.loop(0);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    private static void playSound() {
+        try {
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(inputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
