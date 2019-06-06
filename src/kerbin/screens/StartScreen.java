@@ -19,11 +19,7 @@ public class StartScreen implements Screen {
 
     @Override
     public void displayOutput(AsciiPanel terminal) {
-        terminal.write("MGUPI Studio presents:", 1, 1);
-        terminal.writeCenter("A best Pinatel and not a Tyrant game", 3);
-        terminal.writeCenter("True Roguelike Beta", 4);
-        terminal.writeCenter("WORK: World of Roguelike Kettles", 7);
-        terminal.writeCenter("Menu:", 11);
+        MenuScreen.drawHeading(terminal);
         terminal.write("New Game", 3, 12);
         terminal.write("Load Game", 3, 13);
         terminal.write("Controls", 3, 14);
@@ -53,7 +49,7 @@ public class StartScreen implements Screen {
                         loadLvl.loadGame();
                         return loadLvl;
                     case 2:
-                        return new ControlScreen(frame,null);
+                        return new ControlScreen(frame, null);
                     case 3:
                         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                         break;

@@ -63,7 +63,9 @@ public class PlayerAi extends CreatureAi implements Serializable {
         if (creature.effect != null) {
             if (creature.effect[1] == 0) creature.effect = null;
             else creature.hp += creature.effect[0];
-            creature.effect[1] -= 1;
+            if (creature.effect != null) {
+                creature.effect[1] -= 1;
+            }
         }
     }
 }

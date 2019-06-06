@@ -7,37 +7,21 @@ import java.awt.*;
 import java.io.Serializable;
 
 public class Projectile implements Serializable {
-    public World getWorld() {
-        return world;
-    }
-
-    private World world;
     public Creature owner;
     public int x;
-    public int mx;
     public int y;
-    public int my;
-
-
     public int dmg;
-    public int vectorx;
-    public int vectory;
-    private char glyph;
     public String name;
-
-    public char glyph() {
-        return glyph;
-    }
-
+    public ProjectileAi ai;
+    int mx;
+    int my;
+    int vectorx;
+    int vectory;
+    private World world;
+    private char glyph;
     private Color color;
 
-    public Color color() {
-        return color;
-    }
-
-    public ProjectileAi ai;
-
-    public Projectile(World world, Creature owner, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my, int vectorx, int vectory) {
+    Projectile(World world, Creature owner, char glyph, Color color, String name, int dmg, int x, int y, int mx, int my, int vectorx, int vectory) {
         this.owner = owner;
         this.world = world;
         this.glyph = glyph;
@@ -51,5 +35,17 @@ public class Projectile implements Serializable {
         this.vectorx = vectorx;
         this.vectory = vectory;
         this.world.projectiles.add(this);
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public char glyph() {
+        return glyph;
+    }
+
+    public Color color() {
+        return color;
     }
 }

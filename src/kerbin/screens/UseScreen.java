@@ -14,9 +14,9 @@ import java.util.List;
 public class UseScreen extends InventoryScreen implements Screen {
     private String msg;
     private List<String> alph_short;
-    public String c_string;
+    private String c_string;
 
-    public UseScreen(Creature player) {
+    UseScreen(Creature player) {
         super(player);
         msg = "";
     }
@@ -46,7 +46,7 @@ public class UseScreen extends InventoryScreen implements Screen {
         terminal.repaint();
     }
 
-    public void useItem() {
+    private void useItem() {
         Usable usable;
         int j = 0;
         for (int z = 0; z < player.inv.size(); z++) {

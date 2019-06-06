@@ -18,8 +18,8 @@ import java.io.*;
 import java.util.List;
 
 public class PlayScreen implements Screen {
-    private World world;
     public Creature player;
+    private World world;
     private int screenWidth;
     private int screenHeight;
     private Screen subscreen;
@@ -27,7 +27,7 @@ public class PlayScreen implements Screen {
     private boolean isShooting;
 
     /* Генерация нового экрана и добавление игрока*/
-    public PlayScreen(JFrame frame) {
+    PlayScreen(JFrame frame) {
         screenWidth = 90;
         this.frame = frame;
         screenHeight = 30;
@@ -39,7 +39,7 @@ public class PlayScreen implements Screen {
 
     }
 
-    public PlayScreen(Creature player) {
+    private PlayScreen(Creature player) {
         screenWidth = 90;
         screenHeight = 30;
         isShooting = false;
@@ -73,11 +73,11 @@ public class PlayScreen implements Screen {
     }
 
     // Сдвиг экрана при движении игрока
-    public int getScrollX() {
+    private int getScrollX() {
         return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth));
     }
 
-    public int getScrollY() {
+    private int getScrollY() {
         return Math.max(0, Math.min(player.y - screenHeight / 2, world.height() - screenHeight));
     }
 
@@ -191,19 +191,13 @@ public class PlayScreen implements Screen {
             }
         }
         for (Creature c : world.creatures) {
-            if ((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) {
-                terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
-            }
+            drawChar(terminal, left, top, c.x, c.y, c.glyph(), c.color());
         }
         for (Creature c : world.npcs) {
-            if ((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) {
-                terminal.write(c.glyph(), c.x - left, c.y - top, c.color());
-            }
+            drawChar(terminal, left, top, c.x, c.y, c.glyph(), c.color());
         }
         for (Projectile p : world.projectiles) {
-            if ((p.x >= left && p.x < left + screenWidth) && (p.y >= top && p.y < top + screenHeight)) {
-                terminal.write(p.glyph(), p.x - left, p.y - top, p.color());
-            }
+            drawChar(terminal, left, top, p.x, p.y, p.glyph(), p.color());
         }
         if (isShooting) {
             if (world.tile(player.x, player.y - 1).isGround())
@@ -218,7 +212,13 @@ public class PlayScreen implements Screen {
         terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
     }
 
-    public void saveGame() {
+    private void drawChar(AsciiPanel terminal, int left, int top, int x, int y, char glyph, Color color) {
+        if ((x >= left && x < left + screenWidth) && (y >= top && y < top + screenHeight)) {
+            terminal.write(glyph, x - left, y - top, color);
+        }
+    }
+
+    void saveGame() {
         try {
             File f = new File("\\saves\\save.txt");
 
@@ -236,7 +236,7 @@ public class PlayScreen implements Screen {
         }
     }
 
-    public void loadGame() {
+    void loadGame() {
         try {
             FileInputStream fi = new FileInputStream(new File("\\saves\\save.dat"));
             ObjectInputStream oi = new ObjectInputStream(fi);
@@ -357,7 +357,9 @@ public class PlayScreen implements Screen {
                             creature.dmg *= player.level;
                         }
                         nextLvl.world.items = updateItems(nextLvl.world.items);
-                        nextLvl.world.npcs.get(0).inv = updateItems(nextLvl.world.npcs.get(0).inv);
+                        for (Creature npc : nextLvl.world.npcs) {
+                            npc.inv = updateItems(npc.inv);
+                        }
                         return nextLvl;
                     } else if (player.getWorld().checkMerchant(player.x, player.y) != null)
                         subscreen = new ShopScreen(player, player.getWorld().checkMerchant(player.x, player.y));

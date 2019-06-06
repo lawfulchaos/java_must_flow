@@ -16,30 +16,19 @@ import java.util.List;
 
 public class World implements Serializable {
     public Tile[][] tiles;
-    private int width;
-
-    public int width() {
-        return width;
-    }
-
     public Creature player;
-    private int height;
-
-    public int height() {
-        return height;
-    }
-
-    public TileFactory tileFactory;
     public ProjectileFactory projectileFactory;
-    public CreatureFactory creatureFactory;
-    public ItemFactory itemFactory;
-    public String[][] story = {{"Toilet paper", "Toilet paper #2", "Toilet paper #3", "My notes", "Page of study book", "Table-napkin", "My notes #2", "My notes #3"}, {"Khm, i've been here for several days and i am still trying to understand what went wrong. Since this is a zombie apocalypse type, i will accordingly write on all sorts of rubbish and i hope my records will find. I don't know who will read it, but know: you beat a lot of bricks with your head if you really here", "So, how it all started. It was a normal day, the usual study as always. But then the light abruptly disappeared. At first we thought it was just a typical outage, but not. This was not the case. Immediately it became dark on the street, immediately became somehow...Spooky", "I can't stay here longer. Need to go fast", "Some strange thing. I see that all mouses were humans, i see their eyes, which see only meat in me. Probably they was hungry very long and now they only can running on their hands and legs and trying to eat who isn't like they. Skeletons were hungry too, but they is not like mouses. They throw study books in me. i think they tried to make exams, but the luck was not lovely for them. Yeah, riot, brothers. ", "I'm move out from the toilet and now my location is the stair near buffet. To be clearly, it's is between two buffet. Now i don't know what i must do. Ways out cuted out, can't to run into the second floor, can't go at third. Maybe first...", "It wasn't good idea. One mouse bit me, but i kill it. Now i'll become a mouse. I have a few minutes, so you should know. I saw 4 guys, who can be guilty. They look like monsters, but not the same. They are ... is...wnat et...maet....fud", "I understood. 4 guys. I must find them", "So, looks like it is it. And..oh damn..My slaves ? Really ? Okay. I have to push and punch them",}};
-
     public List<Creature> creatures;
     //Нейтральные/Дружелюбные существа
     public List<Creature> npcs;
     public List<Projectile> projectiles;
     public List<Item> items;
+    private TileFactory tileFactory;
+    private CreatureFactory creatureFactory;
+    private int width;
+    private int height;
+    private ItemFactory itemFactory;
+    private String[][] story = {{"Toilet paper", "Toilet paper #2", "Toilet paper #3", "My notes", "Page of study book", "Table-napkin", "My notes #2", "My notes #3"}, {"Khm, i've been here for several days and i am still trying to understand what went wrong. Since this is a zombie apocalypse type, i will accordingly write on all sorts of rubbish and i hope my records will find. I don't know who will read it, but know: you beat a lot of bricks with your head if you really here", "So, how it all started. It was a normal day, the usual study as always. But then the light abruptly disappeared. At first we thought it was just a typical outage, but not. This was not the case. Immediately it became dark on the street, immediately became somehow...Spooky", "I can't stay here longer. Need to go fast", "Some strange thing. I see that all mouses were humans, i see their eyes, which see only meat in me. Probably they was hungry very long and now they only can running on their hands and legs and trying to eat who isn't like they. Skeletons were hungry too, but they is not like mouses. They throw study books in me. i think they tried to make exams, but the luck was not lovely for them. Yeah, riot, brothers. ", "I'm move out from the toilet and now my location is the stair near buffet. To be clearly, it's is between two buffet. Now i don't know what i must do. Ways out cuted out, can't to run into the second floor, can't go at third. Maybe first...", "It wasn't good idea. One mouse bit me, but i kill it. Now i'll become a mouse. I have a few minutes, so you should know. I saw 4 guys, who can be guilty. They look like monsters, but not the same. They are ... is...wnat et...maet....fud", "I understood. 4 guys. I must find them", "So, looks like it is it. And..oh damn..My slaves ? Really ? Okay. I have to push and punch them",}};
 
     public World(Tile[][] tiles) {
         this.tiles = tiles;
@@ -56,6 +45,14 @@ public class World implements Serializable {
         this.itemFactory = new ItemFactory(this);
 
 
+    }
+
+    public int width() {
+        return width;
+    }
+
+    public int height() {
+        return height;
     }
 
     //Создает мобов и предметы
@@ -103,29 +100,29 @@ public class World implements Serializable {
         itemFactory.newRandom(null);
         Creature boss;
         switch (player.level / 3) {
-            case 3:
-                boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 35, 5, 20, 999, 10, 500, 6);
+            case 4:
+                boss = new Creature(this, 'M', AsciiPanel.red, "Lord Mousarium", 40, 5, 20, 999, 10, 500, 6);
                 boss.setWeapon(itemFactory.newTeeth(boss));
                 boss.setArmor(itemFactory.newHide(boss));
                 boss.inv.add(new Weapon('%', Color.yellow, "Guitar", null, 35, true,
                         "A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path. It feels like part of something greater", 450, 12));
                 break;
-            case 2:
-                boss = new Creature(this, 'R', AsciiPanel.yellow, "Reality Hacker", 15, 3, 10, 15 * player.player_level, 10, 500, 6);
+            case 3:
+                boss = new Creature(this, 'R', AsciiPanel.yellow, "Reality Hacker", 23, 3, 10, 15 * player.player_level, 10, 500, 6);
                 boss.setWeapon(itemFactory.newTeeth(boss));
                 boss.setArmor(itemFactory.newHide(boss));
                 boss.inv.add(new Usable('+', Color.yellow, "CTF Guide", null, 10, true,
                         "Unknown words of ancient origin, spoken only by Hacker, they fill you with renowned berserk rage, empowering you with unprecedented strength. It feels like part of something greater", 450));
                 break;
-            case 1:
-                boss = new Creature(this, 'S', AsciiPanel.red, "Father of skeletons", 20, 4, 10, 20 * player.player_level, 10, 500, 15);
+            case 2:
+                boss = new Creature(this, 'S', AsciiPanel.red, "Father of skeletons", 25, 4, 10, 20 * player.player_level, 10, 500, 15);
                 boss.setWeapon(itemFactory.newTeeth(boss));
                 boss.setArmor(itemFactory.newHide(boss));
                 boss.inv.add(new Armor((char) 127, Color.yellow, "Meizu Backpack", null, 90, true,
                         "An exotic armor piece from Far East of the world, used by the First of the Skeletons, for some reason you are sure that you wearing it wrong. It feels like part of something greater", 450));
                 break;
-            case 0:
-                boss = new Creature(this, 'H', AsciiPanel.red, "Hikkihino", 20, 4, 20, 20 * player.player_level, 10, 500, 15);
+            case 1:
+                boss = new Creature(this, 'H', AsciiPanel.red, "Hikkihino", 24, 4, 20, 20 * player.player_level, 10, 500, 5);
                 boss.setWeapon(itemFactory.newTeeth(boss));
                 boss.setArmor(itemFactory.newHide(boss));
                 boss.inv.add(new Ranged('}', Color.yellow, "Notebook", null, 35, true,
@@ -139,12 +136,10 @@ public class World implements Serializable {
                         "A strange instrument from foreign lands, disturbingly glowing with radiation, deeply beloved by Mouse Lord. You find no use for it, other of macing enemies on your path", 450, 12));
                 break;
         }
-        if (boss != null) {
-            boss.x = 45;
-            boss.y = 25;
-            new BossAi(boss);
-            creatures.add(boss);
-        }
+        boss.x = 45;
+        boss.y = 25;
+        new BossAi(boss);
+        creatures.add(boss);
     }
 
     //Возращает тайл по заданным коордам. Semi-deprecated

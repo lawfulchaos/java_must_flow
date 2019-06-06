@@ -7,41 +7,22 @@ import java.awt.*;
 import java.io.Serializable;
 
 public class Item implements Serializable {
-    //Словарь модификаторов, {Эффект, Название, Цвет}
-    Object[][] modifiers = {
-            {"Cursed", Color.RED, 13},
-            {"Relic", Color.WHITE, 3},
-            {"Blessed", Color.BLUE, 5},
-            {"Holy", Color.GREEN, 10}
-    };
-
-    private char glyph;
     public Creature owner;
-
-    public Creature owner() {
-        return owner;
-    }
-
-    public char glyph() {
-        return glyph;
-    }
-
-    private Color color;
     public boolean isEquipable;
     public String desc;
     public int cost; //Стоимость объекта
     //Модификатор обьекта, {Эффект, Название, Цвет}
     public Object[] modifier;
-
-    public Color color() {
-        return color;
-    }
-
+    //Словарь модификаторов, {Эффект, Название, Цвет}
+    private Object[][] modifiers = {
+            {"Cursed", Color.RED, 13},
+            {"Relic", Color.WHITE, 3},
+            {"Blessed", Color.BLUE, 5},
+            {"Holy", Color.GREEN, 10}
+    };
+    private char glyph;
+    private Color color;
     private String name;
-
-    public String name() {
-        return name;
-    }
 
     public Item(char glyph, Color color, String name, Creature owner, boolean isEquipable, String desc, int cost) {
         this.glyph = glyph;
@@ -71,5 +52,21 @@ public class Item implements Serializable {
                     break;
             }
         }
+    }
+
+    public Creature owner() {
+        return owner;
+    }
+
+    public char glyph() {
+        return glyph;
+    }
+
+    public Color color() {
+        return color;
+    }
+
+    public String name() {
+        return name;
     }
 }

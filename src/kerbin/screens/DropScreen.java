@@ -24,24 +24,13 @@ public class DropScreen extends InventoryScreen implements Screen {
     public void displayOutput(AsciiPanel terminal) {
         showHeader(terminal);
         terminal.write("Choose item to drop: ", 1, 2);
-        int y = 4;
-        int x = 4;
-        i = 0;
-        for (Item item : player.inv) {
-            showItem(terminal, item, x, y);
-            y++;
-            i++;
-            if (i != 0 && i % 36 == 0) {
-                y = 4;
-                x += 25;
-            }
-        }
+        showItems(terminal);
         terminal.clear(' ', 0, 38, 80, 1);
         terminal.write(msg, 0, 39, AsciiPanel.brightGreen);
         terminal.repaint();
     }
 
-    public void dropItem() {
+    private void dropItem() {
         Item drop = null;
         int j = 0;
         for (int z = 0; z < player.inv.size(); z++) {
@@ -54,10 +43,14 @@ public class DropScreen extends InventoryScreen implements Screen {
         if (player.getWorld().tile(player.x, player.y).item == null) {
             player.inv.remove(drop);
             player.getWorld().tile(player.x, player.y).item = drop;
-            if (drop.modifier != null)
-                msg = String.format("You throw %s %s away", drop.modifier[0], drop.name());
-            else msg = String.format("You throw %s away", drop.name());
-        } else msg = String.format("You can't throw %s away, something is in the way", drop.name());
+            if (drop != null) {
+                if (drop.modifier != null)
+                    msg = String.format("You throw %s %s away", drop.modifier[0], drop.name());
+                else msg = String.format("You throw %s away", drop.name());
+            }
+        } else if (drop != null) {
+            msg = String.format("You can't throw %s away, something is in the way", drop.name());
+        }
 
     }
 

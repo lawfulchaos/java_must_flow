@@ -10,17 +10,17 @@ import kerbin.items.Weapon;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-//Базовый класс инвентаря, выводит предметы TODO Крафт(?)
+//Базовый класс инвентаря, выводит предметы
 
 public class ShopScreen implements Screen {
     protected Creature player;
-    protected Creature merchant;
-    protected char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     protected int i;
+    private Creature merchant;
+    private char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     private String msg;
-    protected int chosen;
+    private int chosen;
 
-    public ShopScreen(Creature player, Creature merchant) {
+    ShopScreen(Creature player, Creature merchant) {
         this.player = player;
         this.merchant = merchant;
         chosen = 0;
@@ -28,7 +28,7 @@ public class ShopScreen implements Screen {
     }
 
     //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
-    protected void showHeader(AsciiPanel terminal) {
+    private void showHeader(AsciiPanel terminal) {
         i = 0;
         terminal.clear();
         terminal.write("Shop gold: ", 1, 1, Color.WHITE);
@@ -38,27 +38,7 @@ public class ShopScreen implements Screen {
         terminal.write("Shop: ", 1, 2, Color.WHITE);
         terminal.write("Inventory: ", 28, 2, Color.WHITE);
         terminal.write("Equipped: ", 55, 2, Color.WHITE);
-        terminal.write("Weapon: ", 55, 3);
-        terminal.write("Armor: ", 55, 4);
-        if (player.weapon != null) {
-            int wx = 65;
-            if (player.weapon.modifier != null) {
-                String modifier = (String) player.weapon.modifier[0];
-                terminal.write(modifier, wx, 3, (Color) player.weapon.modifier[1]);
-                wx += modifier.length() + 1;
-            }
-            terminal.write(player.weapon.name(), wx, 3);
-        }
-        if (player.armor != null) {
-            int wx = 65;
-            if (player.armor.modifier != null) {
-                String modifier = (String) player.armor.modifier[0];
-                terminal.write(modifier, wx, 4, (Color) player.armor.modifier[1]);
-                wx += modifier.length() + 1;
-            }
-            terminal.write(player.armor.name(), wx, 4);
-        }
-        terminal.write("Description: ", 55, 8, Color.WHITE);
+        InventoryScreen.showEquiped(terminal, player);
     }
 
     @Override

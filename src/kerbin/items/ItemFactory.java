@@ -72,13 +72,11 @@ public class ItemFactory implements Serializable {
 
     //Оружие, броня для мобов
     public Weapon newTeeth(Creature owner) {
-        Weapon weapon = new Weapon('(', AsciiPanel.green, "Teeth", owner, 1, false, "Monster fang, looks sharp enough", 10, 12000);
-        return weapon;
+        return new Weapon('(', AsciiPanel.green, "Teeth", owner, 1, false, "Monster fang, looks sharp enough", 10, 12000);
     }
 
     public Armor newHide(Creature owner) {
-        Armor armor = new Armor(')', AsciiPanel.blue, "Hide", owner, 1, false, "Mouse hide, almost useless", 10);
-        return armor;
+        return new Armor(')', AsciiPanel.blue, "Hide", owner, 1, false, "Mouse hide, almost useless", 10);
     }
 
     //стрелы
@@ -89,10 +87,9 @@ public class ItemFactory implements Serializable {
     }
 
     //сюжет
-    public Story newStory(Creature owner, String name, String disc) {
+    public void newStory(Creature owner, String name, String disc) {
         Story storyb = new Story((char) 63, AsciiPanel.white, name, owner, false, disc, 30);
         if (owner == null) world.addAtEmptyLocation(storyb);
-        return storyb;
     }
 
     //Зелья и иже с ними

@@ -4,7 +4,6 @@ package kerbin.creatures;
 import kerbin.AI.CreatureAi;
 import kerbin.items.Armor;
 import kerbin.items.Item;
-import kerbin.items.Ranged;
 import kerbin.items.Weapon;
 import kerbin.world.World;
 
@@ -14,11 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Creature implements Serializable {
-    public World getWorld() {
-        return world;
-    }
-
-    private World world;
     public int x;
     public int y;
     public int gold; //деньги
@@ -27,18 +21,9 @@ public class Creature implements Serializable {
     public int honor = 0; // опыт героя
     public int player_level = 1; // уровень героя
     public int max_honor = 50; // экспа для перехода на следующий лвл
-
-
     public String name;
     public CreatureAi ai;
     public List<Item> inv;
-
-    public void setCreatureAi(CreatureAi ai) {
-        this.ai = ai;
-    }
-
-    // Символ существа
-    private char glyph;
     //хп существ
     public int hp;
     public int kd;
@@ -51,20 +36,10 @@ public class Creature implements Serializable {
     public Armor armor;
     public Weapon weapon;
     public int radius;
-
-    public char glyph() {
-        return glyph;
-    }
-
-    public void setWorld(World world) {
-        this.world = world;
-    }
-
+    private World world;
+    // Символ существа
+    private char glyph;
     private Color color;
-
-    public Color color() {
-        return color;
-    }
 
     public Creature(World world, char glyph, Color color, String name, int hp, int dmg, int def, int max_hp, int radius, int gold, int kd) {
         this.world = world;
@@ -85,6 +60,26 @@ public class Creature implements Serializable {
         this.kd = kd;
     }
 
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public void setCreatureAi(CreatureAi ai) {
+        this.ai = ai;
+    }
+
+    public char glyph() {
+        return glyph;
+    }
+
+    public Color color() {
+        return color;
+    }
+
     public void setWeapon(Weapon weapon) {
         if (this.weapon != null) {
             this.dmg -= this.weapon.dmg;
@@ -92,23 +87,11 @@ public class Creature implements Serializable {
             inv.add(this.weapon);
         }
         this.weapon = weapon;
-        if (weapon.modifier != null && weapon.modifier[0] == "Cursed" && weapon.name() == "Battleaxe")
+        if (weapon.modifier != null && weapon.modifier[0] == "Cursed" && weapon.name().equals("Battleaxe"))
             hp -= 50;
         this.dmg += weapon.dmg;
         if (this.dmg < 0) this.dmg = 0;
     }
-
-    public void setRanged(Ranged weapon) {
-        if (this.weapon != null) {
-            this.dmg -= this.weapon.dmg;
-            if (this.dmg < 0) this.dmg = 0;
-            inv.add(this.weapon);
-        }
-        this.weapon = weapon;
-        this.dmg += weapon.dmg;
-        if (this.dmg < 0) this.dmg = 0;
-    }
-
 
     public void setArmor(Armor armor) {
         if (this.armor != null) {

@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CreatureAi implements Serializable {
     protected Creature creature;
 
-    public CreatureAi(Creature creature) {
+    CreatureAi(Creature creature) {
         this.creature = creature;
         this.creature.setCreatureAi(this);
     }
@@ -30,99 +30,69 @@ public class CreatureAi implements Serializable {
             if (creature.x - player.x > 0 && creature.y - player.y > 0) { //мышь справа сверху от игрока
                 mx = -1;
                 my = -1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-
-            if (creature.x - player.x < 0 && creature.y - player.y < 0 && !isMoved) { //мышь слева снизу от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x < 0 && creature.y - player.y < 0) { //мышь слева снизу от игрока
                 mx = 1;
                 my = 1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-
-            if (creature.x - player.x > 0 && creature.y - player.y < 0 && !isMoved) { //мышь справа снизу от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x > 0 && creature.y - player.y < 0) { //мышь справа снизу от игрока
                 mx = -1;
                 my = 1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-
-            if (creature.x - player.x < 0 && creature.y - player.y > 0 && !isMoved) { //мышь слева сверху от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x < 0 && creature.y - player.y > 0) { //мышь слева сверху от игрока
                 mx = 1;
                 my = -1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-            if (creature.x - player.x == 0 && creature.y - player.y > 0 && !isMoved) { //мышь ровно сверху от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x == 0 && creature.y - player.y > 0) { //мышь ровно сверху от игрока
                 mx = 0;
                 my = -1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-            if (creature.x - player.x == 0 && creature.y - player.y < 0 && !isMoved) { //мышь ровно снизу от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x == 0 && creature.y - player.y < 0) { //мышь ровно снизу от игрока
                 mx = 0;
                 my = 1;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-            if (creature.x - player.x > 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно справа от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x > 0 && creature.y - player.y == 0) { //мышь ровно справа от игрока
                 mx = -1;
                 my = 0;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
-            }
-            if (creature.x - player.x < 0 && creature.y - player.y == 0 && !isMoved) { //мышь ровно слева от игрока
+                isMoved = isMoved(mx, my);
+            } else if (creature.x - player.x < 0 && creature.y - player.y == 0) { //мышь ровно слева от игрока
                 mx = 1;
                 my = 0;
-                if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    this.creature.moveBy(mx, my);
-                    isMoved = true;
-                }
+                isMoved = isMoved(mx, my);
             }
             if (!isMoved) {
-                mx = ThreadLocalRandom.current().nextInt(-1, 2);
-                my = ThreadLocalRandom.current().nextInt(-1, 2);
-                while (!creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                    mx = ThreadLocalRandom.current().nextInt(-1, 2);
-                    my = ThreadLocalRandom.current().nextInt(-1, 2);
-                }
-                this.creature.moveBy(mx, my);
+                moveRandom();
             }
         } else {
-            int mx, my;
-            mx = ThreadLocalRandom.current().nextInt(-1, 2);
-            my = ThreadLocalRandom.current().nextInt(-1, 2);
-            while (!creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
-                mx = ThreadLocalRandom.current().nextInt(-1, 2);
-                my = ThreadLocalRandom.current().nextInt(-1, 2);
-            }
-            this.creature.moveBy(mx, my);
+            moveRandom();
         }
     }
 
-    public void battle(Creature c) {
+    void moveRandom() {
+        int mx;
+        int my;
+        mx = ThreadLocalRandom.current().nextInt(-1, 2);
+        my = ThreadLocalRandom.current().nextInt(-1, 2);
+        while (!creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+            mx = ThreadLocalRandom.current().nextInt(-1, 2);
+            my = ThreadLocalRandom.current().nextInt(-1, 2);
+        }
+        this.creature.moveBy(mx, my);
+    }
+
+    private boolean isMoved(int mx, int my) {
+        boolean isMoved = false;
+        if (creature.getWorld().tile(creature.x + mx, creature.y + my).isGround()) {
+            this.creature.moveBy(mx, my);
+            isMoved = true;
+        }
+        return isMoved;
+    }
+
+    void battle(Creature c) {
         int damage = creature.dmg;
-        if (creature.weapon != null && creature.weapon.modifier != null && creature.weapon.modifier[0] != null && creature.weapon.modifier[0].equals("Cursed")) {
-            creature.hp -= creature.dmg;
-        }
-        if (c.weapon != null && c.weapon.modifier != null && c.weapon.modifier[0] != null && c.weapon.modifier[0].equals("Cursed")) {
-            c.hp -= c.dmg;
-        }
+        checkCursed(creature);
+        checkCursed(c);
         //боевка атакующий лупит аутиста
         if (c.def <= damage) {
             damage -= c.def;
@@ -130,10 +100,8 @@ public class CreatureAi implements Serializable {
             c.armor = null;
             c.hp -= damage - c.def;
         } else {
-            int x = damage;
-            c.armor.def -= x;
-            damage = 0;
-            c.def -= x;
+            c.armor.def -= damage;
+            c.def -= damage;
         }
         damage = c.dmg;
         if (creature.def <= damage) {
@@ -142,76 +110,15 @@ public class CreatureAi implements Serializable {
             creature.armor = null;
             creature.hp -= damage - creature.def;
         } else {
-            int x = damage;
-            damage = 0;
-            creature.def -= x;
-            creature.armor.def -= x;
+            creature.def -= damage;
+            creature.armor.def -= damage;
         }
         //если умер аутист
         if (c.hp <= 0) {
-            creature.getWorld().creatures.remove(c);
-            if (c.inv.size() != 0) creature.getWorld().tile(c.x, c.y).item = c.inv.get(0);
-            switch (c.name) {
-                case ("mouse"):
-                    creature.honor = creature.honor + 15;
-                    break;
-
-                case ("skeleton"):
-                    creature.honor = creature.honor + 20;
-                    break;
-
-                case ("mob"):
-                    creature.honor = creature.honor + 10;
-                    break;
-
-
-            }
-
-            if (creature.honor >= creature.max_honor) {
-                creature.player_level++;
-                creature.max_hp = creature.max_hp + 15;
-                creature.hp = creature.max_hp;
-                creature.honor = 0;
-                creature.dmg++;
-                creature.gold += 100;
-                creature.max_honor = creature.max_honor * 2;
-            }
-
-            kerbin.Event.getInstance()
-                    .init(String.format("A %s was killed!", c.name), 2, 3, AsciiPanel.brightWhite);
+            onKill(creature, c);
         }
-        if (creature.hp <= 0 && creature.name != "player") {
-            creature.getWorld().creatures.remove(creature);
-            if (creature.inv.size() != 0) creature.getWorld().tile(creature.x, creature.y).item = creature.inv.get(0);
-
-            switch (creature.name) {
-                case ("mouse"):
-                    c.honor = c.honor + 15;
-                    break;
-
-                case ("skeleton"):
-                    c.honor = c.honor + 20;
-                    break;
-
-                case ("mob"):
-                    c.honor = c.honor + 10;
-                    break;
-
-
-            }
-
-            if (c.honor >= c.max_honor) {
-                c.player_level++;
-                c.max_hp = c.max_hp + 15;
-                c.hp = c.max_hp;
-                c.honor = 0;
-                c.dmg++;
-                c.gold += 100;
-                c.max_honor = c.max_honor * 2;
-            }
-
-            kerbin.Event.getInstance()
-                    .init(String.format("A %s was killed!", creature.name), 2, 3, AsciiPanel.brightWhite);
+        if (creature.hp <= 0 && !creature.name.equals("player")) {
+            onKill(c, creature);
         }
         if (creature.weapon != null) {
             if (creature.weapon.durability != 0) creature.weapon.durability--;
@@ -247,7 +154,51 @@ public class CreatureAi implements Serializable {
         }
     }
 
-    public void teleport(Tile tile) {
+    private void checkCursed(Creature creature) {
+        if (creature.weapon != null && creature.weapon.modifier != null && creature.weapon.modifier[0] != null && creature.weapon.modifier[0].equals("Cursed")) {
+            creature.hp -= creature.dmg;
+        }
+    }
+
+    private void onKill(Creature c, Creature creature) {
+        creature.getWorld().creatures.remove(creature);
+        if (creature.inv.size() != 0) creature.getWorld().tile(creature.x, creature.y).item = creature.inv.get(0);
+
+        switch (creature.name) {
+            case ("mouse"):
+                c.honor = c.honor + 15;
+                break;
+
+            case ("skeleton"):
+                c.honor = c.honor + 20;
+                break;
+
+            case ("mob"):
+                c.honor = c.honor + 10;
+                break;
+
+
+        }
+
+        if (c.honor >= c.max_honor) {
+            levelUp(c);
+        }
+
+        Event.getInstance()
+                .init(String.format("A %s was killed!", creature.name), 2, 3, AsciiPanel.brightWhite);
+    }
+
+    private void levelUp(Creature c) {
+        c.player_level++;
+        c.max_hp = c.max_hp + 15;
+        c.hp = c.max_hp;
+        c.honor = 0;
+        c.dmg++;
+        c.gold += 100;
+        c.max_honor = c.max_honor * 2;
+    }
+
+    void teleport(Tile tile) {
         if (tile.glyph() == 'O') {
             creature.getWorld().addAtEmptyLocation(creature);
         }

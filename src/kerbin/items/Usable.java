@@ -1,5 +1,5 @@
 package kerbin.items;
-//Класс юзабельных вещей (хилка и т.д.), наследуется от итема, создается в ItemFactory TODO
+//Класс юзабельных вещей (хилка и т.д.), наследуется от итема, создается в ItemFactory
 
 import kerbin.creatures.Creature;
 

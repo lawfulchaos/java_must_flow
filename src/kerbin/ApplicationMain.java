@@ -19,7 +19,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
     private AsciiPanel terminal;
     private Screen screen;
 
-    public ApplicationMain() {
+    private ApplicationMain() {
         super();
         terminal = new AsciiPanel(90, 40, AsciiFont.CP437_9x16);
         add(terminal);
@@ -28,6 +28,28 @@ public class ApplicationMain extends JFrame implements KeyListener {
         addKeyListener(this);
         repaint();
 
+    }
+
+    private static void playMusic() {
+        try {
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(inputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            while (clip.isRunning()) {
+                Thread.sleep(100);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        playMusic();
+        ApplicationMain app = new ApplicationMain();
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        app.setVisible(true);
     }
 
     // Вывод игрового поля в приложение
@@ -51,27 +73,5 @@ public class ApplicationMain extends JFrame implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-    }
-
-    public static void playMusic() {
-        try {
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(inputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            while (clip.isRunning()) {
-                Thread.sleep(100);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
-
-    public static void main(String[] args) {
-        playMusic();
-        ApplicationMain app = new ApplicationMain();
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setVisible(true);
     }
 }

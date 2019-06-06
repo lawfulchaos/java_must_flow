@@ -1,5 +1,5 @@
 package kerbin.items;
-//Класс оружия, наследуется от итема, создается в ItemFactory TODO
+//Класс оружия, наследуется от итема, создается в ItemFactory
 
 import kerbin.creatures.Creature;
 
@@ -16,7 +16,7 @@ public class Weapon extends Item implements Serializable {
         this.dmg = dmg;
         if (modifier != null) {
             this.dmg += (Integer) modifier[2];
-            if (name == "Battleaxe" && modifier[0] == "Cursed") {
+            if (name.equals("Battleaxe") && modifier[0] == "Cursed") {
                 this.desc = "BLOOD FOR THE BLOOD GOD";
             }
         }

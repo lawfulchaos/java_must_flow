@@ -7,9 +7,9 @@ import kerbin.world.World;
 import java.io.Serializable;
 
 public class ProjectileAi implements Serializable {
-    public Projectile bullet;
+    private Projectile bullet;
 
-    public ProjectileAi(Projectile bullet) {
+    ProjectileAi(Projectile bullet) {
         this.bullet = bullet;
     }
 
@@ -31,7 +31,7 @@ public class ProjectileAi implements Serializable {
         if (isHit) hit(world);
     }
 
-    void hit(World world) {
+    private void hit(World world) {
         if (world.creature(bullet.x, bullet.y) != null && !(world.creature(bullet.x, bullet.y).name.equals(bullet.owner.name))) {
             world.creature(bullet.x, bullet.y).hp -= bullet.dmg;
             Event.getInstance().init("attacked from a distance", 5, 3, AsciiPanel.brightWhite);

@@ -14,23 +14,16 @@ import java.awt.event.KeyEvent;
 
 public class InventoryScreen implements Screen {
     protected Creature player;
-    protected char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     protected int i;
-    protected int chosen;
+    int chosen;
+    private char[] alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
-    public InventoryScreen(Creature player) {
+    InventoryScreen(Creature player) {
         this.player = player;
         chosen = 0;
     }
 
-    //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
-    protected void showHeader(AsciiPanel terminal) {
-        int y = 4;
-        int x = 3;
-        i = 0;
-        terminal.clear();
-        terminal.write("Inventory: ", 1, 1, Color.WHITE);
-        terminal.write("Equipped: ", 55, 1, Color.WHITE);
+    static void showEquiped(AsciiPanel terminal, Creature player) {
         terminal.write("Weapon: ", 55, 3);
         terminal.write("Armor: ", 55, 4);
         if (player.weapon != null) {
@@ -54,9 +47,25 @@ public class InventoryScreen implements Screen {
         terminal.write("Description: ", 55, 8, Color.WHITE);
     }
 
+    //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
+    void showHeader(AsciiPanel terminal) {
+        i = 0;
+        terminal.clear();
+        terminal.write("Inventory: ", 1, 1, Color.WHITE);
+        terminal.write("Equipped: ", 55, 1, Color.WHITE);
+        showEquiped(terminal, player);
+    }
+
     @Override
     public void displayOutput(AsciiPanel terminal) {
         showHeader(terminal);
+        showItems(terminal);
+
+        terminal.clear(' ', 0, 23, 80, 1);
+        terminal.repaint();
+    }
+
+    void showItems(AsciiPanel terminal) {
         int y = 4;
         int x = 4;
         i = 0;
@@ -69,13 +78,10 @@ public class InventoryScreen implements Screen {
                 x += 25;
             }
         }
-
-        terminal.clear(' ', 0, 23, 80, 1);
-        terminal.repaint();
     }
 
     //Отображение предмета, используется в наследниках
-    public void showItem(AsciiPanel terminal, Item it, int ix, int iy) {
+    void showItem(AsciiPanel terminal, Item it, int ix, int iy) {
         if (this.i == chosen) {
             terminal.write("> ", ix - 4, iy, Color.WHITE);
             if (it instanceof Weapon) {

@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WorldBuilder {
-    int ROOM_MAX_SIZE = 12;
-    int ROOM_MIN_SIZE = 5;
-    int MAX_ROOMS = 35;
+    private int ROOM_MAX_SIZE;
+    private int ROOM_MIN_SIZE;
+    private int MAX_ROOMS;
     private int width;
     private int height;
-    TileFactory tileFactory;
-    public Tile[][] tiles;
+    private TileFactory tileFactory;
+    private Tile[][] tiles;
 
     public WorldBuilder(int width, int height) {
         this.width = width;
@@ -20,21 +20,22 @@ public class WorldBuilder {
         this.tiles = new Tile[width][height];
         this.tileFactory = new TileFactory();
         for (Tile[] tileset : tiles) Arrays.fill(tileset, tileFactory.newWall());
+        ROOM_MAX_SIZE = 12;
+        ROOM_MIN_SIZE = 5;
+        MAX_ROOMS = 35;
     }
 
     public World build() {
         this.makeMap();
-        World world = new World(tiles);
-        return world;
+        return new World(tiles);
     }
 
     public World buildBossLevel() {
         this.makeBossLevel();
-        World world = new World(tiles);
-        return world;
+        return new World(tiles);
     }
 
-    public void create_room(Rect room) {
+    private void create_room(Rect room) {
         for (int x = room.x1 + 1; x < room.x2; x++) {
             for (int y = room.y1 + 1; y < room.y2; y++) {
                 tiles[x][y] = tileFactory.newFloor();
@@ -43,20 +44,20 @@ public class WorldBuilder {
         }
     }
 
-    public void create_h_tunnel(int x1, int x2, int y) {
+    private void create_h_tunnel(int x1, int x2, int y) {
         for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
             tiles[x][y] = tileFactory.newFloor();
         }
     }
 
-    public void create_v_tunnel(int y1, int y2, int x) {
+    private void create_v_tunnel(int y1, int y2, int x) {
         for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
             tiles[x][y] = tileFactory.newFloor();
         }
     }
 
-    public void add_teleport(boolean check) {
-        if (check == true) {
+    private void add_teleport(boolean check) {
+        if (check) {
             int x = (int) (Math.random() * width);
             int y = (int) (Math.random() * height);
 
@@ -70,7 +71,7 @@ public class WorldBuilder {
 
     }
 
-    public void add_stairs(int[] coords) {
+    private void add_stairs(int[] coords) {
         for (int i = -1; i < 2; i++) {
             if (tiles[coords[0]][coords[1] + i].item == null) {
                 tiles[coords[0]][coords[1] + i] = tileFactory.newStairs();
@@ -79,7 +80,7 @@ public class WorldBuilder {
         }
     }
 
-    public void makeMap() {
+    private void makeMap() {
         List<Rect> rooms = new ArrayList<>();
         int num_rooms = 0;
         boolean check_teleport = true;
@@ -125,7 +126,7 @@ public class WorldBuilder {
     }
 
     //Уровень босса, две комнаты, в одной спавнится игрок, в другой босс
-    public void makeBossLevel() {
+    private void makeBossLevel() {
         Rect playerRoom = new Rect(41, 3, 6, 6);
         Rect bossRoom = new Rect(30, 20, 30, 30);
         create_room(playerRoom);

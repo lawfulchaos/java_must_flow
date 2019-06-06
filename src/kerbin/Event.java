@@ -8,6 +8,22 @@ import java.util.Map;
 
 public class Event implements Serializable {
     private static Event instance;
+    private String msg;
+    private int priority;
+    private int lifetime;
+    private Color color;
+    // Журнал сообщений
+    private Map<String, Color> msgs = new HashMap<>();
+
+    private Event() {
+    }
+
+    public static Event getInstance() {
+        if (instance == null) {
+            instance = new Event();
+        }
+        return instance;
+    }
 
     public String getMsg() {
         return msg;
@@ -25,26 +41,12 @@ public class Event implements Serializable {
         return color;
     }
 
-    public void decreaseLifetime() {
-        this.lifetime -= 1;
-    }
-
     public void setColor(Color color) {
         this.color = color;
     }
 
-    private String msg;
-    private int priority;
-    private int lifetime;
-    private Color color;
-    // Журнал сообщений
-    private Map<String, Color> msgs = new HashMap<>();
-
-    public Map<String, Color> getMsgs() {
-        return msgs;
-    }
-
-    private Event() {
+    public void decreaseLifetime() {
+        this.lifetime -= 1;
     }
 
     public void init(String msg, int priority, int lifetime, Color color) {
@@ -53,12 +55,5 @@ public class Event implements Serializable {
         this.lifetime = lifetime;
         this.color = color;
         msgs.put(msg, color);
-    }
-
-    public static Event getInstance() {
-        if (instance == null) {
-            instance = new Event();
-        }
-        return instance;
     }
 }

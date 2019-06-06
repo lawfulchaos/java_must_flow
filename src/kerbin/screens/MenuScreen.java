@@ -1,5 +1,5 @@
 package kerbin.screens;
-//Стартовый экран, отображает меню и создает новый игровой экран. TODO: Обучение
+//Стартовый экран, отображает меню и создает новый игровой экран.
 
 import asciiPanel.AsciiPanel;
 
@@ -8,26 +8,30 @@ import java.awt.event.KeyEvent;
 
 public class MenuScreen implements Screen {
     protected int i;
-    protected int chosen;
+    private int chosen;
     private PlayScreen game;
     private String msg;
     private JFrame frame;
 
-    public MenuScreen(JFrame frame, PlayScreen game) {
+    MenuScreen(JFrame frame, PlayScreen game) {
         chosen = 0;
         this.frame = frame;
         this.game = game;
         this.msg = "";
     }
 
-    @Override
-    public void displayOutput(AsciiPanel terminal) {
-        terminal.clear();
+    static void drawHeading(AsciiPanel terminal) {
         terminal.write("MGUPI Studio presents:", 1, 1);
         terminal.writeCenter("A best Pinatel and not a Tyrant game", 3);
         terminal.writeCenter("True Roguelike Beta", 4);
         terminal.writeCenter("WORK: World of Roguelike Kettles", 7);
         terminal.writeCenter("Menu:", 11);
+    }
+
+    @Override
+    public void displayOutput(AsciiPanel terminal) {
+        terminal.clear();
+        drawHeading(terminal);
         terminal.write("Resume", 3, 12);
         terminal.write("Save Game", 3, 13);
         terminal.write("Load Game", 3, 14);
@@ -41,7 +45,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        //return key.getKeyCode() == KeyEvent.VK_ENTER ? new PreScreen() : this;
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 return game;
@@ -67,7 +70,7 @@ public class MenuScreen implements Screen {
                         game.loadGame();
                         return game;
                     case 3:
-                        return new ControlScreen(frame,game);
+                        return new ControlScreen(frame, game);
                     case 4:
                         return new StartScreen(frame);
 

@@ -6,29 +6,29 @@ import asciiPanel.AsciiPanel;
 import java.io.Serializable;
 
 
-public class TileFactory implements Serializable {
+class TileFactory implements Serializable {
 
-    public TileFactory() {
+    TileFactory() {
     }
 
-    public Tile newWall() {
+    Tile newWall() {
         return new Tile((char) 177, AsciiPanel.yellow, false, false);
     }
 
-    public Tile newStairs() {
+    Tile newStairs() {
         return new Tile('#', AsciiPanel.yellow, true, true);
     }
 
-    public Tile newTeleport() {
+    Tile newTeleport() {
         return new Tile('O', AsciiPanel.yellow, true, true);
     }
 
-    public Tile newFloor() {
+    Tile newFloor() {
         return new Tile((char) 250, AsciiPanel.yellow, true, false);
     }
 
     // Границы поля
-    public Tile newBound() {
+    Tile newBound() {
         return new Tile('x', AsciiPanel.brightBlack, false, false);
     }
 }

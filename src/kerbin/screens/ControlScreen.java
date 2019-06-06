@@ -10,7 +10,7 @@ public class ControlScreen implements Screen {
     private JFrame frame;
     private PlayScreen game;
 
-    public ControlScreen(JFrame frame,PlayScreen game) {
+    ControlScreen(JFrame frame, PlayScreen game) {
         this.frame = frame;
         this.game = game;
     }
@@ -31,12 +31,10 @@ public class ControlScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        switch (key.getKeyCode()) {
-            case KeyEvent.VK_ENTER:
-                if (game!=null)
-                    return game;
-                else return new StartScreen(frame);
-
+        if (key.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (game != null)
+                return game;
+            else return new StartScreen(frame);
         }
         return this;
     }

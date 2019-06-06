@@ -48,7 +48,7 @@ public class EquipScreen extends InventoryScreen implements Screen {
         terminal.repaint();
     }
 
-    public void wearItem() {
+    private void wearItem() {
         Item Equipable = null;
         int j = 0;
         for (int z = 0; z < player.inv.size(); z++) {
@@ -60,19 +60,14 @@ public class EquipScreen extends InventoryScreen implements Screen {
                 j++;
             }
         }
-        if (Equipable instanceof Weapon) {
-            player.setWeapon((Weapon) Equipable);
-            player.inv.remove(Equipable);
-            if (Equipable.modifier != null)
-                msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());
-            else msg = String.format("You took a %s in hands", Equipable.name());
-
-        } else if (Equipable instanceof Ranged) {
+        if (Equipable instanceof Ranged) {
             player.setWeapon((Ranged) Equipable);
             player.inv.remove(Equipable);
-            if (Equipable.modifier != null)
-                msg = String.format("You took a %s %s in hands", Equipable.modifier[0], Equipable.name());
-            else msg = String.format("You took a %s in hands", Equipable.name());
+            setMsg(Equipable);
+        } else if (Equipable instanceof Weapon) {
+            player.setWeapon((Weapon) Equipable);
+            player.inv.remove(Equipable);
+            setMsg(Equipable);
 
         } else if (Equipable instanceof Armor) {
             player.setArmor((Armor) Equipable);
@@ -81,6 +76,12 @@ public class EquipScreen extends InventoryScreen implements Screen {
                 msg = String.format("You now wear %s %s", Equipable.modifier[0], Equipable.name());
             else msg = String.format("You now wear %s", Equipable.name());
         }
+    }
+
+    private void setMsg(Item equipable) {
+        if (equipable.modifier != null)
+            msg = String.format("You took a %s %s in hands", equipable.modifier[0], equipable.name());
+        else msg = String.format("You took a %s in hands", equipable.name());
     }
 
     @Override
