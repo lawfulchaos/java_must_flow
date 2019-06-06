@@ -18,6 +18,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
 
     private AsciiPanel terminal;
     private Screen screen;
+    private static Clip clip;
 
     private ApplicationMain() {
         super();
@@ -38,6 +39,10 @@ public class ApplicationMain extends JFrame implements KeyListener {
     }
 
     public static void playSound(String name) {
+        if (name.equals("death.wav"))
+        {
+            clip.close();
+        }
         try {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(name));
             Clip clip = AudioSystem.getClip();
@@ -50,7 +55,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
     private static void playSound() {
         try {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(inputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception ex) {
