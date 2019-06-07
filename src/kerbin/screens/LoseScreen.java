@@ -42,7 +42,7 @@ public class LoseScreen implements Screen {
                 iteration++;
                 terminal.repaint();
             };
-            Timer timer = new Timer(400, taskPerformer);
+            Timer timer = new Timer(540, taskPerformer);
             timer.start();
         }
         else
