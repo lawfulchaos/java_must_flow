@@ -45,7 +45,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
             clip.close();
         }
         try {
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(name));
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sounds/" + name));
             Clip clip = AudioSystem.getClip();
             clip.open(inputStream);
             clip.loop(0);
@@ -55,7 +55,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
     }
     public static void playSound() {
         try {
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sound.wav"));
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("sounds/sound.wav"));
             clip = AudioSystem.getClip();
             clip.open(inputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
