@@ -28,14 +28,14 @@ public class ShopScreen implements Screen {
         this.merchant = merchant;
         chosen = 0;
         msg = "";
+        if (Math.random()>0.375) ApplicationMain.playSound("Chtopritashil.wav");
+        else ApplicationMain.playSound("habar.wav");
     }
 
     //Показывает заголовки инвентаря и надетую экипировку, используется в наследниках
     private void showHeader(AsciiPanel terminal) {
         i = 0;
         terminal.clear();
-        if (Math.random()>0.375) ApplicationMain.playSound("Chtopritashil.wav");
-        else ApplicationMain.playSound("habar.wav");
         terminal.write("Shop gold: ", 1, 1, Color.WHITE);
         terminal.write(merchant.gold + "", 12, 1, Color.ORANGE);
         terminal.write("Your gold: ", 28, 1, Color.WHITE);
