@@ -59,7 +59,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
             clip.open(inputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             FloatControl vc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            vc.setValue(-22);
+            vc.setValue(-26);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
