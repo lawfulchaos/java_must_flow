@@ -4,6 +4,7 @@ package kerbin;
 import asciiPanel.AsciiFont;
 import asciiPanel.AsciiPanel;
 import kerbin.screens.Screen;
+import kerbin.screens.LoseScreen;
 import kerbin.screens.StartScreen;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.AudioInputStream;
@@ -76,7 +77,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         screen = screen.respondToUserInput(e);
-        repaint();
+        if (!(screen instanceof LoseScreen)) repaint();
     }
 
     @Override
