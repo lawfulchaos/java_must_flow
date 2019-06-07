@@ -5,7 +5,7 @@ import asciiPanel.AsciiFont;
 import asciiPanel.AsciiPanel;
 import kerbin.screens.Screen;
 import kerbin.screens.StartScreen;
-
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -39,7 +39,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
     }
 
     public static void playSound(String name) {
-        if (name.equals("death.wav"))
+        if (name.equals("fulldead.wav"))
         {
             clip.close();
         }
@@ -58,6 +58,8 @@ public class ApplicationMain extends JFrame implements KeyListener {
             clip = AudioSystem.getClip();
             clip.open(inputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+            FloatControl vc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            vc.setValue(-22);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

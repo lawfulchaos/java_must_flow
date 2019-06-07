@@ -14,26 +14,33 @@ public class LoseScreen implements Screen {
         this.frame = frame;
     }
 
-
     @Override
     public void displayOutput(AsciiPanel terminal) {
-        terminal.write("Congrats.", 1, 1);
-        terminal.write("You lost.", 1, 3);
-        terminal.write("FFFFFFFFFF", 1, 5);
-        terminal.write("FFFFFFFFFF", 1, 6);
-        terminal.write("FFF", 1, 7);
-        terminal.write("FFF", 1, 8);
-        terminal.write("FFFFFF", 1, 9);
-        terminal.write("FFFFFF", 1, 10);
-        terminal.write("FFF", 1, 11);
-        terminal.write("FFF", 1, 12);
-        terminal.write("FFF", 1, 13);
+        ApplicationMain.playSound("fulldead.wav");
+        terminal.write("Congrats.", 1,1);
+        terminal.write("You lose.", 1,2);
+        terminal.write("FFFFFFFFFF", 1,6);
+        terminal.write("FFFFFFFFFF", 1,7);
+        terminal.write("FFF", 1,8);
+        terminal.write("FFF", 1,9);
+        terminal.write("FFFFFF",1 ,10);
+        terminal.write("FFFFFF", 1,11);
+        terminal.write("FFF", 1,12);
+        terminal.write("FFF", 1,13);
+        terminal.write("FFF", 1,14);
+
         terminal.writeCenter("-- press [enter] to restart --", 30);
     }
 
+
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-        ApplicationMain.playSound();
-        return key.getKeyCode() == KeyEvent.VK_ENTER ? new PlayScreen(frame) : this;
+        switch (key.getKeyCode()){
+            case KeyEvent.VK_ENTER:
+                ApplicationMain.playSound();
+                return new PlayScreen(frame);
+        }
+
+        return this;
     }
 }

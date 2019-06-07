@@ -3,6 +3,7 @@ package kerbin.screens;
 
 import asciiPanel.AsciiPanel;
 import kerbin.AI.MouseAi;
+import kerbin.ApplicationMain;
 import kerbin.Event;
 import kerbin.creatures.Creature;
 import kerbin.creatures.CreatureFactory;
